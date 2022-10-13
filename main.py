@@ -1,9 +1,9 @@
-from tkinter import Tk, BOTTOM, LEFT, HORIZONTAL, Listbox, BOTH
+from tkinter import Tk, BOTTOM, LEFT, HORIZONTAL, Listbox, BOTH, Label
 from tkinter.ttk import Style, Frame, Button, Entry, PanedWindow
 
 root = Tk()
 root.title('PanedWindow Demo')
-root.geometry('300x200')
+root.geometry('400x300')
 
 style = Style()
 style.theme_use('classic')
@@ -11,11 +11,11 @@ style.theme_use('classic')
 connect_frame = Frame(root)
 connect_frame.pack()
 
-redbutton = Button(connect_frame, text="Red")
-redbutton.pack(side=LEFT)
+text_broker = Label(connect_frame, text="Broker:")
+text_broker.pack(side=LEFT)
 
-E1 = Entry(connect_frame)
-E1.pack()
+entry_broker = Entry(connect_frame)
+entry_broker.pack(side=LEFT)
 
 pw = PanedWindow(orient=HORIZONTAL)
 
