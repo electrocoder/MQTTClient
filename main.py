@@ -4,7 +4,6 @@ from tkinter.ttk import Style, Frame, Button, Entry, PanedWindow
 root = Tk()
 root.title('PanedWindow Demo')
 root.geometry('400x300')
-
 style = Style()
 style.theme_use('classic')
 
@@ -13,9 +12,14 @@ connect_frame.pack()
 
 text_broker = Label(connect_frame, text="Broker:")
 text_broker.pack(side=LEFT)
-
 entry_broker = Entry(connect_frame)
 entry_broker.pack(side=LEFT)
+
+text_username = Label(connect_frame, text="Username:")
+text_username.pack(side=LEFT)
+entry_username = Entry(connect_frame)
+entry_username.pack(side=LEFT)
+
 
 pw = PanedWindow(orient=HORIZONTAL)
 
