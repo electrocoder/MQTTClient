@@ -2,8 +2,8 @@ from tkinter import Tk, BOTTOM, LEFT, HORIZONTAL, Listbox, BOTH, Label
 from tkinter.ttk import Style, Frame, Button, Entry, PanedWindow
 
 root = Tk()
-root.title('PanedWindow Demo')
-root.geometry('400x300')
+root.title('MQTT Client')
+root.geometry('900x500')
 style = Style()
 style.theme_use('classic')
 
@@ -20,16 +20,24 @@ text_username.pack(side=LEFT)
 entry_username = Entry(connect_frame)
 entry_username.pack(side=LEFT)
 
+text_pass = Label(connect_frame, text="Password:")
+text_pass.pack(side=LEFT)
+entry_pass = Entry(connect_frame)
+entry_pass.pack(side=LEFT)
+
+button_connect = Button(connect_frame, text="Connect")
+button_connect.pack(side=LEFT)
+
 
 pw = PanedWindow(orient=HORIZONTAL)
 
-B1 = Button(root, text="show")
-B1.pack()
-pw.add(B1)
+button = Button(root, text="show")
+button.pack()
+pw.add(button)
 
-right_list = Listbox(root)
-right_list.pack(side=LEFT)
-pw.add(right_list)
+listbox = Listbox(root)
+listbox.pack(side=LEFT)
+pw.add(listbox)
 
 pw.pack(fill=BOTH, expand=True)
 
