@@ -7,6 +7,9 @@ root.geometry('900x500')
 style = Style()
 style.theme_use('classic')
 
+def connect():
+    print("connect")
+
 connect_frame = Frame(root)
 connect_frame.pack()
 
@@ -25,7 +28,7 @@ text_pass.pack(side=LEFT)
 entry_pass = Entry(connect_frame)
 entry_pass.pack(side=LEFT)
 
-button_connect = Button(connect_frame, text="Connect")
+button_connect = Button(connect_frame, text="Connect", command=connect)
 button_connect.pack(side=LEFT)
 
 

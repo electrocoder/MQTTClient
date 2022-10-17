@@ -31,7 +31,7 @@ MQTT_KOMUT_LED4 = '{"mese":{"iot":{"write":{"led4":1}}}}}'
 topic = "mese/iot/write/00000000001"
 test_topic = "mese/iot/response"
 
-for i in range(1000):
+for i in range(100000):
     result = client.publish(test_topic, MQTT_KOMUT_LED, qos=0)
     print("result", result)
     time.sleep(1)
