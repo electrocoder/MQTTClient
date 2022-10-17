@@ -5,41 +5,38 @@ import time
 import json
 
 
-topic = "mese/iot/response"
-sid = 0
+class Subscriber:
+    def __init__(self, client):
+        self.topic = "mese/iot/response"
+        self.sid = 0
 
-def on_connect(client, userdata, flags, rc):
-    print("Connected with result code " + str(rc))
-    client.subscribe(topic, qos=1)
+        self.client = client
 
-def connect():
-    client.on_connect = on_connect
-    client.connect("www.iothook.com", 1883, 60)
-    client.loop_forever()
+        self.client.on_disconnect = self.on_disconnect
+        self.client.on_message = self.on_message
+        self.client.on_connect = self.on_connect
+        self.client.username_pw_set("iothookpublic", "iothookpublic")
 
+    def on_connect(self, client, userdata, flags, rc):
+        print("Connected with result code " + str(rc))
+        client.subscribe(self.topic, qos=1)
 
-def disconnect():
-    client.disconnect()
+    def basla(self):
+        self.client.connect("www.iothook.com", 1883, 60)
+        self.client.loop_start()
 
+    def dur(self):
+        self.client.disconnect()
 
-def on_disconnect(client, userdata, rc):
-    print("disconnet...")
-    logging.info("disconnecting reason  " + str(rc))
-    client.connected_flag = False
-    client.disconnect_flag = True
+    def on_disconnect(self, client, userdata, rc):
+        print("disconnet...")
+        logging.info("disconnecting reason  " + str(rc))
+        self.client.connected_flag = False
+        self.client.disconnect_flag = True
 
-
-def on_message(client, userdata, msg):
-    global sid
-    print(msg.topic + " " + msg.payload.decode('utf8') + " " + str(sid))
-    print("")
-    sid += 1
-
-
-client = mqtt.Client()
-client.on_disconnect = on_disconnect
-client.on_message = on_message
-client.username_pw_set("iothookpublic", "iothookpublic")
-
-
-
+    def on_message(self, client, userdata, msg):
+        print(
+            msg.topic + " " + msg.payload.decode('utf8') + " " + str(self.sid))
+        print("")
+        self.sid += 1
+        return "aaa"
