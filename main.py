@@ -6,6 +6,8 @@ import paho.mqtt.client as mqtt
 
 import subscriber
 
+from ui_frame import UIFrame
+
 
 class App(tk.Tk):
     def __init__(self):
@@ -15,14 +17,12 @@ class App(tk.Tk):
         self.title('My Awesome App')
         self.geometry('300x50')
 
-        # label
-        self.label = ttk.Label(self, text='Hello, Tkinter!')
-        self.label.pack()
+        self.main_window_frame = ttk.Frame()
+        self.main_window_frame.pack(fill='both', expand=1)
 
-        # button
-        self.button = ttk.Button(self, text='Click Me')
-        self.button['command'] = self.button_clicked
-        self.button.pack()
+        self.ui_frame = UIFrame(self.main_window_frame, self, height=35)
+        self.ui_frame.pack(anchor="w", side=tk.TOP, fill=tk.X, padx=3, pady=3)
+
 
 
     def button_clicked(self):
