@@ -22,21 +22,20 @@ import tkinter.ttk as ttk
 
 
 class UIFrame(ttk.Frame):
-    def __init__(self, master, app, *args, **kwargs):
+    def __init__(self, master, main_window_self, *args, **kwargs):
         super().__init__(master=master, *args, **kwargs)
 
-        self.config_window_button = ttk.Button(self, width=10, text="Configure", command=app.button_clicked)
-        self.config_window_button.pack(side=tk.LEFT, expand=False, padx=3, pady=3)
-        self.connect_button = ttk.Button(self, width=10, text="Connect")
-        self.connect_button.pack(side=tk.LEFT, expand=False, padx=3, pady=3)
-        self.disconnect_button = ttk.Button(self,
-                                            width=10,
-                                            text="Disconnect",
-                                            state="disabled")
-        self.disconnect_button.pack(side=tk.LEFT, expand=False, padx=3, pady=3)
+        self.connect_button = ttk.Button(self, width=10,
+                                               text="Connect",
+                                               command=main_window_self.button_basla)
+        self.connect_button.pack()
 
-        self.connection_indicator = tk.Label(self, text="DISCONNECTED", bg="#ff6b6b")
-        self.connection_indicator.pack(side=tk.RIGHT, padx=5, pady=5)
-        self.connection_error_notification = ttk.Label(self, foreground='red')
-        self.connection_error_notification.pack(side=tk.RIGHT, expand=1, fill='x')
+        self.connect_button = ttk.Button(self, width=10,
+                                               text="Dur",
+                                               command=main_window_self.button_dur)
+        self.connect_button.pack()
 
+        self.textbox_text = tk.StringVar()
+        self.textbox_text.set("qwe")
+        self.textbox = ttk.Entry(self, textvariable=self.textbox_text)
+        self.textbox.pack()

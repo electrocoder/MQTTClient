@@ -1,16 +1,13 @@
 import logging
 
-import paho.mqtt.client as mqtt
-import time
-import json
-
 
 class Subscriber:
-    def __init__(self, client):
+    def __init__(self, ui_frame, client):
         self.topic = "timestamp"
         self.sid = 0
 
         self.client = client
+        self.ui_frame = ui_frame
 
         self.client.on_disconnect = self.on_disconnect
         self.client.on_message = self.on_message
@@ -31,12 +28,10 @@ class Subscriber:
     def on_disconnect(self, client, userdata, rc):
         print("disconnet...")
         logging.info("disconnecting reason  " + str(rc))
-        self.client.connected_flag = False
-        self.client.disconnect_flag = True
 
     def on_message(self, client, userdata, msg):
         print(
             msg.topic + " " + msg.payload.decode('utf8') + " " + str(self.sid))
         print("")
         self.sid += 1
-        return "aaa"
+        self.ui_frame.textbox_text.set(msg.payload.decode('utf8'))
