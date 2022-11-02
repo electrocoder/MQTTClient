@@ -13,8 +13,7 @@ class App(tk.Tk):
     def __init__(self):
         super().__init__()
 
-        # configure the root window
-        self.title('My Awesome App')
+        self.title('MQTT Client')
         self.geometry('400x200')
 
         self.main_window_frame = ttk.Frame()
