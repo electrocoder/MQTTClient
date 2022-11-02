@@ -7,7 +7,7 @@ import json
 
 class Subscriber:
     def __init__(self, client):
-        self.topic = "mese/iot/response"
+        self.topic = "timestamp"
         self.sid = 0
 
         self.client = client
