@@ -23,12 +23,11 @@ class App(tk.Tk):
         self.ui_frame = UIFrame(self.main_window_frame, self, height=35)
         self.ui_frame.pack(anchor="w", side=tk.TOP, fill=tk.X, padx=3, pady=3)
 
-
-
     def button_clicked(self):
+        print("bbb")
         aa = subscriber.Subscriber(mqtt.Client())
         aa.basla()
-        aa.on_message()
+        # aa.on_message()
 
 
 if __name__ == "__main__":

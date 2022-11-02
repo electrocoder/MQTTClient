@@ -25,7 +25,7 @@ class UIFrame(ttk.Frame):
     def __init__(self, master, app, *args, **kwargs):
         super().__init__(master=master, *args, **kwargs)
 
-        self.config_window_button = ttk.Button(self, width=10, text="Configure")
+        self.config_window_button = ttk.Button(self, width=10, text="Configure", command=app.button_clicked)
         self.config_window_button.pack(side=tk.LEFT, expand=False, padx=3, pady=3)
         self.connect_button = ttk.Button(self, width=10, text="Connect")
         self.connect_button.pack(side=tk.LEFT, expand=False, padx=3, pady=3)
