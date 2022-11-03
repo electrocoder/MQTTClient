@@ -1,0 +1,2 @@
+
+pyinstaller --onefile pythonScriptName.py
