@@ -10,9 +10,6 @@ def new_connect_window(master):
 
     # window.geometry("400x300")
 
-    def save_config():
-        ConfigFile().create_file("broker")
-
     row = 0
     column = 0
 
@@ -52,6 +49,10 @@ def new_connect_window(master):
     entry_password_text = tk.StringVar(master)
     entry_password = tk.Entry(window, textvariable=entry_password_text)
     entry_password.grid(row=row, column=column)
+
+    def save_config():
+        ConfigFile().create_file(entry_broker_text.get(), entry_port_text.get(), entry_username_text.get(),
+                                 entry_password_text.get())
 
     row += 1
     column = 0
