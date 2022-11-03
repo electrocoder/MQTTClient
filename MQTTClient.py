@@ -15,20 +15,20 @@ class App(tk.Tk):
         self.geometry('400x200')
 
         self.main_window_frame = tk.Frame()
-        self.main_window_frame.pack(fill='both', expand=1)
+        self.main_window_frame.pack()
 
         self.ui_frame = UIFrame(self.main_window_frame, self, height=35)
-        self.ui_frame.pack(anchor="w", side=tk.TOP, fill=tk.X, padx=3, pady=3)
+        self.ui_frame.pack()
 
         self.sub = subscriber.Subscriber(self.ui_frame, mqtt.Client())
 
-    def button_basla(self):
+    def button_connect(self):
         print("basla")
-        self.sub.basla()
+        self.sub.subscribe_start()
 
-    def button_dur(self):
+    def button_disconnect(self):
         print("dur")
-        self.sub.dur()
+        self.sub.subscribe_stop()
 
 
 if __name__ == "__main__":

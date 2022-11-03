@@ -18,13 +18,6 @@ class Subscriber:
         print("Connected with result code " + str(rc))
         client.subscribe(self.topic, qos=1)
 
-    def basla(self):
-        self.client.connect("www.iothook.com", 1883, 60)
-        self.client.loop_start()
-
-    def dur(self):
-        self.client.disconnect()
-
     def on_disconnect(self, client, userdata, rc):
         print("disconnet...")
         logging.info("disconnecting reason  " + str(rc))
@@ -35,3 +28,10 @@ class Subscriber:
         print("")
         self.sid += 1
         self.ui_frame.entry_msg_text.set(msg.payload.decode('utf8'))
+
+    def subscribe_start(self):
+        self.client.connect("www.iothook.com", 1883, 60)
+        self.client.loop_start()
+
+    def subscribe_stop(self):
+        self.client.disconnect()
