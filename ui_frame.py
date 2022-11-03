@@ -1,6 +1,6 @@
 import tkinter as tk
-
 import about as about
+import new_connect as new_connect
 
 
 class UIFrame(tk.Frame):
@@ -24,12 +24,15 @@ class UIFrame(tk.Frame):
         def about_window():
             about.about_window(master)
 
+        def new_connect_window():
+            new_connect.new_connect_window(master)
+
         # menu
         menubar = tk.Menu(main_window_self)
         main_window_self.config(menu=menubar)
 
         menu_connect = tk.Menu(menubar, tearoff=0)
-        menu_connect.add_command(label='New Connect')
+        menu_connect.add_command(label='New Connect', command=new_connect_window)
         menu_connect.add_command(label='Open Connect')
         menu_connect.add_separator()
         menu_connect.add_command(label='Exit', command=main_window_self.quit)
