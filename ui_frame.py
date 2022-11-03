@@ -25,20 +25,17 @@ class UIFrame(tk.Frame):
             x = 0
             about.openNewWindow(master)
 
-
-
         menubar = tk.Menu(main_window_self)
-        filemenu = tk.Menu(menubar, tearoff=0)
-        filemenu.add_command(label="New", command=donothing)
-        filemenu.add_command(label="Open", command=donothing)
-        filemenu.add_command(label="Save", command=donothing)
-        filemenu.add_separator()
-        filemenu.add_command(label="Exit", command=main_window_self.quit)
-        menubar.add_cascade(label="File", menu=filemenu)
+        menu_connect = tk.Menu(menubar, tearoff=0)
+        menu_connect.add_command(label="New Connect", command=donothing)
+        menu_connect.add_command(label="Open Connect", command=donothing)
+        menu_connect.add_separator()
+        menu_connect.add_command(label="Exit", command=main_window_self.quit)
+        menubar.add_cascade(label="Connect", menu=menu_connect)
 
-        helpmenu = tk.Menu(menubar, tearoff=0)
-        helpmenu.add_command(label="Help Index", command=donothing)
-        helpmenu.add_command(label="About...", command=donothing)
-        menubar.add_cascade(label="Help", menu=helpmenu)
+        menu_help = tk.Menu(menubar, tearoff=0)
+        menu_help.add_command(label="Help", command=donothing)
+        menu_help.add_command(label="About", command=donothing)
+        menubar.add_cascade(label="Help", menu=menu_help)
 
         main_window_self.config(menu=menubar)
