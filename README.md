@@ -1,2 +1,2 @@
 
-pyinstaller --onefile pythonScriptName.py
+pyinstaller --onefile MQTTClient.py
