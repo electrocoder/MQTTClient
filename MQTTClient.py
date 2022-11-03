@@ -3,7 +3,6 @@ import tkinter as tk
 import paho.mqtt.client as mqtt
 
 import subscriber
-
 from ui_frame import UIFrame
 
 

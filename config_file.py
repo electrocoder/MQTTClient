@@ -12,7 +12,6 @@ class ConfigFile:
         broker = param["broker"]
         return broker
 
-
     def create_file(self, broker, port, username, password):
         print(broker)
         self.config.add_section(broker)
