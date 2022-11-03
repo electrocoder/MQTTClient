@@ -21,21 +21,20 @@ class UIFrame(tk.Frame):
         self.entry_msg = tk.Entry(self, textvariable=self.entry_msg_text)
         self.entry_msg.pack()
 
-        def donothing():
-            x = 0
+        def about_window():
             about.aboutWindow(master)
 
         menubar = tk.Menu(main_window_self)
+        main_window_self.config(menu=menubar)
+
         menu_connect = tk.Menu(menubar, tearoff=0)
-        menu_connect.add_command(label="New Connect", command=donothing)
-        menu_connect.add_command(label="Open Connect", command=donothing)
+        menu_connect.add_command(label='New Connect')
+        menu_connect.add_command(label='Open Connect')
         menu_connect.add_separator()
-        menu_connect.add_command(label="Exit", command=main_window_self.quit)
+        menu_connect.add_command(label='Exit', command=main_window_self.quit)
         menubar.add_cascade(label="Connect", menu=menu_connect)
 
         menu_help = tk.Menu(menubar, tearoff=0)
-        menu_help.add_command(label="Help", command=donothing)
-        menu_help.add_command(label="About", command=donothing)
+        menu_help.add_command(label='Help')
+        menu_help.add_command(label='About', command=about_window)
         menubar.add_cascade(label="Help", menu=menu_help)
-
-        main_window_self.config(menu=menubar)
