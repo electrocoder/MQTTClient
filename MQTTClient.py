@@ -1,6 +1,4 @@
 import tkinter as tk
-from tkinter import ttk
-from tkinter.messagebox import showinfo
 
 import paho.mqtt.client as mqtt
 
@@ -16,7 +14,7 @@ class App(tk.Tk):
         self.title('MQTT Client')
         self.geometry('400x200')
 
-        self.main_window_frame = ttk.Frame()
+        self.main_window_frame = tk.Frame()
         self.main_window_frame.pack(fill='both', expand=1)
 
         self.ui_frame = UIFrame(self.main_window_frame, self, height=35)

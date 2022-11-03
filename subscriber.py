@@ -34,4 +34,4 @@ class Subscriber:
             msg.topic + " " + msg.payload.decode('utf8') + " " + str(self.sid))
         print("")
         self.sid += 1
-        self.ui_frame.textbox_text.set(msg.payload.decode('utf8'))
+        self.ui_frame.entry_msg_text.set(msg.payload.decode('utf8'))
