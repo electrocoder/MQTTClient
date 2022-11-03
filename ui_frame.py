@@ -22,8 +22,9 @@ class UIFrame(tk.Frame):
         self.entry_msg.pack()
 
         def about_window():
-            about.aboutWindow(master)
+            about.about_window(master)
 
+        # menu
         menubar = tk.Menu(main_window_self)
         main_window_self.config(menu=menubar)
 
@@ -38,3 +39,9 @@ class UIFrame(tk.Frame):
         menu_help.add_command(label='Help')
         menu_help.add_command(label='About', command=about_window)
         menubar.add_cascade(label="Help", menu=menu_help)
+
+        # status bar
+        status_text = tk.StringVar()
+        status_text.set("Ready")
+        status = tk.Label(main_window_self, textvariable=status_text, relief=tk.SUNKEN, anchor="w")
+        status.pack(side=tk.BOTTOM, fill=tk.X)

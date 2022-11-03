@@ -1,6 +1,7 @@
 import tkinter as tk
 
-def aboutWindow(master):
+
+def about_window(master):
     # Toplevel object which will
     # be treated as a new window
     newWindow = tk.Toplevel(master)
