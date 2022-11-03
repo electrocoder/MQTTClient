@@ -23,7 +23,7 @@ class UIFrame(tk.Frame):
 
         def donothing():
             x = 0
-            about.openNewWindow(master)
+            about.aboutWindow(master)
 
         menubar = tk.Menu(main_window_self)
         menu_connect = tk.Menu(menubar, tearoff=0)
