@@ -25,7 +25,8 @@ class OpenConnect:
         self.label_broker.grid(row=row, column=column)
         column += 1
         self.entry_broker_text = tk.StringVar(self.master)
-        self.entry_broker = tk.OptionMenu(window, variable=self.entry_broker_text, *OPTIONS)
+        self.entry_broker_text.set("   Select   ")
+        self.entry_broker = tk.OptionMenu(window, *OPTIONS)
         self.entry_broker.grid(row=row, column=column)
         self.entry_broker['values'] = ('value1', 'value2', 'value3')
         self.entry_broker['state'] = 'readonly'
