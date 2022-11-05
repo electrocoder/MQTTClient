@@ -1,10 +1,13 @@
 import configparser
+from os.path import exists
 
 
 class ConfigFile:
     def __init__(self):
         self.config = configparser.ConfigParser()
         self.file_name = r"configfile.ini"
+        if exists(self.file_name):
+            self.config.read(self.file_name)
 
     def read_file(self):
         self.config.read(self.file_name)

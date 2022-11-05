@@ -10,7 +10,7 @@ class NewConnect:
         window.grab_set()
         window.title("MQTT Client New Connect")
 
-        # window.geometry("400x300")
+        window.geometry("400x300")
 
         row = 0
         column = 0
