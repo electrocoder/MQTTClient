@@ -2,6 +2,7 @@ import tkinter as tk
 
 import about as about
 import new_connect as new_connect
+import open_connect as open_connect
 
 
 class UIFrame(tk.Frame):
@@ -29,8 +30,10 @@ class UIFrame(tk.Frame):
         main_window_self.config(menu=menubar)
 
         menu_connect = tk.Menu(menubar, tearoff=0)
-        menu_connect.add_command(label='New Connect', command=self.new_connect_window)
-        menu_connect.add_command(label='Open Connect')
+        menu_connect.add_command(label='New Connect',
+                                 command=self.new_connect_window)
+        menu_connect.add_command(label='Open Connect',
+                                 command=self.open_connect_window)
         menu_connect.add_separator()
         menu_connect.add_command(label='Exit', command=main_window_self.quit)
         menubar.add_cascade(label="Connect", menu=menu_connect)
@@ -43,7 +46,8 @@ class UIFrame(tk.Frame):
         # status bar
         status_text = tk.StringVar()
         status_text.set("Ready")
-        status = tk.Label(main_window_self, textvariable=status_text, relief=tk.SUNKEN, anchor="w")
+        status = tk.Label(main_window_self, textvariable=status_text,
+                          relief=tk.SUNKEN, anchor="w")
         status.pack(side=tk.BOTTOM, fill=tk.X)
 
     def about_window(self):
@@ -51,3 +55,6 @@ class UIFrame(tk.Frame):
 
     def new_connect_window(self):
         new_connect.NewConnect(self.master)
+
+    def open_connect_window(self):
+        open_connect.OpenConnect(self.master)

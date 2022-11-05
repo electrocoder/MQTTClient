@@ -25,3 +25,5 @@ class ConfigFile:
 
         with open(self.file_name, 'w') as configfile:
             self.config.write(configfile)
+
+        return True
