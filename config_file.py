@@ -11,9 +11,9 @@ class ConfigFile:
 
     def read_file(self):
         self.config.read(self.file_name)
-        param = self.config["iot"]
-        broker = param["broker"]
-        return broker
+        # param = self.config["iot"]
+        # broker = param["broker"]
+        # return broker
 
     def create_file(self, broker, port, username, password):
         print(broker)

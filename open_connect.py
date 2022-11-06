@@ -15,21 +15,16 @@ class OpenConnect:
         row = 0
         column = 0
 
-        OPTIONS = [
-            "Jan",
-            "Feb",
-            "Mar"
-        ]  # etc
+        BROKERS = []
+        print(ConfigFile().read_file())
 
         self.label_broker = tk.Label(window, text="Broker")
         self.label_broker.grid(row=row, column=column)
         column += 1
-        self.entry_broker_text = tk.StringVar(self.master)
+        self.entry_broker_text = tk.StringVar(window)
         self.entry_broker_text.set("   Select   ")
-        self.entry_broker = tk.OptionMenu(window, *OPTIONS)
+        self.entry_broker = tk.OptionMenu(window, self.entry_broker_text, *BROKERS)
         self.entry_broker.grid(row=row, column=column)
-        self.entry_broker['values'] = ('value1', 'value2', 'value3')
-        self.entry_broker['state'] = 'readonly'
 
         row += 1
         column = 0

@@ -18,7 +18,7 @@ class NewConnect:
         self.label_broker = tk.Label(window, text="Broker")
         self.label_broker.grid(row=row, column=column)
         column += 1
-        self.entry_broker_text = tk.StringVar(self.master)
+        self.entry_broker_text = tk.StringVar(window)
         self.entry_broker = tk.Entry(window, textvariable=self.entry_broker_text)
         self.entry_broker.grid(row=row, column=column)
 
@@ -28,7 +28,7 @@ class NewConnect:
         self.label_port = tk.Label(window, text="Port")
         self.label_port.grid(row=row, column=column)
         column += 1
-        self.entry_port_text = tk.StringVar(self.master)
+        self.entry_port_text = tk.StringVar(window)
         self.entry_port = tk.Entry(window, textvariable=self.entry_port_text)
         self.entry_port.grid(row=row, column=column)
 
@@ -38,7 +38,7 @@ class NewConnect:
         self.label_username = tk.Label(window, text="Username")
         self.label_username.grid(row=row, column=column)
         column += 1
-        self.entry_username_text = tk.StringVar(self.master)
+        self.entry_username_text = tk.StringVar(window)
         self.entry_username = tk.Entry(window, textvariable=self.entry_username_text)
         self.entry_username.grid(row=row, column=column)
 
@@ -48,7 +48,7 @@ class NewConnect:
         self.label_password = tk.Label(window, text="Password")
         self.label_password.grid(row=row, column=column)
         column += 1
-        self.entry_password_text = tk.StringVar(self.master)
+        self.entry_password_text = tk.StringVar(window)
         self.entry_password = tk.Entry(window, textvariable=self.entry_password_text)
         self.entry_password.grid(row=row, column=column)
 
