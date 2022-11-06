@@ -5,11 +5,11 @@ import new_connect as new_connect
 import open_connect as open_connect
 
 
-class UIFrame(tk.Frame):
-    def __init__(self, master, main_window_self, *args, **kwargs):
-        super().__init__(master=master, *args, **kwargs)
+class MainWindowFrameUI(tk.Frame):
+    def __init__(self, main_window_frame, main_window_self, *args, **kwargs):
+        super().__init__(master=main_window_frame, *args, **kwargs)
 
-        self.master = master
+        self.main_window_frame = main_window_frame
 
         self.entry_broker_text = tk.StringVar()
         self.entry_broker = tk.Entry(self, textvariable=self.entry_broker_text)

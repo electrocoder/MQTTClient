@@ -3,7 +3,7 @@ import tkinter as tk
 import paho.mqtt.client as mqtt
 
 import subscriber
-from ui_frame import UIFrame
+from main_window_frame_ui import MainWindowFrameUI
 
 
 class App(tk.Tk):
@@ -16,10 +16,10 @@ class App(tk.Tk):
         self.main_window_frame = tk.Frame()
         self.main_window_frame.pack()
 
-        self.ui_frame = UIFrame(self.main_window_frame, self, height=35)
-        self.ui_frame.pack()
+        self.main_window_frame_ui = MainWindowFrameUI(self.main_window_frame, self, height=35)
+        self.main_window_frame_ui.pack()
 
-        self.sub = subscriber.Subscriber(self.ui_frame, mqtt.Client())
+        self.sub = subscriber.Subscriber(self.main_window_frame_ui, mqtt.Client())
 
     def button_connect(self):
         print("basla")

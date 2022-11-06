@@ -2,12 +2,12 @@ import logging
 
 
 class Subscriber:
-    def __init__(self, ui_frame, client):
+    def __init__(self, main_window_frame_ui, client):
         self.topic = "timestamp"
         self.sid = 0
 
         self.client = client
-        self.ui_frame = ui_frame
+        self.main_window_frame_ui = main_window_frame_ui
 
         self.client.on_disconnect = self.on_disconnect
         self.client.on_message = self.on_message
@@ -27,7 +27,7 @@ class Subscriber:
             msg.topic + " " + msg.payload.decode('utf8') + " " + str(self.sid))
         print("")
         self.sid += 1
-        self.ui_frame.entry_msg_text.set(msg.payload.decode('utf8'))
+        self.main_window_frame_ui.entry_msg_text.set(msg.payload.decode('utf8'))
 
     def subscribe_start(self):
         self.client.connect("www.iothook.com", 1883, 60)
