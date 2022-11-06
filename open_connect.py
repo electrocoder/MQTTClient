@@ -34,4 +34,5 @@ class OpenConnect:
     def open_connect(self):
         c = ConfigFile()
         broker, port, username, password = c.read_broker(self.entry_broker_text.get())
-        print(broker, port, username, password)
+
+        return broker, port, username, password

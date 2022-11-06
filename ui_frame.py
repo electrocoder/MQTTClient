@@ -11,6 +11,10 @@ class UIFrame(tk.Frame):
 
         self.master = master
 
+        self.entry_broker_text = tk.StringVar()
+        self.entry_broker = tk.Entry(self, textvariable=self.entry_broker_text)
+        self.entry_broker.pack()
+
         self.button_connect = tk.Button(self,
                                         text="Connect",
                                         command=main_window_self.button_connect)
@@ -58,3 +62,5 @@ class UIFrame(tk.Frame):
 
     def open_connect_window(self):
         open_connect.OpenConnect(self.master)
+        # print("qq")
+        # print(broker, port, username, password)
