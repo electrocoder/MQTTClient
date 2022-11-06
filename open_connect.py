@@ -6,6 +6,7 @@ from config_file import ConfigFile
 class OpenConnect:
     def __init__(self, main_window_frame_ui):
         self.main_window_frame_ui = main_window_frame_ui
+
         self.open_connect_window = tk.Toplevel(self.main_window_frame_ui)
         self.open_connect_window.grab_set()
         self.open_connect_window.title("MQTT Client Open Connect")
@@ -34,4 +35,4 @@ class OpenConnect:
     def open_connect(self):
         broker, port, username, password = ConfigFile().read_broker(self.entry_broker_text.get())
         self.main_window_frame_ui.entry_broker_text.set(broker)
-        return True
+        self.open_connect_window.destroy()

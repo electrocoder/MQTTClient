@@ -6,6 +6,7 @@ from config_file import ConfigFile
 class NewConnect:
     def __init__(self, main_window_frame_ui):
         self.main_window_frame_ui = main_window_frame_ui
+
         self.new_connect_window = tk.Toplevel(self.main_window_frame_ui)
         self.new_connect_window.grab_set()
         self.new_connect_window.title("MQTT Client New Connect")
@@ -64,3 +65,5 @@ class NewConnect:
         ConfigFile().create_file(self.entry_broker_text.get(), self.entry_port_text.get(),
                                  self.entry_username_text.get(),
                                  self.entry_password_text.get())
+        self.new_connect_window.destroy()
+

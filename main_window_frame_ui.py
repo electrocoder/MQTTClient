@@ -1,7 +1,6 @@
 import tkinter as tk
 
 
-
 class MainWindowFrameUI(tk.Frame):
     def __init__(self, main_window_frame, main_window_self, *args, **kwargs):
         super().__init__(master=main_window_frame, *args, **kwargs)
@@ -9,23 +8,36 @@ class MainWindowFrameUI(tk.Frame):
         self.main_window_frame = main_window_frame
         self.main_window_self = main_window_self
 
-        self.entry_broker_text = tk.StringVar()
+        row = 0
+        column = 0
+
+        self.label_broker = tk.Label(self, text="Broker")
+        self.label_broker.grid(row=row, column=column)
+        column += 1
+        self.entry_broker_text = tk.StringVar(self)
         self.entry_broker = tk.Entry(self, textvariable=self.entry_broker_text)
-        self.entry_broker.pack()
+        self.entry_broker.grid(row=row, column=column)
+
+        column += 1
 
         self.button_connect = tk.Button(self,
                                         text="Connect",
                                         command=main_window_self.button_connect)
-        self.button_connect.pack()
+        self.button_connect.grid(row=row, column=column)
+
+        column += 1
 
         self.button_disconnect = tk.Button(self,
-                                           text="Dur",
+                                           text="Disconnect",
                                            command=main_window_self.button_disconnect)
-        self.button_disconnect.pack()
+        self.button_disconnect.grid(row=row, column=column)
+
+        row += 1
+        column = 0
 
         self.entry_msg_text = tk.StringVar()
         self.entry_msg = tk.Entry(self, textvariable=self.entry_msg_text)
-        self.entry_msg.pack()
+        self.entry_msg.grid(row=row, column=column)
 
         # menu
         menubar = tk.Menu(main_window_self)
@@ -51,5 +63,3 @@ class MainWindowFrameUI(tk.Frame):
         status = tk.Label(main_window_self, textvariable=status_text,
                           relief=tk.SUNKEN, anchor="w")
         status.pack(side=tk.BOTTOM, fill=tk.X)
-
-
