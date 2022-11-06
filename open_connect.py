@@ -15,8 +15,7 @@ class OpenConnect:
         row = 0
         column = 0
 
-        BROKERS = []
-        print(ConfigFile().read_file())
+        BROKERS = ConfigFile().read_file()
 
         self.label_broker = tk.Label(window, text="Broker")
         self.label_broker.grid(row=row, column=column)

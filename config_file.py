@@ -13,10 +13,9 @@ class ConfigFile:
         self.config.read(self.file_name)
         # param = self.config["iot"]
         # broker = param["broker"]
-        # return broker
+        return self.config.sections()
 
     def create_file(self, broker, port, username, password):
-        print(broker)
         self.config.add_section(broker)
         self.config.set(broker, 'broker', broker)
         self.config.set(broker, 'port', port)
