@@ -12,7 +12,6 @@ class Subscriber:
         self.client.on_disconnect = self.on_disconnect
         self.client.on_message = self.on_message
         self.client.on_connect = self.on_connect
-        self.client.username_pw_set("iothookpublic", "iothookpublic")
 
     def on_connect(self, client, userdata, flags, rc):
         print("Connected with result code " + str(rc))
@@ -29,8 +28,9 @@ class Subscriber:
         self.sid += 1
         self.main_window_frame_ui.entry_msg_text.set(msg.payload.decode('utf8'))
 
-    def subscribe_start(self):
-        self.client.connect("www.iothook.com", 1883, 60)
+    def subscribe_start(self, broker, port, username, password):
+        self.client.username_pw_set(username, password)
+        self.client.connect(broker, int(port), 60)
         self.client.loop_start()
 
     def subscribe_stop(self):

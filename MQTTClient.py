@@ -4,6 +4,7 @@ import paho.mqtt.client as mqtt
 
 import subscriber
 from main_window_frame_ui import MainWindowFrameUI
+from config_file import ConfigFile
 
 
 import about as about
@@ -27,7 +28,9 @@ class App(tk.Tk):
 
     def button_connect(self):
         print("button_connect")
-        self.sub.subscribe_start()
+        broker, port, username, password = ConfigFile().read_broker(self.main_window_frame_ui.entry_broker_text.get())
+        print(broker, port, username, password)
+        self.sub.subscribe_start(broker, port, username, password)
 
     def button_disconnect(self):
         print("button_disconnect")
