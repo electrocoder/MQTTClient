@@ -68,6 +68,24 @@ class MainWindowFrameUI(tk.Frame):
                                                 command=main_window_self.button_subscribe_topic)
         self.button_subscribe_topic.grid(row=row, column=column)
 
+        row += 1
+        column = 0
+
+        # publish list
+        self.entry_publich_list_topic_text = tk.StringVar(self)
+        self.entry_publich_list_topic = tk.Entry(self,
+                                            textvariable=self.entry_publich_list_topic_text)
+        self.entry_publich_list_topic.grid(row=row, column=column)
+
+        column += 3
+        # subscribe list
+        self.listbox_subscribe = tk.Listbox(self, width=100, height=200)
+        self.listbox_subscribe.grid(row=row, column=column)
+        self.listbox_subscribe_scrollbar = tk.Scrollbar(self.listbox_subscribe, orient=tk.VERTICAL)
+        self.listbox_subscribe.config(yscrollcommand=self.listbox_subscribe_scrollbar.set)
+        self.listbox_subscribe_scrollbar.config(command=self.listbox_subscribe.yview)
+        self.listbox_subscribe_scrollbar.grid(row=row, column=column+1, sticky=tk.N+tk.S)
+
         # menu
         menubar = tk.Menu(main_window_self)
         main_window_self.config(menu=menubar)
@@ -89,7 +107,7 @@ class MainWindowFrameUI(tk.Frame):
 
         # status bar
         self.status_text = tk.StringVar()
-        self.status_text.set("Ready")
+        self.status_text.set("...")
         self.status = tk.Label(main_window_self, textvariable=self.status_text,
                                relief=tk.SUNKEN, anchor="w")
         self.status.pack(side=tk.BOTTOM, fill=tk.X)
