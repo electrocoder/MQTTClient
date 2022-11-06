@@ -16,7 +16,7 @@ class App(tk.Tk):
         super().__init__()
 
         self.title('MQTT Client')
-        self.geometry('1400x400')
+        self.geometry('700x600')
 
         self.main_window_frame = tk.Frame()
         self.main_window_frame.pack()
