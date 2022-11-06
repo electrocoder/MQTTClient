@@ -16,7 +16,7 @@ class App(tk.Tk):
         super().__init__()
 
         self.title('MQTT Client')
-        self.geometry('1200x400')
+        self.geometry('1400x400')
 
         self.main_window_frame = tk.Frame()
         self.main_window_frame.pack()
@@ -42,7 +42,7 @@ class App(tk.Tk):
 
     def button_publish_topic(self):
         print("button_publish_topic")
-        # self.sub.subscribe_start(self.main_window_frame_ui.entry_subscribe_topic_text.get())
+        self.sub.publish_start(self.main_window_frame_ui.entry_subscribe_topic_text.get(), self.main_window_frame_ui.entry_publich_topic_msg_text.get())
 
     def about_window(self):
         about.AboutWindow(self.master)

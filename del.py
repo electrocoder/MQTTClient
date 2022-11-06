@@ -1,38 +1,24 @@
-try:
-   # for Python2
-   from Tkinter import *
-except ImportError:
-   # for Python3
-   from tkinter import *
+# import required modules
+from tkinter import *
 
-class   Application(Frame):
-    def __init__(self,  master=None):
-        Frame.__init__(self, master)
-        self.grid(sticky=N+S+E+W)
-        self.mainframe()
+tkWindow = Tk()
+tkWindow.geometry('500x500')
+tkWindow.title('Example Utility')
 
-    def mainframe(self):
-       frame = Frame(self)
-       scrollbar = Scrollbar(frame, orient=VERTICAL)
-       data = Listbox(frame, yscrollcommand=scrollbar.set,
-              bg='red')
-       scrollbar.config(command=data.yview)
-       scrollbar.pack(side=RIGHT, fill=Y)
-       data.pack(side=LEFT, fill=BOTH, expand=1)
+scrollbar = Scrollbar(tkWindow, orient="vertical")
 
-       for i in range(1000):
-          data.insert(END, str(i))
+SelectuserLabel = Label(tkWindow, text="Select").grid(row=0, column=0)
+test = Listbox(tkWindow, width=10, height=5, font=("Helvetica", 14))
+test.insert(END, 1)
+test.insert(END, 2)
+test.insert(END, 3)
+test.insert(END, 4)
+test.insert(END, 5)
+test.insert(END, 6)
+test.insert(END, 7)
+test.insert(END, 8)
+test.grid(row=0, column=1)
+scrollbar.config(command=test.yview)
+scrollbar.grid(row=0, column=2, sticky='ns')
 
-       self.run = Button(self, text="run")
-       self.stop = Button(self, text="stop")
-
-       frame.grid(row=0, column=0, rowspan=4,
-                   columnspan=2, sticky=N+E+S+W)
-       frame.columnconfigure(0, weight=1)
-
-       self.run.grid(row=4,column=0,sticky=EW)
-       self.stop.grid(row=4,column=1,sticky=EW)
-
-a = Application()
-a.mainframe()
-a.mainloop()
+tkWindow.mainloop()

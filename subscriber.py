@@ -41,4 +41,6 @@ class Subscriber:
     def subscribe_start(self, topic):
         self.client.subscribe(topic, qos=0)
         self.client.loop_start()
+    def publish_start(self, topic, msg):
+        self.client.publish(topic, msg)
 
