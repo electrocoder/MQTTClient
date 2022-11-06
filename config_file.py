@@ -9,10 +9,8 @@ class ConfigFile:
         if exists(self.file_name):
             self.config.read(self.file_name)
 
-    def read_file(self):
+    def read_sections(self):
         self.config.read(self.file_name)
-        # param = self.config["iot"]
-        # broker = param["broker"]
         return self.config.sections()
 
     def create_file(self, broker, port, username, password):
@@ -26,3 +24,12 @@ class ConfigFile:
             self.config.write(configfile)
 
         return True
+
+    def read_broker(self, broker):
+        self.config.read(self.file_name)
+        broker = self.config[broker]["broker"]
+        port = self.config[broker]["port"]
+        username = self.config[broker]["username"]
+        password = self.config[broker]["password"]
+
+        return broker, port, username, password

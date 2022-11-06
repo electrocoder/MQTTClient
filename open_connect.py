@@ -15,14 +15,12 @@ class OpenConnect:
         row = 0
         column = 0
 
-        BROKERS = ConfigFile().read_file()
-
         self.label_broker = tk.Label(window, text="Broker")
         self.label_broker.grid(row=row, column=column)
         column += 1
         self.entry_broker_text = tk.StringVar(window)
-        self.entry_broker_text.set("   Select   ")
-        self.entry_broker = tk.OptionMenu(window, self.entry_broker_text, *BROKERS)
+        self.entry_broker_text.set(" Select ")
+        self.entry_broker = tk.OptionMenu(window, self.entry_broker_text, *ConfigFile().read_sections())
         self.entry_broker.grid(row=row, column=column)
 
         row += 1
@@ -34,4 +32,6 @@ class OpenConnect:
         self.button_open.grid(row=row, column=column)
 
     def open_connect(self):
-        pass
+        c = ConfigFile()
+        broker, port, username, password = c.read_broker(self.entry_broker_text.get())
+        print(broker, port, username, password)
