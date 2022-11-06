@@ -35,9 +35,38 @@ class MainWindowFrameUI(tk.Frame):
         row += 1
         column = 0
 
-        self.entry_msg_text = tk.StringVar()
-        self.entry_msg = tk.Entry(self, textvariable=self.entry_msg_text)
-        self.entry_msg.grid(row=row, column=column)
+        # publich topic
+        self.label_publich_topic = tk.Label(self, text="Publish Topic")
+        self.label_publich_topic.grid(row=row, column=column)
+
+        column += 1
+        self.entry_publich_topic_text = tk.StringVar(self)
+        self.entry_publich_topic = tk.Entry(self,
+                                            textvariable=self.entry_publich_topic_text)
+        self.entry_publich_topic.grid(row=row, column=column)
+
+        column += 1
+        self.button_publich_topic = tk.Button(self,
+                                              text="Publich",
+                                              command=main_window_self.button_publish_topic)
+        self.button_publich_topic.grid(row=row, column=column)
+
+        # subscribe topic
+        column += 1
+        self.label_subscribe_topic = tk.Label(self, text="Subscribe Topic")
+        self.label_subscribe_topic.grid(row=row, column=column)
+
+        column += 1
+        self.entry_subscribe_topic_text = tk.StringVar(self)
+        self.entry_subscribe_topic = tk.Entry(self,
+                                              textvariable=self.entry_subscribe_topic_text)
+        self.entry_subscribe_topic.grid(row=row, column=column)
+
+        column += 1
+        self.button_subscribe_topic = tk.Button(self,
+                                                text="Subscribe",
+                                                command=main_window_self.button_subscribe_topic)
+        self.button_subscribe_topic.grid(row=row, column=column)
 
         # menu
         menubar = tk.Menu(main_window_self)
@@ -54,12 +83,13 @@ class MainWindowFrameUI(tk.Frame):
 
         menu_help = tk.Menu(menubar, tearoff=0)
         menu_help.add_command(label='Help')
-        menu_help.add_command(label='About', command=self.main_window_self.about_window)
+        menu_help.add_command(label='About',
+                              command=self.main_window_self.about_window)
         menubar.add_cascade(label="Help", menu=menu_help)
 
         # status bar
-        status_text = tk.StringVar()
-        status_text.set("Ready")
-        status = tk.Label(main_window_self, textvariable=status_text,
-                          relief=tk.SUNKEN, anchor="w")
-        status.pack(side=tk.BOTTOM, fill=tk.X)
+        self.status_text = tk.StringVar()
+        self.status_text.set("Ready")
+        self.status = tk.Label(main_window_self, textvariable=self.status_text,
+                               relief=tk.SUNKEN, anchor="w")
+        self.status.pack(side=tk.BOTTOM, fill=tk.X)

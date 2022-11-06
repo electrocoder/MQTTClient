@@ -16,7 +16,7 @@ class App(tk.Tk):
         super().__init__()
 
         self.title('MQTT Client')
-        self.geometry('400x200')
+        self.geometry('600x200')
 
         self.main_window_frame = tk.Frame()
         self.main_window_frame.pack()
@@ -30,11 +30,19 @@ class App(tk.Tk):
         print("button_connect")
         broker, port, username, password = ConfigFile().read_broker(self.main_window_frame_ui.entry_broker_text.get())
         print(broker, port, username, password)
-        self.sub.subscribe_start(broker, port, username, password)
+        self.sub.connect_start(broker, port, username, password)
 
     def button_disconnect(self):
         print("button_disconnect")
-        self.sub.subscribe_stop()
+        self.sub.connect_stop()
+
+    def button_subscribe_topic(self):
+        print("button_subscribe_topic")
+        self.sub.subscribe_start(self.main_window_frame_ui.entry_subscribe_topic_text.get())
+
+    def button_publish_topic(self):
+        print("button_publish_topic")
+        # self.sub.subscribe_start(self.main_window_frame_ui.entry_subscribe_topic_text.get())
 
     def about_window(self):
         about.AboutWindow(self.master)
