@@ -32,8 +32,6 @@ class OpenConnect:
         self.button_open.grid(row=row, column=column)
 
     def open_connect(self):
-        c = ConfigFile()
-        broker, port, username, password = c.read_broker(self.entry_broker_text.get())
-        self.main_window_frame_ui.entry_msg_text.set("ee")
-
+        broker, port, username, password = ConfigFile().read_broker(self.entry_broker_text.get())
+        self.main_window_frame_ui.entry_broker_text.set(broker)
         return True

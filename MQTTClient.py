@@ -6,6 +6,10 @@ import subscriber
 from main_window_frame_ui import MainWindowFrameUI
 
 
+import about as about
+import new_connect as new_connect
+import open_connect as open_connect
+
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -22,12 +26,22 @@ class App(tk.Tk):
         self.sub = subscriber.Subscriber(self.main_window_frame_ui, mqtt.Client())
 
     def button_connect(self):
-        print("basla")
+        print("button_connect")
         self.sub.subscribe_start()
 
     def button_disconnect(self):
-        print("dur")
+        print("button_disconnect")
         self.sub.subscribe_stop()
+
+    def about_window(self):
+        about.AboutWindow(self.master)
+
+    def new_connect_window(self):
+        new_connect.NewConnect(self.master)
+
+    def open_connect_window(self):
+        open_connect.OpenConnect(self.main_window_frame_ui)
+
 
 
 if __name__ == "__main__":

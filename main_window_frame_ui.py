@@ -1,8 +1,5 @@
 import tkinter as tk
 
-import about as about
-import new_connect as new_connect
-import open_connect as open_connect
 
 
 class MainWindowFrameUI(tk.Frame):
@@ -10,6 +7,7 @@ class MainWindowFrameUI(tk.Frame):
         super().__init__(master=main_window_frame, *args, **kwargs)
 
         self.main_window_frame = main_window_frame
+        self.main_window_self = main_window_self
 
         self.entry_broker_text = tk.StringVar()
         self.entry_broker = tk.Entry(self, textvariable=self.entry_broker_text)
@@ -35,16 +33,16 @@ class MainWindowFrameUI(tk.Frame):
 
         menu_connect = tk.Menu(menubar, tearoff=0)
         menu_connect.add_command(label='New Connect',
-                                 command=self.new_connect_window)
+                                 command=self.main_window_self.new_connect_window)
         menu_connect.add_command(label='Open Connect',
-                                 command=self.open_connect_window)
+                                 command=self.main_window_self.open_connect_window)
         menu_connect.add_separator()
         menu_connect.add_command(label='Exit', command=main_window_self.quit)
         menubar.add_cascade(label="Connect", menu=menu_connect)
 
         menu_help = tk.Menu(menubar, tearoff=0)
         menu_help.add_command(label='Help')
-        menu_help.add_command(label='About', command=self.about_window)
+        menu_help.add_command(label='About', command=self.main_window_self.about_window)
         menubar.add_cascade(label="Help", menu=menu_help)
 
         # status bar
@@ -54,13 +52,4 @@ class MainWindowFrameUI(tk.Frame):
                           relief=tk.SUNKEN, anchor="w")
         status.pack(side=tk.BOTTOM, fill=tk.X)
 
-    def about_window(self):
-        about.AboutWindow(self.master)
 
-    def new_connect_window(self):
-        new_connect.NewConnect(self.master)
-
-    def open_connect_window(self):
-        open_connect.OpenConnect(self.master)
-        # print("qq")
-        # print(broker, port, username, password)
