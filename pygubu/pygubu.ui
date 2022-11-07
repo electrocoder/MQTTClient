@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.3">
+  <object class="tk.Frame" id="frame1">
+    <property name="height">200</property>
+    <property name="width">200</property>
+    <layout manager="grid">
+      <property name="column">0</property>
+      <property name="row">0</property>
+    </layout>
+    <child>
+      <object class="tk.Label" id="label3">
+        <property name="text" translatable="yes">Broker</property>
+        <layout manager="grid">
+          <property name="column">0</property>
+          <property name="row">0</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Entry" id="entry3">
+        <layout manager="grid">
+          <property name="column">1</property>
+          <property name="row">0</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Button" id="button1">
+        <property name="text" translatable="yes">Connect</property>
+        <layout manager="grid">
+          <property name="column">2</property>
+          <property name="row">0</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Button" id="button2">
+        <property name="text" translatable="yes">Disconnect</property>
+        <layout manager="grid">
+          <property name="column">3</property>
+          <property name="row">0</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Label" id="label4">
+        <property name="text" translatable="yes">Publish</property>
+        <layout manager="grid">
+          <property name="column">0</property>
+          <property name="row">1</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Entry" id="entry4">
+        <layout manager="grid">
+          <property name="column">1</property>
+          <property name="row">1</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Button" id="button3">
+        <property name="text" translatable="yes">Publish</property>
+        <layout manager="grid">
+          <property name="column">2</property>
+          <property name="row">1</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Listbox" id="listbox1">
+        <layout manager="grid">
+          <property name="column">1</property>
+          <property name="row">2</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Label" id="label5">
+        <property name="text" translatable="yes">Subscribe</property>
+        <layout manager="grid">
+          <property name="column">0</property>
+          <property name="row">3</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Listbox" id="listbox2">
+        <layout manager="grid">
+          <property name="column">1</property>
+          <property name="row">3</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Button" id="button4">
+        <property name="text" translatable="yes">button4</property>
+        <layout manager="grid">
+          <property name="column">2</property>
+          <property name="row">3</property>
+        </layout>
+      </object>
+    </child>
+  </object>
+</interface>
