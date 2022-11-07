@@ -26,7 +26,9 @@ class Subscriber:
             msg.topic + " " + msg.payload.decode('utf8') + " " + str(self.sid))
         print("")
         self.sid += 1
-        self.main_window_frame_ui.listbox_subscribe.insert(tk.END, msg.payload.decode('utf8'))
+        self.main_window_frame_ui.listbox_subscribe.insert(tk.END,
+                                                           msg.payload.decode(
+                                                               'utf8'))
         self.main_window_frame_ui.listbox_subscribe.see("end")
 
     def connect_start(self, broker, port, username, password):
@@ -34,13 +36,12 @@ class Subscriber:
         self.client.connect(broker, int(port), 60)
         self.main_window_frame_ui.status_text.set("Ready")
 
-
     def connect_stop(self):
         self.client.disconnect()
 
     def subscribe_start(self, topic):
         self.client.subscribe(topic, qos=0)
         self.client.loop_start()
+
     def publish_start(self, topic, msg):
         self.client.publish(topic, msg)
-
