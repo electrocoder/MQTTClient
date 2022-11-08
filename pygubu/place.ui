@@ -44,7 +44,7 @@
         <property name="text" translatable="yes">button2</property>
         <layout manager="place">
           <property name="anchor">nw</property>
-          <property name="x">350</property>
+          <property name="x">380</property>
           <property name="y">0</property>
         </layout>
       </object>
@@ -75,7 +75,7 @@
         <property name="text" translatable="yes">button3</property>
         <layout manager="place">
           <property name="anchor">nw</property>
-          <property name="x">278</property>
+          <property name="x">380</property>
           <property name="y">30</property>
         </layout>
       </object>
@@ -92,32 +92,16 @@
       </object>
     </child>
     <child>
-      <object class="tk.Listbox" id="listbox1">
-        <layout manager="place">
-          <property name="anchor">nw</property>
-          <property name="width">400</property>
-          <property name="x">50</property>
-          <property name="y">65</property>
-        </layout>
-      </object>
-    </child>
-    <child>
-      <object class="ttk.Label" id="label3">
-        <property name="text" translatable="yes">pub</property>
-        <layout manager="place">
-          <property name="anchor">nw</property>
-          <property name="x">0</property>
-          <property name="y">65</property>
-        </layout>
-      </object>
-    </child>
-    <child>
       <object class="tk.Listbox" id="listbox2">
         <layout manager="place">
           <property name="anchor">nw</property>
+          <property name="relheight">0.7</property>
+          <property name="relwidth">0.0</property>
+          <property name="relx">0.0</property>
+          <property name="rely">0.0</property>
           <property name="width">400</property>
           <property name="x">50</property>
-          <property name="y">290</property>
+          <property name="y">120</property>
         </layout>
       </object>
     </child>
@@ -127,7 +111,7 @@
         <layout manager="place">
           <property name="anchor">nw</property>
           <property name="x">0</property>
-          <property name="y">290</property>
+          <property name="y">120</property>
         </layout>
       </object>
     </child>
@@ -137,7 +121,7 @@
         <layout manager="place">
           <property name="anchor">nw</property>
           <property name="x">0</property>
-          <property name="y">250</property>
+          <property name="y">80</property>
         </layout>
       </object>
     </child>
@@ -148,7 +132,7 @@
           <property name="height">25</property>
           <property name="width">80</property>
           <property name="x">50</property>
-          <property name="y">250</property>
+          <property name="y">80</property>
         </layout>
       </object>
     </child>
@@ -157,8 +141,8 @@
         <property name="text" translatable="yes">button3</property>
         <layout manager="place">
           <property name="anchor">nw</property>
-          <property name="x">278</property>
-          <property name="y">250</property>
+          <property name="x">380</property>
+          <property name="y">80</property>
         </layout>
       </object>
     </child>
