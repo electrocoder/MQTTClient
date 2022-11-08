@@ -8,21 +8,14 @@ class MainWindowFrameUI(tk.Frame):
         self.main_window_frame = main_window_frame
         self.main_window_self = main_window_self
 
-        tk.Grid.rowconfigure(self.main_window_frame, 0, weight=1)
-        tk.Grid.rowconfigure(self.main_window_frame, 1, weight=1)
-        tk.Grid.rowconfigure(self.main_window_frame, 2, weight=1)
-        tk.Grid.rowconfigure(self.main_window_frame, 3, weight=1)
-        tk.Grid.columnconfigure(self.main_window_self, 0, weight=1)
-        tk.Grid.columnconfigure(self.main_window_self, 1, weight=1)
-        tk.Grid.columnconfigure(self.main_window_self, 2, weight=1)
-        tk.Grid.columnconfigure(self.main_window_self, 3, weight=1)
-        tk.Grid.columnconfigure(self.main_window_self, 4, weight=1)
+        # tk.Grid.columnconfigure(self.main_window_self, 0, weight=1)
+
 
         row = 0
         column = 0
 
         self.label_broker = tk.Label(self, text="Broker")
-        self.label_broker.grid(row=row, column=column)
+        self.label_broker.grid(row=row, column=column, sticky=tk.W)
         column += 1
         self.entry_broker_text = tk.StringVar(self)
         self.entry_broker = tk.Entry(self, textvariable=self.entry_broker_text)
@@ -69,7 +62,7 @@ class MainWindowFrameUI(tk.Frame):
         self.button_publich_topic = tk.Button(self,
                                               text="Publish",
                                               command=main_window_self.button_publish_topic)
-        self.button_publich_topic.grid(row=row, column=column, sticky="e")
+        self.button_publich_topic.grid(row=row, column=column)
 
         row += 1
         column = 0
@@ -128,3 +121,4 @@ class MainWindowFrameUI(tk.Frame):
         self.status = tk.Label(main_window_self, textvariable=self.status_text,
                                relief=tk.SUNKEN, anchor="w")
         self.status.pack(side=tk.BOTTOM, fill=tk.X)
+
