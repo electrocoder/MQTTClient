@@ -2,13 +2,12 @@ import tkinter as tk
 
 import paho.mqtt.client as mqtt
 
-import subscriber
-from main_window_frame_ui import MainWindowFrameUI
-from config_file import ConfigFile
-
 import about as about
 import new_connect as new_connect
 import open_connect as open_connect
+import subscriber
+from config_file import ConfigFile
+from main_window_frame_ui import MainWindowFrameUI
 
 
 class App(tk.Tk):
@@ -48,7 +47,8 @@ class App(tk.Tk):
         print("button_publish_topic")
         topic = self.main_window_frame_ui.entry_publich_topic_text.get()
         msg = self.main_window_frame_ui.entry_publich_topic_msg_text.get()
-        self.main_window_frame_ui.listbox_message.insert(tk.END, "> {}".format(msg))
+        self.main_window_frame_ui.listbox_message.insert(tk.END,
+                                                         "> {}".format(msg))
         self.main_window_frame_ui.listbox_message.see("end")
         self.sub.publish_start(topic, msg)
 

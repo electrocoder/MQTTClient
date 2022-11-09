@@ -54,7 +54,7 @@ class MainWindowFrameUI(tk.Frame):
         column += 1
         self.entry_publich_topic_msg_text = tk.StringVar(self)
         self.entry_publich_msg_topic = tk.Entry(self,
-                                            textvariable=self.entry_publich_topic_msg_text)
+                                                textvariable=self.entry_publich_topic_msg_text)
         self.entry_publich_msg_topic.grid(row=row, column=column)
 
         column += 1
@@ -91,16 +91,19 @@ class MainWindowFrameUI(tk.Frame):
         # self.listbox_message.grid(row=row, column=column, sticky="NSEW")
         self.listbox_message_scrollbar = tk.Scrollbar(self, orient=tk.VERTICAL)
         self.listbox_message = tk.Listbox(self)
-        self.listbox_message.config(yscrollcommand=self.listbox_message_scrollbar.set)
+        self.listbox_message.config(
+            yscrollcommand=self.listbox_message_scrollbar.set)
         self.listbox_message.grid(
             column=column,
-            columnspan=column+4,
+            columnspan=column + 4,
             ipadx=190,
             row=row,
-            rowspan=row+4,
+            rowspan=row + 4,
             sticky="w")
-        self.listbox_message_scrollbar.config(command=self.listbox_message.yview)
-        self.listbox_message_scrollbar.grid(row=row, column=column+3, sticky=tk.E)
+        self.listbox_message_scrollbar.config(
+            command=self.listbox_message.yview)
+        self.listbox_message_scrollbar.grid(row=row, column=column + 3,
+                                            sticky=tk.E)
 
         # menu
         menubar = tk.Menu(main_window_self)
@@ -127,4 +130,3 @@ class MainWindowFrameUI(tk.Frame):
         self.status = tk.Label(main_window_self, textvariable=self.status_text,
                                relief=tk.SUNKEN, anchor="w")
         self.status.pack(side=tk.BOTTOM, fill=tk.X)
-

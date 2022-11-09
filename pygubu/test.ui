@@ -1,43 +1,43 @@
 <?xml version='1.0' encoding='utf-8'?>
 <interface version="1.3">
-  <object class="tk.Frame" id="frame1">
-    <property name="height">200</property>
-    <property name="width">200</property>
-    <layout manager="grid">
-      <property name="column">0</property>
-      <property name="columnspan">1</property>
-      <property name="row">0</property>
-      <property name="rowspan">1</property>
-    </layout>
-    <child>
-      <object class="tk.Label" id="label1">
-        <property name="text" translatable="yes">label1</property>
+    <object class="tk.Frame" id="frame1">
+        <property name="height">200</property>
+        <property name="width">200</property>
         <layout manager="grid">
-          <property name="column">0</property>
-          <property name="row">0</property>
-          <property name="sticky">nw</property>
+            <property name="column">0</property>
+            <property name="columnspan">1</property>
+            <property name="row">0</property>
+            <property name="rowspan">1</property>
         </layout>
-      </object>
-    </child>
-    <child>
-      <object class="tk.Button" id="button1">
-        <property name="text" translatable="yes">button1</property>
-        <layout manager="grid">
-          <property name="column">1</property>
-          <property name="row">0</property>
-          <property name="sticky">e</property>
-        </layout>
-      </object>
-    </child>
-    <child>
-      <object class="tk.Button" id="button2">
-        <property name="text" translatable="yes">button2</property>
-        <layout manager="grid">
-          <property name="column">0</property>
-          <property name="row">2</property>
-          <property name="sticky">se</property>
-        </layout>
-      </object>
-    </child>
-  </object>
+        <child>
+            <object class="tk.Label" id="label1">
+                <property name="text" translatable="yes">label1</property>
+                <layout manager="grid">
+                    <property name="column">0</property>
+                    <property name="row">0</property>
+                    <property name="sticky">nw</property>
+                </layout>
+            </object>
+        </child>
+        <child>
+            <object class="tk.Button" id="button1">
+                <property name="text" translatable="yes">button1</property>
+                <layout manager="grid">
+                    <property name="column">1</property>
+                    <property name="row">0</property>
+                    <property name="sticky">e</property>
+                </layout>
+            </object>
+        </child>
+        <child>
+            <object class="tk.Button" id="button2">
+                <property name="text" translatable="yes">button2</property>
+                <layout manager="grid">
+                    <property name="column">0</property>
+                    <property name="row">2</property>
+                    <property name="sticky">se</property>
+                </layout>
+            </object>
+        </child>
+    </object>
 </interface>

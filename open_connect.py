@@ -21,7 +21,9 @@ class OpenConnect:
         column += 1
         self.entry_broker_text = tk.StringVar(self.open_connect_window)
         self.entry_broker_text.set(" Select ")
-        self.entry_broker = tk.OptionMenu(self.open_connect_window, self.entry_broker_text, *ConfigFile().read_sections())
+        self.entry_broker = tk.OptionMenu(self.open_connect_window,
+                                          self.entry_broker_text,
+                                          *ConfigFile().read_sections())
         self.entry_broker.grid(row=row, column=column)
 
         row += 1
@@ -29,10 +31,12 @@ class OpenConnect:
         self.button_cancel = tk.Button(self.open_connect_window, text="Cancel")
         self.button_cancel.grid(row=row, column=column)
         column += 1
-        self.button_open = tk.Button(self.open_connect_window, text="Open", command=self.open_connect)
+        self.button_open = tk.Button(self.open_connect_window, text="Open",
+                                     command=self.open_connect)
         self.button_open.grid(row=row, column=column)
 
     def open_connect(self):
-        broker, port, username, password = ConfigFile().read_broker(self.entry_broker_text.get())
+        broker, port, username, password = ConfigFile().read_broker(
+            self.entry_broker_text.get())
         self.main_window_frame_ui.entry_broker_text.set(broker)
         self.open_connect_window.destroy()

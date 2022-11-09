@@ -22,12 +22,11 @@ username_entry.grid(column=1, row=0, sticky=tk.E, padx=5, pady=5)
 password_label = ttk.Label(root, text="Password:")
 password_label.grid(column=0, row=1, sticky=tk.W, padx=5, pady=5)
 
-password_entry = ttk.Entry(root,  show="*")
+password_entry = ttk.Entry(root, show="*")
 password_entry.grid(column=1, row=1, sticky=tk.E, padx=5, pady=5)
 
 # login button
 login_button = ttk.Button(root, text="Login")
 login_button.grid(column=1, row=2, sticky=tk.E, padx=5, pady=5)
-
 
 root.mainloop()
