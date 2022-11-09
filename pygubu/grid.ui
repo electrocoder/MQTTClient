@@ -87,8 +87,12 @@
       <object class="tk.Listbox" id="listbox2">
         <property name="activestyle">dotbox</property>
         <layout manager="grid">
-          <property name="column">1</property>
+          <property name="column">0</property>
+          <property name="columnspan">4</property>
+          <property name="ipadx">190</property>
           <property name="row">3</property>
+          <property name="rowspan">3</property>
+          <property name="sticky">w</property>
         </layout>
       </object>
     </child>
@@ -124,6 +128,7 @@
         <bind sequence="&lt;MouseWheel&gt;" handler="callback" add="" />
         <layout manager="grid">
           <property name="column">2</property>
+          <property name="columnspan">3</property>
           <property name="row">3</property>
           <property name="sticky">e</property>
         </layout>

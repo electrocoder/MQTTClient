@@ -3,9 +3,6 @@ import tkinter as tk
 
 class Subscriber:
     def __init__(self, main_window_frame_ui, client):
-        self.topic = "timestamp"
-        self.sid = 0
-
         self.client = client
         self.main_window_frame_ui = main_window_frame_ui
 
@@ -23,13 +20,12 @@ class Subscriber:
 
     def on_message(self, client, userdata, msg):
         print(
-            msg.topic + " " + msg.payload.decode('utf8') + " " + str(self.sid))
+            msg.topic + " " + msg.payload.decode('utf8'))
         print("")
-        self.sid += 1
-        self.main_window_frame_ui.listbox_subscribe.insert(tk.END,
-                                                           msg.payload.decode(
-                                                               'utf8'))
-        self.main_window_frame_ui.listbox_subscribe.see("end")
+        self.main_window_frame_ui.listbox_message.insert(tk.END,
+                                                         msg.payload.decode(
+                                                             'utf8'))
+        self.main_window_frame_ui.listbox_message.see("end")
 
     def connect_start(self, broker, port, username, password):
         self.client.username_pw_set(username, password)

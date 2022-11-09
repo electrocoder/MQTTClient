@@ -10,7 +10,6 @@ class MainWindowFrameUI(tk.Frame):
 
         # tk.Grid.columnconfigure(self.main_window_self, 0, weight=1)
 
-
         row = 0
         column = 0
 
@@ -33,14 +32,14 @@ class MainWindowFrameUI(tk.Frame):
         self.button_disconnect = tk.Button(self,
                                            text="Disconnect",
                                            command=main_window_self.button_disconnect)
-        self.button_disconnect.grid(row=row, column=column)
+        self.button_disconnect.grid(row=row, column=column, sticky=tk.W)
 
         row += 1
         column = 0
 
         # publich topic
         self.label_publich_topic = tk.Label(self, text="Publish Topic")
-        self.label_publich_topic.grid(row=row, column=column)
+        self.label_publich_topic.grid(row=row, column=column, sticky=tk.W)
 
         column += 1
         self.entry_publich_topic_text = tk.StringVar(self)
@@ -69,7 +68,8 @@ class MainWindowFrameUI(tk.Frame):
 
         # subscribe topic
         self.label_subscribe_topic = tk.Label(self, text="Subscribe Topic")
-        self.label_subscribe_topic.grid(row=row, column=column)
+        self.label_subscribe_topic.grid(row=row, column=column, sticky=tk.W)
+        self.label_subscribe_topic.grid(row=row, column=column, sticky=tk.W)
 
         column += 1
         self.entry_subscribe_topic_text = tk.StringVar(self)
@@ -87,14 +87,20 @@ class MainWindowFrameUI(tk.Frame):
         column = 0
 
         # subscribe list
-        self.listbox_subscribe = tk.Listbox(self)
-        self.listbox_subscribe.grid(row=row, column=column, sticky="NSEW")
-        # self.listbox_subscribe_scrollbar = tk.Scrollbar(self, orient=tk.VERTICAL)
-        # self.listbox_subscribe = tk.Listbox(self, width=20, height=10)
-        # self.listbox_subscribe.config(yscrollcommand=self.listbox_subscribe_scrollbar.set)
-        # self.listbox_subscribe.grid(row=row, column=column)
-        # self.listbox_subscribe_scrollbar.config(command=self.listbox_subscribe.yview)
-        # self.listbox_subscribe_scrollbar.grid(row=row, column=column+1, sticky='ns')
+        # self.listbox_message = tk.Listbox(self)
+        # self.listbox_message.grid(row=row, column=column, sticky="NSEW")
+        self.listbox_message_scrollbar = tk.Scrollbar(self, orient=tk.VERTICAL)
+        self.listbox_message = tk.Listbox(self)
+        self.listbox_message.config(yscrollcommand=self.listbox_message_scrollbar.set)
+        self.listbox_message.grid(
+            column=column,
+            columnspan=column+4,
+            ipadx=190,
+            row=row,
+            rowspan=row+4,
+            sticky="w")
+        self.listbox_message_scrollbar.config(command=self.listbox_message.yview)
+        self.listbox_message_scrollbar.grid(row=row, column=column+3, sticky=tk.E)
 
         # menu
         menubar = tk.Menu(main_window_self)
