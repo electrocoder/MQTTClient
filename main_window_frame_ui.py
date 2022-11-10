@@ -121,7 +121,7 @@ class MainWindowFrameUI(tk.Frame):
         menubar.add_cascade(label="Connect", menu=menu_connect)
 
         menu_help = tk.Menu(menubar, tearoff=0)
-        menu_help.add_command(label='Help')
+        menu_help.add_command(label='Help', command=self.main_window_self.help)
         menu_help.add_command(label='About',
                               command=self.main_window_self.about_window)
         menubar.add_cascade(label="Help", menu=menu_help)

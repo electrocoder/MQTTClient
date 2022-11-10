@@ -1,4 +1,5 @@
 import tkinter as tk
+import webbrowser
 from tkinter import messagebox
 
 import paho.mqtt.client as mqtt
@@ -70,6 +71,9 @@ class App(tk.Tk):
 
     def about_window(self):
         about.AboutWindow(self.master)
+
+    def help(self):
+        webbrowser.open_new_tab("https://github.com/electrocoder/MQTTClient")
 
     def new_connect_window(self):
         new_connect.NewConnect(self.master)
