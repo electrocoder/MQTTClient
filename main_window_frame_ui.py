@@ -30,7 +30,8 @@ class MainWindowFrameUI(tk.Frame):
         column += 1
 
         self.button_disconnect = tk.Button(self,
-                                           text="Disconnect", state=tk.DISABLED,
+                                           text="Disconnect",
+                                           state=tk.DISABLED,
                                            command=main_window_self.button_disconnect)
         self.button_disconnect.grid(row=row, column=column, sticky=tk.W)
 
@@ -80,6 +81,7 @@ class MainWindowFrameUI(tk.Frame):
         column += 1
         self.button_subscribe_topic = tk.Button(self,
                                                 text="Subscribe",
+                                                state=tk.DISABLED,
                                                 command=main_window_self.button_subscribe_topic)
         self.button_subscribe_topic.grid(row=row, column=column)
 
@@ -96,14 +98,14 @@ class MainWindowFrameUI(tk.Frame):
         self.listbox_message.grid(
             column=column,
             columnspan=column + 4,
-            ipadx=190,
+            ipadx=220,
             row=row,
             rowspan=row + 4,
             sticky="w")
         self.listbox_message_scrollbar.config(
             command=self.listbox_message.yview)
-        self.listbox_message_scrollbar.grid(row=row, column=column + 3,
-                                            sticky=tk.E)
+        self.listbox_message_scrollbar.grid(row=row, column=column + 4,
+                                            ipady=70)
 
         # menu
         menubar = tk.Menu(main_window_self)
@@ -127,8 +129,9 @@ class MainWindowFrameUI(tk.Frame):
         # status bar
         self.connect_status_text = tk.StringVar()
         self.connect_status_text.set("...")
-        self.connect_status = tk.Label(main_window_self, textvariable=self.connect_status_text,
-                               relief=tk.SUNKEN, anchor="w")
+        self.connect_status = tk.Label(main_window_self,
+                                       textvariable=self.connect_status_text,
+                                       relief=tk.SUNKEN, anchor="w")
         self.connect_status.pack(side=tk.BOTTOM, fill=tk.X)
 
         # self.publish_count_text = tk.StringVar()

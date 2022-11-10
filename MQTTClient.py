@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 
 import paho.mqtt.client as mqtt
 
@@ -15,7 +16,7 @@ class App(tk.Tk):
         super().__init__()
 
         self.title('MQTT Client')
-        self.geometry('700x400')
+        self.geometry('700x300')
 
         self.main_window_frame = tk.Frame()
         self.main_window_frame.pack()
@@ -29,14 +30,19 @@ class App(tk.Tk):
 
     def button_connect(self):
         print("button_connect")
-        broker, port, username, password = ConfigFile().read_broker(
-            self.main_window_frame_ui.entry_broker_text.get())
-        print(broker, port, username, password)
-        if self.sub.connect_start(broker, port, username, password):
-            self.main_window_frame_ui.connect_status_text.set("Connected")
-            self.main_window_frame_ui.button_connect["state"] = tk.DISABLED
-            self.main_window_frame_ui.button_connect["text"] = "Connected"
-            self.main_window_frame_ui.button_disconnect["state"] = tk.NORMAL
+        if self.main_window_frame_ui.entry_broker_text.get():
+            broker, port, username, password = ConfigFile().read_broker(
+                self.main_window_frame_ui.entry_broker_text.get())
+            print(broker, port, username, password)
+            if self.sub.connect_start(broker, port, username, password):
+                self.main_window_frame_ui.connect_status_text.set("Connected")
+                self.main_window_frame_ui.button_connect["state"] = tk.DISABLED
+                self.main_window_frame_ui.button_connect["text"] = "Connected"
+                self.main_window_frame_ui.button_disconnect["state"] = tk.NORMAL
+                self.main_window_frame_ui.button_subscribe_topic["state"] = tk.NORMAL
+                self.main_window_frame_ui.button_publich_topic["state"] = tk.NORMAL
+        else:
+            messagebox.showerror("showerror", "Please select broker.")
 
     def button_disconnect(self):
         print("button_disconnect")
@@ -45,6 +51,8 @@ class App(tk.Tk):
             self.main_window_frame_ui.button_connect["state"] = tk.NORMAL
             self.main_window_frame_ui.button_connect["text"] = "Connect"
             self.main_window_frame_ui.button_disconnect["state"] = tk.DISABLED
+            self.main_window_frame_ui.button_subscribe_topic["state"] = tk.DISABLED
+            self.main_window_frame_ui.button_publich_topic["state"] = tk.DISABLED
 
     def button_subscribe_topic(self):
         print("button_subscribe_topic")
