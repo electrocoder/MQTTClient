@@ -8,8 +8,6 @@ class MainWindowFrameUI(tk.Frame):
         self.main_window_frame = main_window_frame
         self.main_window_self = main_window_self
 
-        # tk.Grid.columnconfigure(self.main_window_self, 0, weight=1)
-
         row = 0
         column = 0
 
@@ -89,8 +87,6 @@ class MainWindowFrameUI(tk.Frame):
         column = 0
 
         # subscribe list
-        # self.listbox_message = tk.Listbox(self)
-        # self.listbox_message.grid(row=row, column=column, sticky="NSEW")
         self.listbox_message_scrollbar = tk.Scrollbar(self, orient=tk.VERTICAL)
         self.listbox_message = tk.Listbox(self)
         self.listbox_message.config(
@@ -133,9 +129,3 @@ class MainWindowFrameUI(tk.Frame):
                                        textvariable=self.connect_status_text,
                                        relief=tk.SUNKEN, anchor="w")
         self.connect_status.pack(side=tk.BOTTOM, fill=tk.X)
-
-        # self.publish_count_text = tk.StringVar()
-        # self.publish_count_text.set("...")
-        # self.publish_count = tk.Label(main_window_self, textvariable=self.publish_count_text,
-        #                        relief=tk.SUNKEN, anchor="w")
-        # self.publish_count.pack(side=tk.BOTTOM, fill=tk.X)

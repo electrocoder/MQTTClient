@@ -28,7 +28,8 @@ class OpenConnect:
 
         row += 1
         column = 0
-        self.button_cancel = tk.Button(self.open_connect_window, text="Cancel", command=self.cancel)
+        self.button_cancel = tk.Button(self.open_connect_window, text="Cancel",
+                                       command=self.cancel)
         self.button_cancel.grid(row=row, column=column)
         column += 1
         self.button_open = tk.Button(self.open_connect_window, text="Open",
@@ -43,4 +44,3 @@ class OpenConnect:
 
     def cancel(self):
         self.open_connect_window.destroy()
-

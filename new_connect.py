@@ -61,7 +61,8 @@ class NewConnect:
 
         row += 1
         column = 0
-        self.button_cancel = tk.Button(self.new_connect_window, text="Cancel", command=self.cancel)
+        self.button_cancel = tk.Button(self.new_connect_window, text="Cancel",
+                                       command=self.cancel)
         self.button_cancel.grid(row=row, column=column)
         column += 1
         self.button_save = tk.Button(self.new_connect_window, text="Save",
