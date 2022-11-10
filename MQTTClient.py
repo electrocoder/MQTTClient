@@ -39,9 +39,12 @@ class App(tk.Tk):
                 self.main_window_frame_ui.connect_status_text.set("Connected")
                 self.main_window_frame_ui.button_connect["state"] = tk.DISABLED
                 self.main_window_frame_ui.button_connect["text"] = "Connected"
-                self.main_window_frame_ui.button_disconnect["state"] = tk.NORMAL
-                self.main_window_frame_ui.button_subscribe_topic["state"] = tk.NORMAL
-                self.main_window_frame_ui.button_publich_topic["state"] = tk.NORMAL
+                self.main_window_frame_ui.button_disconnect[
+                    "state"] = tk.NORMAL
+                self.main_window_frame_ui.button_subscribe_topic[
+                    "state"] = tk.NORMAL
+                self.main_window_frame_ui.button_publich_topic[
+                    "state"] = tk.NORMAL
         else:
             messagebox.showerror("showerror", "Please select broker.")
 
@@ -52,8 +55,10 @@ class App(tk.Tk):
             self.main_window_frame_ui.button_connect["state"] = tk.NORMAL
             self.main_window_frame_ui.button_connect["text"] = "Connect"
             self.main_window_frame_ui.button_disconnect["state"] = tk.DISABLED
-            self.main_window_frame_ui.button_subscribe_topic["state"] = tk.DISABLED
-            self.main_window_frame_ui.button_publich_topic["state"] = tk.DISABLED
+            self.main_window_frame_ui.button_subscribe_topic[
+                "state"] = tk.DISABLED
+            self.main_window_frame_ui.button_publich_topic[
+                "state"] = tk.DISABLED
 
     def button_subscribe_topic(self):
         print("button_subscribe_topic")
@@ -84,5 +89,8 @@ class App(tk.Tk):
 
 if __name__ == "__main__":
     app = App()
+
+    photo = tk.PhotoImage(file='icon.png')
+    app.wm_iconphoto(False, photo)
 
     app.mainloop()
