@@ -11,7 +11,7 @@ class NewConnect:
         self.new_connect_window.grab_set()
         self.new_connect_window.title("MQTT Client New Connect")
 
-        self.new_connect_window.geometry("400x300")
+        self.new_connect_window.geometry("300x200")
 
         row = 0
         column = 0
@@ -61,7 +61,7 @@ class NewConnect:
 
         row += 1
         column = 0
-        self.button_cancel = tk.Button(self.new_connect_window, text="Cancel")
+        self.button_cancel = tk.Button(self.new_connect_window, text="Cancel", command=self.cancel)
         self.button_cancel.grid(row=row, column=column)
         column += 1
         self.button_save = tk.Button(self.new_connect_window, text="Save",
@@ -73,4 +73,7 @@ class NewConnect:
                                  self.entry_port_text.get(),
                                  self.entry_username_text.get(),
                                  self.entry_password_text.get())
+        self.new_connect_window.destroy()
+
+    def cancel(self):
         self.new_connect_window.destroy()

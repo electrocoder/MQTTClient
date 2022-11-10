@@ -30,7 +30,7 @@ class MainWindowFrameUI(tk.Frame):
         column += 1
 
         self.button_disconnect = tk.Button(self,
-                                           text="Disconnect",
+                                           text="Disconnect", state=tk.DISABLED,
                                            command=main_window_self.button_disconnect)
         self.button_disconnect.grid(row=row, column=column, sticky=tk.W)
 

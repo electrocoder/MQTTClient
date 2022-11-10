@@ -30,10 +30,11 @@ class Subscriber:
     def connect_start(self, broker, port, username, password):
         self.client.username_pw_set(username, password)
         self.client.connect(broker, int(port), 60)
-        self.main_window_frame_ui.status_text.set("Ready")
+        return True
 
     def connect_stop(self):
         self.client.disconnect()
+        return True
 
     def subscribe_start(self, topic):
         self.client.subscribe(topic, qos=0)

@@ -32,11 +32,19 @@ class App(tk.Tk):
         broker, port, username, password = ConfigFile().read_broker(
             self.main_window_frame_ui.entry_broker_text.get())
         print(broker, port, username, password)
-        self.sub.connect_start(broker, port, username, password)
+        if self.sub.connect_start(broker, port, username, password):
+            self.main_window_frame_ui.status_text.set("Connected")
+            self.main_window_frame_ui.button_connect["state"] = tk.DISABLED
+            self.main_window_frame_ui.button_connect["text"] = "Connected"
+            self.main_window_frame_ui.button_disconnect["state"] = tk.NORMAL
 
     def button_disconnect(self):
         print("button_disconnect")
-        self.sub.connect_stop()
+        if self.sub.connect_stop():
+            self.main_window_frame_ui.status_text.set("Disconnect")
+            self.main_window_frame_ui.button_connect["state"] = tk.NORMAL
+            self.main_window_frame_ui.button_connect["text"] = "Connect"
+            self.main_window_frame_ui.button_disconnect["state"] = tk.DISABLED
 
     def button_subscribe_topic(self):
         print("button_subscribe_topic")

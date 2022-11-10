@@ -11,7 +11,7 @@ class OpenConnect:
         self.open_connect_window.grab_set()
         self.open_connect_window.title("MQTT Client Open Connect")
 
-        self.open_connect_window.geometry("400x300")
+        self.open_connect_window.geometry("350x200")
 
         row = 0
         column = 0
@@ -28,7 +28,7 @@ class OpenConnect:
 
         row += 1
         column = 0
-        self.button_cancel = tk.Button(self.open_connect_window, text="Cancel")
+        self.button_cancel = tk.Button(self.open_connect_window, text="Cancel", command=self.cancel)
         self.button_cancel.grid(row=row, column=column)
         column += 1
         self.button_open = tk.Button(self.open_connect_window, text="Open",
@@ -40,3 +40,7 @@ class OpenConnect:
             self.entry_broker_text.get())
         self.main_window_frame_ui.entry_broker_text.set(broker)
         self.open_connect_window.destroy()
+
+    def cancel(self):
+        self.open_connect_window.destroy()
+
