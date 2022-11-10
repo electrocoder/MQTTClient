@@ -7,6 +7,7 @@ import paho.mqtt.client as mqtt
 import about as about
 import new_connect as new_connect
 import open_connect as open_connect
+import search as search
 import subscriber
 from config_file import ConfigFile
 from main_window_frame_ui import MainWindowFrameUI
@@ -45,6 +46,8 @@ class App(tk.Tk):
                     "state"] = tk.NORMAL
                 self.main_window_frame_ui.button_publich_topic[
                     "state"] = tk.NORMAL
+                self.main_window_frame_ui.button_search[
+                    "state"] = tk.NORMAL
         else:
             messagebox.showerror("showerror", "Please select broker.")
 
@@ -64,6 +67,9 @@ class App(tk.Tk):
         print("button_subscribe_topic")
         self.sub.subscribe_start(
             self.main_window_frame_ui.entry_subscribe_topic_text.get())
+    def search(self):
+        print("search")
+        search.SearchWindow(self.master)
 
     def button_publish_topic(self):
         print("button_publish_topic")

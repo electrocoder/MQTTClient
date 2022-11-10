@@ -83,6 +83,13 @@ class MainWindowFrameUI(tk.Frame):
                                                 command=main_window_self.button_subscribe_topic)
         self.button_subscribe_topic.grid(row=row, column=column)
 
+        column += 1
+        self.button_search = tk.Button(self,
+                                                text="Search",
+                                                state=tk.DISABLED,
+                                                command=main_window_self.search)
+        self.button_search.grid(row=row, column=column)
+
         row += 1
         column = 0
 
