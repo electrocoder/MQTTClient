@@ -12,11 +12,11 @@ class Subscriber:
 
     def on_connect(self, client, userdata, flags, rc):
         print("Connected with result code " + str(rc))
-        self.main_window_frame_ui.status_text.set("Connected")
+        self.main_window_frame_ui.connect_status_text.set("Connected")
 
     def on_disconnect(self, client, userdata, rc):
         print("disconnet...")
-        self.main_window_frame_ui.status_text.set("Disconnect")
+        self.main_window_frame_ui.connect_status_text.set("Disconnect")
 
     def on_message(self, client, userdata, msg):
         print(

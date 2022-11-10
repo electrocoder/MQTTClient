@@ -125,8 +125,14 @@ class MainWindowFrameUI(tk.Frame):
         menubar.add_cascade(label="Help", menu=menu_help)
 
         # status bar
-        self.status_text = tk.StringVar()
-        self.status_text.set("...")
-        self.status = tk.Label(main_window_self, textvariable=self.status_text,
+        self.connect_status_text = tk.StringVar()
+        self.connect_status_text.set("...")
+        self.connect_status = tk.Label(main_window_self, textvariable=self.connect_status_text,
                                relief=tk.SUNKEN, anchor="w")
-        self.status.pack(side=tk.BOTTOM, fill=tk.X)
+        self.connect_status.pack(side=tk.BOTTOM, fill=tk.X)
+
+        # self.publish_count_text = tk.StringVar()
+        # self.publish_count_text.set("...")
+        # self.publish_count = tk.Label(main_window_self, textvariable=self.publish_count_text,
+        #                        relief=tk.SUNKEN, anchor="w")
+        # self.publish_count.pack(side=tk.BOTTOM, fill=tk.X)
