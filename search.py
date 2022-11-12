@@ -12,17 +12,16 @@ class SearchWindow:
         self.search_window.title("MQTT Client Search")
         self.search_window.protocol("WM_DELETE_WINDOW", self.on_closing)
 
-        self.search_window.geometry("400x400")
-
         self.subscriber = subscriber
         self.search = False
         self.thread = Thread(target=self.work)
+        self.search_count = 0
 
         row = 0
         column = 0
 
-        self.label_broker = tk.Label(self.search_window, text="Search", font=font_size)
-        self.label_broker.grid(row=row, column=column)
+        self.label_search = tk.Label(self.search_window, text="Search", font=font_size)
+        self.label_search.grid(row=row, column=column)
         column += 1
         self.entry_broker_text = tk.StringVar(self.search_window)
         self.entry_broker = tk.Entry(self.search_window, font=font_size,
@@ -37,17 +36,34 @@ class SearchWindow:
 
         row += 1
         column = 0
-        self.button_cancel = tk.Button(self.search_window, text="Cancel", font=font_size,
-                                       command=self.cancel)
-        self.button_cancel.grid(row=row, column=column)
+
+        # subscribe list
+        self.listbox_message_scrollbar = tk.Scrollbar(self.search_window, orient=tk.VERTICAL)
+        self.listbox_message = tk.Listbox(self.search_window, font=font_size)
+        self.listbox_message.config(
+            yscrollcommand=self.listbox_message_scrollbar.set)
+        self.listbox_message.grid(
+            column=column,
+            columnspan=column + 2,
+            ipadx=220,
+            row=row,
+            rowspan=row + 1,
+            sticky="w")
+        self.listbox_message_scrollbar.config(
+            command=self.listbox_message.yview)
+        self.listbox_message_scrollbar.grid(row=row, column=column + 2,
+                                            ipady=70)
+
+        row += 2
+        column = 0
+
+        self.label_search_text = tk.Label(self.search_window, text="...", font=font_size)
+        self.label_search_text.grid(row=row, column=column)
+
 
     def on_closing(self):
         print("on_closing")
         self.search = False
-        self.search_window.after(0, self.cancel())
-
-    def cancel(self):
-        print("cancel")
         self.search_window.destroy()
 
     def threading(self):
@@ -57,5 +73,11 @@ class SearchWindow:
 
     def work(self):
         while self.search:
-            print("sssssssss", self.subscriber.get_message())
-
+            text = self.entry_broker_text.get()
+            if text:
+                message = self.subscriber.get_message()
+                if text in str(message):
+                    self.search_count += 1
+                    self.label_search_text["text"] = "Search: {} Find: {}".format(text, self.search_count)
+                    self.listbox_message.insert(tk.END, "{}".format(message))
+                    self.listbox_message.see("end")
