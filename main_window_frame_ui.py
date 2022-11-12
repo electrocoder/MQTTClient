@@ -76,6 +76,7 @@ class MainWindowFrameUI(tk.Frame):
         self.entry_subscribe_topic = tk.Entry(self,
                                               textvariable=self.entry_subscribe_topic_text, font=font_size)
         self.entry_subscribe_topic.grid(row=row, column=column)
+        self.entry_subscribe_topic_text.set('#')
 
         column += 1
         self.button_subscribe_topic = tk.Button(self,

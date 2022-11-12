@@ -13,6 +13,9 @@ class Subscriber:
         self.on_message_count = 0
         self.publish_message_count = 0
 
+        self.topic = None
+        self.message = None
+
     def on_connect(self, client, userdata, flags, rc):
         print("Connected with result code " + str(rc))
         self.main_window_frame_ui.connect_status_text.set(
@@ -26,20 +29,22 @@ class Subscriber:
             self.on_message_count, self.publish_message_count))
 
     def on_message(self, client, userdata, msg):
-        print(
-            msg.topic + " " + msg.payload.decode('utf8'))
-        print("")
+        # print(
+        #     msg.topic + " " + msg.payload.decode('utf8'))
+        # print("")
+        self.topic = msg.topic
+        self.message = msg.payload.decode('utf8')
         self.main_window_frame_ui.listbox_message.insert(tk.END,
                                                          "{} {} {}".format(
                                                              self.on_message_count,
-                                                             msg.topic,
-                                                             msg.payload.decode(
-                                                                 'utf8')))
+                                                             self.topic,
+                                                             self.message))
         self.main_window_frame_ui.listbox_message.see("end")
         self.on_message_count += 1
         self.main_window_frame_ui.connect_status_text.set(
             "Connected | Message: %s | Publish: %s" % (
             self.on_message_count, self.publish_message_count))
+        self.get_message()
 
     def connect_start(self, broker, port, username, password):
         self.client.username_pw_set(username, password)
@@ -57,3 +62,6 @@ class Subscriber:
     def publish_start(self, topic, msg):
         self.client.publish(topic, msg)
         self.publish_message_count += 1
+
+    def get_message(self):
+        return self.topic, self.message

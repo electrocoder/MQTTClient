@@ -1,19 +1,36 @@
 import tkinter as tk
-import tkinter.font as tkFont
+from tkinter import ttk
 
-root = tk.Tk()
-root.geometry('300x200')
 
-helv36 = tkFont.Font(family='Helvetica', size=36)
-options = 'eggs spam toast'.split()
-selected = tk.StringVar(root, value=options[0])
+class Window(tk.Toplevel):
+    def __init__(self, parent):
+        super().__init__(parent)
 
-choose_test = tk.OptionMenu(root, selected, *options)
-choose_test.config(font=helv36) # set the button font
+        self.geometry('300x100')
+        self.title('Toplevel Window')
 
-helv20 = tkFont.Font(family='Helvetica', size=20)
-menu = root.nametowidget(choose_test.menuname)  # Get menu widget.
-menu.config(font=helv20)  # Set the dropdown menu's font
-choose_test.grid(row=0, column=0, sticky='nsew')
+        ttk.Button(self,
+                text='Close',
+                command=self.destroy).pack(expand=True)
 
-root.mainloop()
+
+class App(tk.Tk):
+    def __init__(self):
+        super().__init__()
+
+        self.geometry('300x200')
+        self.title('Main Window')
+
+        # place a button on the root window
+        ttk.Button(self,
+                text='Open a window',
+                command=self.open_window).pack(expand=True)
+
+    def open_window(self):
+        window = Window(self)
+        window.grab_set()
+
+
+if __name__ == "__main__":
+    app = App()
+    app.mainloop()

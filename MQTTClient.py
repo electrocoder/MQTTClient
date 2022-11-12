@@ -30,7 +30,7 @@ class App(tk.Tk):
                                                       self, font_size=self.text_font)
         self.main_window_frame_ui.pack()
 
-        self.sub = subscriber.Subscriber(self.main_window_frame_ui,
+        self.subscriber = subscriber.Subscriber(self.main_window_frame_ui,
                                          mqtt.Client())
 
     def button_connect(self):
@@ -39,7 +39,7 @@ class App(tk.Tk):
             broker, port, username, password = ConfigFile().read_broker(
                 self.main_window_frame_ui.entry_broker_text.get())
             print(broker, port, username, password)
-            if self.sub.connect_start(broker, port, username, password):
+            if self.subscriber.connect_start(broker, port, username, password):
                 self.main_window_frame_ui.connect_status_text.set("Connected")
                 self.main_window_frame_ui.button_connect["state"] = tk.DISABLED
                 self.main_window_frame_ui.button_connect["text"] = "Connected"
@@ -56,7 +56,7 @@ class App(tk.Tk):
 
     def button_disconnect(self):
         print("button_disconnect")
-        if self.sub.connect_stop():
+        if self.subscriber.connect_stop():
             self.main_window_frame_ui.connect_status_text.set("Disconnect")
             self.main_window_frame_ui.button_connect["state"] = tk.NORMAL
             self.main_window_frame_ui.button_connect["text"] = "Connect"
@@ -68,11 +68,13 @@ class App(tk.Tk):
 
     def button_subscribe_topic(self):
         print("button_subscribe_topic")
-        self.sub.subscribe_start(
+        self.subscriber.subscribe_start(
             self.main_window_frame_ui.entry_subscribe_topic_text.get())
+
     def search(self):
         print("search")
-        search.SearchWindow(self.master, self.text_font)
+        # search.SearchWindow(self.text_font, self.subscriber)
+        search.Window(self, self.text_font, self.subscriber)
 
     def button_publish_topic(self):
         print("button_publish_topic")
@@ -81,7 +83,7 @@ class App(tk.Tk):
         self.main_window_frame_ui.listbox_message.insert(tk.END,
                                                          "> {}".format(msg))
         self.main_window_frame_ui.listbox_message.see("end")
-        self.sub.publish_start(topic, msg)
+        self.subscriber.publish_start(topic, msg)
 
     def about_window(self):
         about.AboutWindow(self.master, self.text_font)
