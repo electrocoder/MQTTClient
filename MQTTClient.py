@@ -73,8 +73,7 @@ class App(tk.Tk):
 
     def search(self):
         print("search")
-        # search.SearchWindow(self.text_font, self.subscriber)
-        search.Window(self, self.text_font, self.subscriber)
+        search.SearchWindow(self.master, self.text_font, self.subscriber)
 
     def button_publish_topic(self):
         print("button_publish_topic")

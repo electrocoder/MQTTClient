@@ -3,32 +3,11 @@ import tkinter as tk
 from threading import Thread
 
 
-class Window(tk.Toplevel):
-    def __init__(self, parent, font_size, subscriber):
-        super().__init__(parent)
-
-        self.geometry('300x100')
-        self.title('Toplevel Window')
-
-        self.thread = Thread(target=self.work)
-        self.subscriber = subscriber
-
-        tk.Button(self,
-                text='Close',
-                command=self.threading).pack(expand=True)
-
-    def threading(self):
-        self.thread.daemon = True
-        self.thread.start()
-
-    def work(self):
-        while True:
-            print("sssssssss", self.subscriber.get_message())
-
 class SearchWindow:
-    def __init__(self, font_size, subscriber):
+    def __init__(self, main_window_frame_ui, font_size, subscriber):
+        self.main_window_frame_ui = main_window_frame_ui
 
-        self.search_window = tk.Toplevel()
+        self.search_window = tk.Toplevel(self.main_window_frame_ui)
         self.search_window.grab_set()
         self.search_window.title("MQTT Client Search")
         self.search_window.protocol("WM_DELETE_WINDOW", self.on_closing)
@@ -64,6 +43,7 @@ class SearchWindow:
 
     def on_closing(self):
         print("on_closing")
+        self.search = False
         self.search_window.after(0, self.cancel())
 
     def cancel(self):
@@ -71,10 +51,11 @@ class SearchWindow:
         self.search_window.destroy()
 
     def threading(self):
+        self.search = True
         self.thread.daemon = True
         self.thread.start()
 
     def work(self):
-        while True:
+        while self.search:
             print("sssssssss", self.subscriber.get_message())
 
