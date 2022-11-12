@@ -1,4 +1,3 @@
-import time
 import tkinter as tk
 from threading import Thread
 
@@ -20,7 +19,8 @@ class SearchWindow:
         row = 0
         column = 0
 
-        self.label_search = tk.Label(self.search_window, text="Search", font=font_size)
+        self.label_search = tk.Label(self.search_window, text="Search",
+                                     font=font_size)
         self.label_search.grid(row=row, column=column)
         column += 1
         self.entry_broker_text = tk.StringVar(self.search_window)
@@ -30,7 +30,8 @@ class SearchWindow:
 
         column += 1
 
-        self.button_search = tk.Button(self.search_window, text="Search", font=font_size,
+        self.button_search = tk.Button(self.search_window, text="Search",
+                                       font=font_size,
                                        command=self.threading)
         self.button_search.grid(row=row, column=column)
 
@@ -38,7 +39,8 @@ class SearchWindow:
         column = 0
 
         # subscribe list
-        self.listbox_message_scrollbar = tk.Scrollbar(self.search_window, orient=tk.VERTICAL)
+        self.listbox_message_scrollbar = tk.Scrollbar(self.search_window,
+                                                      orient=tk.VERTICAL)
         self.listbox_message = tk.Listbox(self.search_window, font=font_size)
         self.listbox_message.config(
             yscrollcommand=self.listbox_message_scrollbar.set)
@@ -57,9 +59,9 @@ class SearchWindow:
         row += 2
         column = 0
 
-        self.label_search_text = tk.Label(self.search_window, text="...", font=font_size)
+        self.label_search_text = tk.Label(self.search_window, text="...",
+                                          font=font_size)
         self.label_search_text.grid(row=row, column=column)
-
 
     def on_closing(self):
         print("on_closing")
@@ -78,6 +80,8 @@ class SearchWindow:
                 message = self.subscriber.get_message()
                 if text in str(message):
                     self.search_count += 1
-                    self.label_search_text["text"] = "Search: {} Find: {}".format(text, self.search_count)
+                    self.label_search_text[
+                        "text"] = "Search: {} Find: {}".format(text,
+                                                               self.search_count)
                     self.listbox_message.insert(tk.END, "{}".format(message))
                     self.listbox_message.see("end")
