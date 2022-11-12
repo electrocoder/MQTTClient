@@ -4,19 +4,17 @@ from config_file import ConfigFile
 
 
 class OpenConnect:
-    def __init__(self, main_window_frame_ui):
+    def __init__(self, main_window_frame_ui, font_size):
         self.main_window_frame_ui = main_window_frame_ui
 
         self.open_connect_window = tk.Toplevel(self.main_window_frame_ui)
         self.open_connect_window.grab_set()
         self.open_connect_window.title("MQTT Client Open Connect")
 
-        self.open_connect_window.geometry("350x200")
-
         row = 0
         column = 0
 
-        self.label_broker = tk.Label(self.open_connect_window, text="Broker")
+        self.label_broker = tk.Label(self.open_connect_window, text="Broker", font=font_size)
         self.label_broker.grid(row=row, column=column)
         column += 1
         self.entry_broker_text = tk.StringVar(self.open_connect_window)
@@ -24,15 +22,18 @@ class OpenConnect:
         self.entry_broker = tk.OptionMenu(self.open_connect_window,
                                           self.entry_broker_text,
                                           *ConfigFile().read_sections())
+        self.entry_broker.config(font=font_size)
+        menu = self.open_connect_window.nametowidget(self.entry_broker.menuname)
+        menu.config(font=font_size)
         self.entry_broker.grid(row=row, column=column)
 
         row += 1
         column = 0
-        self.button_cancel = tk.Button(self.open_connect_window, text="Cancel",
+        self.button_cancel = tk.Button(self.open_connect_window, text="Cancel", font=font_size,
                                        command=self.cancel)
         self.button_cancel.grid(row=row, column=column)
         column += 1
-        self.button_open = tk.Button(self.open_connect_window, text="Open",
+        self.button_open = tk.Button(self.open_connect_window, text="Open", font=font_size,
                                      command=self.open_connect)
         self.button_open.grid(row=row, column=column)
 

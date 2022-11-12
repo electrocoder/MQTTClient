@@ -1,6 +1,7 @@
 import tkinter as tk
 import webbrowser
 from tkinter import messagebox
+from tkinter.font import Font
 
 import paho.mqtt.client as mqtt
 
@@ -18,13 +19,15 @@ class App(tk.Tk):
         super().__init__()
 
         self.title('MQTT Client')
-        self.geometry('700x300')
+        self.geometry('700x350')
+
+        self.text_font = Font(size=12)
 
         self.main_window_frame = tk.Frame()
         self.main_window_frame.pack()
 
         self.main_window_frame_ui = MainWindowFrameUI(self.main_window_frame,
-                                                      self, height=35)
+                                                      self, font_size=self.text_font)
         self.main_window_frame_ui.pack()
 
         self.sub = subscriber.Subscriber(self.main_window_frame_ui,
@@ -69,7 +72,7 @@ class App(tk.Tk):
             self.main_window_frame_ui.entry_subscribe_topic_text.get())
     def search(self):
         print("search")
-        search.SearchWindow(self.master)
+        search.SearchWindow(self.master, self.text_font)
 
     def button_publish_topic(self):
         print("button_publish_topic")
@@ -81,16 +84,16 @@ class App(tk.Tk):
         self.sub.publish_start(topic, msg)
 
     def about_window(self):
-        about.AboutWindow(self.master)
+        about.AboutWindow(self.master, self.text_font)
 
     def help(self):
         webbrowser.open_new_tab("https://github.com/electrocoder/MQTTClient")
 
     def new_connect_window(self):
-        new_connect.NewConnect(self.master)
+        new_connect.NewConnect(self.master, self.text_font)
 
     def open_connect_window(self):
-        open_connect.OpenConnect(self.main_window_frame_ui)
+        open_connect.OpenConnect(self.main_window_frame_ui, self.text_font)
 
 
 if __name__ == "__main__":

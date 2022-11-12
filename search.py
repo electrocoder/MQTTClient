@@ -4,7 +4,7 @@ from config_file import ConfigFile
 
 
 class SearchWindow:
-    def __init__(self, main_window_frame_ui):
+    def __init__(self, main_window_frame_ui, font_size):
         self.main_window_frame_ui = main_window_frame_ui
 
         self.new_connect_window = tk.Toplevel(self.main_window_frame_ui)
@@ -16,11 +16,11 @@ class SearchWindow:
         row = 0
         column = 0
 
-        self.label_broker = tk.Label(self.new_connect_window, text="Search")
+        self.label_broker = tk.Label(self.new_connect_window, text="Search", font=font_size)
         self.label_broker.grid(row=row, column=column)
         column += 1
         self.entry_broker_text = tk.StringVar(self.new_connect_window)
-        self.entry_broker = tk.Entry(self.new_connect_window,
+        self.entry_broker = tk.Entry(self.new_connect_window, font=font_size,
                                      textvariable=self.entry_broker_text)
         self.entry_broker.grid(row=row, column=column)
 
@@ -30,7 +30,7 @@ class SearchWindow:
 
         row += 1
         column = 0
-        self.button_cancel = tk.Button(self.new_connect_window, text="Cancel",
+        self.button_cancel = tk.Button(self.new_connect_window, text="Cancel", font=font_size,
                                        command=self.cancel)
         self.button_cancel.grid(row=row, column=column)
         column += 1

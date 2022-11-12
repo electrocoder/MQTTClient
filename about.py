@@ -1,18 +1,18 @@
 import tkinter as tk
+from tkinter.font import Font
 
 
 class AboutWindow:
-    def __init__(self, main_window_frame_ui):
+    def __init__(self, main_window_frame_ui, font_size):
         self.about_window = tk.Toplevel(main_window_frame_ui)
         self.about_window.grab_set()
         self.about_window.title("MQTT Client About")
-        self.about_window.geometry("600x400")
 
-        text1 = tk.Text(self.about_window)
-        text1.grid(column=0, row=0, sticky='ew')
+        text1 = tk.Text(self.about_window, font=font_size)
+        text1.pack()
 
-        button1 = tk.Button(self.about_window, text='OK', command=self.close)
-        button1.grid(column=0, row=1)
+        button1 = tk.Button(self.about_window, text='OK', font=font_size, command=self.close)
+        button1.pack()
 
         with open('README.md') as f:
             text1.insert(tk.INSERT, f.read())
