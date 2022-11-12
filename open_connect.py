@@ -1,5 +1,19 @@
+"""MQTT Client GUI
+
+Author: Sahin MERSIN - electrocoder <electrocoder@gmail.com>
+
+Source Code: https://github.com/electrocoder/MQTTClient
+
+MQTT Examples: https://github.com/mesebilisim/mqtt-examples
+
+Date: 12.11.2022
+
+File: This script is Open MQTT Broker
+"""
+
 import tkinter as tk
 
+from tkinter import messagebox
 from config_file import ConfigFile
 
 
@@ -27,15 +41,21 @@ class OpenConnect:
         menu.config(font=font_size)
         self.entry_broker.grid(row=row, column=column)
 
-        row += 1
+        column += 1
+        self.button_delete = tk.Button(self.open_connect_window, text="Delete", font=font_size,
+                                       command=self.delete)
+        self.button_delete.grid(row=row, column=column)
+
+        row += 2
         column = 0
+
         self.button_cancel = tk.Button(self.open_connect_window, text="Cancel", font=font_size,
                                        command=self.cancel)
-        self.button_cancel.grid(row=row, column=column)
+        self.button_cancel.grid(row=row, column=column, padx=50, pady=50)
         column += 1
         self.button_open = tk.Button(self.open_connect_window, text="Open", font=font_size,
                                      command=self.open_connect)
-        self.button_open.grid(row=row, column=column)
+        self.button_open.grid(row=row, column=column, padx=50, pady=50)
 
     def open_connect(self):
         broker, port, username, password = ConfigFile().read_broker(
@@ -45,3 +65,11 @@ class OpenConnect:
 
     def cancel(self):
         self.open_connect_window.destroy()
+
+    def delete(self):
+        deleted = ConfigFile().delete(
+            self.entry_broker_text.get())
+        if deleted:
+            messagebox.showinfo("showinfo", "Broker is deleted.")
+        else:
+            messagebox.showerror("showerror", "Not deleted.")

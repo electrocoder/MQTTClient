@@ -1,3 +1,15 @@
+"""MQTT Client GUI
+
+Author: Sahin MERSIN - electrocoder <electrocoder@gmail.com>
+
+Source Code: https://github.com/electrocoder/MQTTClient
+
+MQTT Examples: https://github.com/mesebilisim/mqtt-examples
+
+Date: 12.11.2022
+
+File: This script is MQTT Client Main Application
+"""
 import tkinter as tk
 import webbrowser
 from tkinter import messagebox

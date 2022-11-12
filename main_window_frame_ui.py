@@ -1,9 +1,22 @@
+"""MQTT Client GUI
+
+Author: Sahin MERSIN - electrocoder <electrocoder@gmail.com>
+
+Source Code: https://github.com/electrocoder/MQTTClient
+
+MQTT Examples: https://github.com/mesebilisim/mqtt-examples
+
+Date: 12.11.2022
+
+File: This script is MQTT Client Main Application UI Design.
+"""
+
 import tkinter as tk
-from tkinter.font import Font
 
 
 class MainWindowFrameUI(tk.Frame):
-    def __init__(self, main_window_frame, main_window_self, font_size, *args, **kwargs):
+    def __init__(self, main_window_frame, main_window_self, font_size, *args,
+                 **kwargs):
         super().__init__(master=main_window_frame, *args, **kwargs)
 
         self.main_window_frame = main_window_frame
@@ -16,7 +29,8 @@ class MainWindowFrameUI(tk.Frame):
         self.label_broker.grid(row=row, column=column, sticky=tk.W)
         column += 1
         self.entry_broker_text = tk.StringVar(self)
-        self.entry_broker = tk.Entry(self, textvariable=self.entry_broker_text, font=font_size)
+        self.entry_broker = tk.Entry(self, textvariable=self.entry_broker_text,
+                                     font=font_size)
         self.entry_broker.grid(row=row, column=column)
 
         column += 1
@@ -38,23 +52,27 @@ class MainWindowFrameUI(tk.Frame):
         column = 0
 
         # publich topic
-        self.label_publich_topic = tk.Label(self, text="Publish Topic", font=font_size)
+        self.label_publich_topic = tk.Label(self, text="Publish Topic",
+                                            font=font_size)
         self.label_publich_topic.grid(row=row, column=column, sticky=tk.W)
 
         column += 1
         self.entry_publich_topic_text = tk.StringVar(self)
         self.entry_publich_topic = tk.Entry(self,
-                                            textvariable=self.entry_publich_topic_text, font=font_size)
+                                            textvariable=self.entry_publich_topic_text,
+                                            font=font_size)
         self.entry_publich_topic.grid(row=row, column=column)
 
         column += 1
-        self.label_publich_msg_topic = tk.Label(self, text="Publish Message", font=font_size)
+        self.label_publich_msg_topic = tk.Label(self, text="Publish Message",
+                                                font=font_size)
         self.label_publich_msg_topic.grid(row=row, column=column)
 
         column += 1
         self.entry_publich_topic_msg_text = tk.StringVar(self)
         self.entry_publich_msg_topic = tk.Entry(self,
-                                                textvariable=self.entry_publich_topic_msg_text, font=font_size)
+                                                textvariable=self.entry_publich_topic_msg_text,
+                                                font=font_size)
         self.entry_publich_msg_topic.grid(row=row, column=column)
 
         column += 1
@@ -67,20 +85,23 @@ class MainWindowFrameUI(tk.Frame):
         column = 0
 
         # subscribe topic
-        self.label_subscribe_topic = tk.Label(self, text="Subscribe Topic", font=font_size)
+        self.label_subscribe_topic = tk.Label(self, text="Subscribe Topic",
+                                              font=font_size)
         self.label_subscribe_topic.grid(row=row, column=column, sticky=tk.W)
         self.label_subscribe_topic.grid(row=row, column=column, sticky=tk.W)
 
         column += 1
         self.entry_subscribe_topic_text = tk.StringVar(self)
         self.entry_subscribe_topic = tk.Entry(self,
-                                              textvariable=self.entry_subscribe_topic_text, font=font_size)
+                                              textvariable=self.entry_subscribe_topic_text,
+                                              font=font_size)
         self.entry_subscribe_topic.grid(row=row, column=column)
         self.entry_subscribe_topic_text.set('#')
 
         column += 1
         self.button_subscribe_topic = tk.Button(self,
-                                                text="Subscribe", font=font_size,
+                                                text="Subscribe",
+                                                font=font_size,
                                                 state=tk.DISABLED,
                                                 command=main_window_self.button_subscribe_topic)
         self.button_subscribe_topic.grid(row=row, column=column)
@@ -138,5 +159,3 @@ class MainWindowFrameUI(tk.Frame):
                                        textvariable=self.connect_status_text,
                                        relief=tk.SUNKEN, anchor="w")
         self.connect_status.pack(side=tk.BOTTOM, fill=tk.X)
-
-

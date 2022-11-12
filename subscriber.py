@@ -1,3 +1,16 @@
+"""MQTT Client GUI
+
+Author: Sahin MERSIN - electrocoder <electrocoder@gmail.com>
+
+Source Code: https://github.com/electrocoder/MQTTClient
+
+MQTT Examples: https://github.com/mesebilisim/mqtt-examples
+
+Date: 12.11.2022
+
+File: This script is MQTT Subscriber Client
+"""
+
 import tkinter as tk
 
 
@@ -17,21 +30,16 @@ class Subscriber:
         self.message = None
 
     def on_connect(self, client, userdata, flags, rc):
-        print("Connected with result code " + str(rc))
         self.main_window_frame_ui.connect_status_text.set(
             "Connected | Message: %s | Publish: %s" % (
             self.on_message_count, self.publish_message_count))
 
     def on_disconnect(self, client, userdata, rc):
-        print("disconnet...")
         self.main_window_frame_ui.connect_status_text.set(
             "Disconnect | Message: %s | Publish: %s" % (
             self.on_message_count, self.publish_message_count))
 
     def on_message(self, client, userdata, msg):
-        # print(
-        #     msg.topic + " " + msg.payload.decode('utf8'))
-        # print("")
         self.topic = msg.topic
         self.message = msg.payload.decode('utf8')
         self.main_window_frame_ui.listbox_message.insert(tk.END,

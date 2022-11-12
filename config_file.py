@@ -1,3 +1,16 @@
+"""MQTT Client GUI
+
+Author: Sahin MERSIN - electrocoder <electrocoder@gmail.com>
+
+Source Code: https://github.com/electrocoder/MQTTClient
+
+MQTT Examples: https://github.com/mesebilisim/mqtt-examples
+
+Date: 12.11.2022
+
+File: This script is Config file operations
+"""
+
 import configparser
 from os.path import exists
 
@@ -33,3 +46,14 @@ class ConfigFile:
         password = self.config[broker]["password"]
 
         return broker, port, username, password
+
+    def delete(self, broker):
+        print("broker", broker)
+        self.config.read(self.file_name)
+        delete = self.config.remove_section(broker)
+        if delete:
+            with open(self.file_name, 'w') as configfile:
+                self.config.write(configfile)
+            return True
+        else:
+            return False
