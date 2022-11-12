@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mqttclient_electrocoder"
+version = "0.1"
+authors = [
+  { name="Sahin MERSIN", email="electrocoder@gmail.com" },
+]
+description = "This project was developed with Python and Tkinter to subscribe to topics and messages, broadcast and search incoming messages while developing a project with the MQTT protocol."
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://electrocoder.github.io/MQTTClient/"
+"Bug Tracker" = "https://github.com/electrocoder/MQTTClient/issues"
