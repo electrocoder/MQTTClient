@@ -4,7 +4,8 @@
 
 ## Description
 
-This project was developed with Python and Tkinter to subscribe to topics and messages, broadcast and search incoming messages while developing a project with the MQTT protocol.
+This project was developed with Python and Tkinter to subscribe to topics and messages, broadcast and search incoming
+messages while developing a project with the MQTT protocol.
 
 ## Version History
 
@@ -33,7 +34,6 @@ If you want to be included in the project, please copy it and make the changes y
 <a href="https://iothook.com/"><img src="https://raw.githubusercontent.com/electrocoder/MQTTClient/main/img/_7_search_window.png"></a>
 
 <a href="https://iothook.com/"><img src="https://raw.githubusercontent.com/electrocoder/MQTTClient/main/img/_8_search.png"></a>
-
 
 # Install
 

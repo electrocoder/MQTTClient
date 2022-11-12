@@ -27,7 +27,8 @@ class NewConnect:
         row = 0
         column = 0
 
-        self.label_broker = tk.Label(self.new_connect_window, text="Broker", font=font_size)
+        self.label_broker = tk.Label(self.new_connect_window, text="Broker",
+                                     font=font_size)
         self.label_broker.grid(row=row, column=column)
         column += 1
         self.entry_broker_text = tk.StringVar(self.new_connect_window)
@@ -38,7 +39,8 @@ class NewConnect:
         row += 1
         column = 0
 
-        self.label_port = tk.Label(self.new_connect_window, text="Port", font=font_size)
+        self.label_port = tk.Label(self.new_connect_window, text="Port",
+                                   font=font_size)
         self.label_port.grid(row=row, column=column)
         column += 1
         self.entry_port_text = tk.StringVar(self.new_connect_window)
@@ -72,13 +74,15 @@ class NewConnect:
 
         row += 1
         column = 0
-        self.button_cancel = tk.Button(self.new_connect_window, text="Cancel", font=font_size,
+        self.button_cancel = tk.Button(self.new_connect_window, text="Cancel",
+                                       font=font_size,
                                        command=self.cancel)
-        self.button_cancel.grid(row=row, column=column)
+        self.button_cancel.grid(row=row, column=column, padx=50, pady=50)
         column += 1
-        self.button_save = tk.Button(self.new_connect_window, text="Save", font=font_size,
+        self.button_save = tk.Button(self.new_connect_window, text="Save",
+                                     font=font_size,
                                      command=self.save_config)
-        self.button_save.grid(row=row, column=column)
+        self.button_save.grid(row=row, column=column, padx=50, pady=50)
 
     def save_config(self):
         ConfigFile().create_file(self.entry_broker_text.get(),

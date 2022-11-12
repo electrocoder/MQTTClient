@@ -12,8 +12,8 @@ File: This script is Open MQTT Broker
 """
 
 import tkinter as tk
-
 from tkinter import messagebox
+
 from config_file import ConfigFile
 
 
@@ -28,7 +28,8 @@ class OpenConnect:
         row = 0
         column = 0
 
-        self.label_broker = tk.Label(self.open_connect_window, text="Broker", font=font_size)
+        self.label_broker = tk.Label(self.open_connect_window, text="Broker",
+                                     font=font_size)
         self.label_broker.grid(row=row, column=column)
         column += 1
         self.entry_broker_text = tk.StringVar(self.open_connect_window)
@@ -37,23 +38,27 @@ class OpenConnect:
                                           self.entry_broker_text,
                                           *ConfigFile().read_sections())
         self.entry_broker.config(font=font_size)
-        menu = self.open_connect_window.nametowidget(self.entry_broker.menuname)
+        menu = self.open_connect_window.nametowidget(
+            self.entry_broker.menuname)
         menu.config(font=font_size)
         self.entry_broker.grid(row=row, column=column)
 
         column += 1
-        self.button_delete = tk.Button(self.open_connect_window, text="Delete", font=font_size,
+        self.button_delete = tk.Button(self.open_connect_window, text="Delete",
+                                       font=font_size,
                                        command=self.delete)
         self.button_delete.grid(row=row, column=column)
 
         row += 2
         column = 0
 
-        self.button_cancel = tk.Button(self.open_connect_window, text="Cancel", font=font_size,
+        self.button_cancel = tk.Button(self.open_connect_window, text="Cancel",
+                                       font=font_size,
                                        command=self.cancel)
         self.button_cancel.grid(row=row, column=column, padx=50, pady=50)
         column += 1
-        self.button_open = tk.Button(self.open_connect_window, text="Open", font=font_size,
+        self.button_open = tk.Button(self.open_connect_window, text="Open",
+                                     font=font_size,
                                      command=self.open_connect)
         self.button_open.grid(row=row, column=column, padx=50, pady=50)
 

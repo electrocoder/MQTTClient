@@ -12,7 +12,6 @@ File: This script is About window
 """
 
 import tkinter as tk
-from tkinter.font import Font
 
 
 class AboutWindow:
@@ -22,14 +21,14 @@ class AboutWindow:
         self.about_window.title("MQTT Client About")
 
         text1 = tk.Text(self.about_window, font=font_size)
-        text1.pack()
+        text1.grid(row=0, column=0, padx=50, pady=50)
 
-        button1 = tk.Button(self.about_window, text='OK', font=font_size, command=self.close)
-        button1.pack()
+        button1 = tk.Button(self.about_window, text='OK', font=font_size,
+                            command=self.close)
+        button1.grid(row=1, column=0, padx=50, pady=50)
 
         with open('README.md') as f:
             text1.insert(tk.INSERT, f.read())
 
     def close(self):
         self.about_window.destroy()
-

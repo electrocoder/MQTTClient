@@ -32,12 +32,12 @@ class Subscriber:
     def on_connect(self, client, userdata, flags, rc):
         self.main_window_frame_ui.connect_status_text.set(
             "Connected | Message: %s | Publish: %s" % (
-            self.on_message_count, self.publish_message_count))
+                self.on_message_count, self.publish_message_count))
 
     def on_disconnect(self, client, userdata, rc):
         self.main_window_frame_ui.connect_status_text.set(
             "Disconnect | Message: %s | Publish: %s" % (
-            self.on_message_count, self.publish_message_count))
+                self.on_message_count, self.publish_message_count))
 
     def on_message(self, client, userdata, msg):
         self.topic = msg.topic
@@ -51,7 +51,7 @@ class Subscriber:
         self.on_message_count += 1
         self.main_window_frame_ui.connect_status_text.set(
             "Connected | Message: %s | Publish: %s" % (
-            self.on_message_count, self.publish_message_count))
+                self.on_message_count, self.publish_message_count))
         self.get_message()
 
     def connect_start(self, broker, port, username, password):

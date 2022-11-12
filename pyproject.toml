@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "mqttclient_electrocoder"
 version = "0.2"
 authors = [
-  { name="Sahin MERSIN", email="electrocoder@gmail.com" },
+    { name = "Sahin MERSIN", email = "electrocoder@gmail.com" },
 ]
 description = "This project was developed with Python and Tkinter to subscribe to topics and messages, broadcast and search incoming messages while developing a project with the MQTT protocol."
 readme = "README.md"

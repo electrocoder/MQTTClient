@@ -39,11 +39,12 @@ class App(tk.Tk):
         self.main_window_frame.pack()
 
         self.main_window_frame_ui = MainWindowFrameUI(self.main_window_frame,
-                                                      self, font_size=self.text_font)
+                                                      self,
+                                                      font_size=self.text_font)
         self.main_window_frame_ui.pack()
 
         self.subscriber = subscriber.Subscriber(self.main_window_frame_ui,
-                                         mqtt.Client())
+                                                mqtt.Client())
 
     def button_connect(self):
         print("button_connect")
