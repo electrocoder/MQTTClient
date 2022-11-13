@@ -113,7 +113,10 @@ class App(tk.Tk):
 if __name__ == "__main__":
     app = App()
 
-    photo = tk.PhotoImage(file='icon.png')
+    import os
+    basedir = os.path.dirname(__file__)
+    # window.iconbitmap(os.path.join(basedir, "icon.ico"))
+    photo = tk.PhotoImage(file=os.path.join(basedir, "icon.png"))
     app.wm_iconphoto(False, photo)
 
     app.mainloop()
