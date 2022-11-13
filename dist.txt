@@ -1,0 +1,9 @@
+MacOS:
+pyinstaller --add-data 'icon.png:.' MQTTClient.py
+
+Windows:
+pyinstaller --add-data 'icon.png:.' MQTTClient.py --noconsole
+
+Linux:
+pyinstaller --add-data 'icon.png:.' MQTTClient.py --noconsole
+
