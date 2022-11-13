@@ -12,13 +12,16 @@ File: This script is Config file operations
 """
 
 import configparser
+import os
 from os.path import exists
 
 
 class ConfigFile:
     def __init__(self):
         self.config = configparser.ConfigParser()
-        self.file_name = r"configfile.ini"
+
+        basedir = os.path.dirname(__file__)
+        self.file_name = os.path.join(basedir, "configfile.ini")
         if exists(self.file_name):
             self.config.read(self.file_name)
 
@@ -48,7 +51,6 @@ class ConfigFile:
         return broker, port, username, password
 
     def delete(self, broker):
-        print("broker", broker)
         self.config.read(self.file_name)
         delete = self.config.remove_section(broker)
         if delete:

@@ -115,7 +115,8 @@ if __name__ == "__main__":
     app = App()
 
     basedir = os.path.dirname(__file__)
-    photo = tk.PhotoImage(file=os.path.join(basedir, "icon.png"))
+    file_name = os.path.join(basedir, "icon.png")
+    photo = tk.PhotoImage(file=file_name)
     app.wm_iconphoto(False, photo)
 
     app.mainloop()

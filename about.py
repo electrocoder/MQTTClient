@@ -28,7 +28,8 @@ class AboutWindow:
         button1.grid(row=1, column=0, padx=50, pady=50)
 
         basedir = os.path.dirname(__file__)
-        with open(os.path.join(basedir, "README.md")) as f:
+        self.file_name = os.path.join(basedir, "README.md")
+        with open(self.file_name) as f:
             text1.insert(tk.INSERT, f.read())
 
     def close(self):

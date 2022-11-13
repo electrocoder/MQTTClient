@@ -51,3 +51,11 @@ pyinstaller --add-data 'icon.png:.' --add-data 'README.md:.' --add-data 'LICENSE
 ### Linux
 pyinstaller --add-data 'icon.png:.' --add-data 'README.md:.' --add-data 'LICENSE:.' --icon=icon.ico MQTTClient.py --noconsole
 
+## Using TestPyPI with Twine
+
+twine upload --repository testpypi dist/*
+
+## py2app
+
+python setup.py py2app -A
+
