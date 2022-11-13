@@ -57,5 +57,10 @@ twine upload --repository testpypi dist/*
 
 ## py2app
 
-python setup.py py2app -A
+### MacOS
 
+python setup.py py2app -A --iconfile icon.png
+
+### Windows
+
+python setup.py py2exe --iconfile icon.png
