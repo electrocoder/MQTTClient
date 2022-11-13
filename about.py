@@ -10,7 +10,7 @@ Date: 12.11.2022
 
 File: This script is About window
 """
-
+import os
 import tkinter as tk
 
 
@@ -27,7 +27,8 @@ class AboutWindow:
                             command=self.close)
         button1.grid(row=1, column=0, padx=50, pady=50)
 
-        with open('README.md') as f:
+        basedir = os.path.dirname(__file__)
+        with open(os.path.join(basedir, "README.md")) as f:
             text1.insert(tk.INSERT, f.read())
 
     def close(self):

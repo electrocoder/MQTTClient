@@ -10,6 +10,7 @@ Date: 12.11.2022
 
 File: This script is MQTT Client Main Application
 """
+import os
 import tkinter as tk
 import webbrowser
 from tkinter import messagebox
@@ -113,9 +114,7 @@ class App(tk.Tk):
 if __name__ == "__main__":
     app = App()
 
-    import os
     basedir = os.path.dirname(__file__)
-    # window.iconbitmap(os.path.join(basedir, "icon.ico"))
     photo = tk.PhotoImage(file=os.path.join(basedir, "icon.png"))
     app.wm_iconphoto(False, photo)
 
