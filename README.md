@@ -38,3 +38,16 @@ If you want to be included in the project, please copy it and make the changes y
 # Install
 
 pip install mqttclient
+
+## Pyinstaller
+
+### MacOS
+
+pyinstaller --add-data 'icon.png:.' --add-data 'README.md:.' --add-data 'LICENSE:.' MQTTClient.py
+
+### Windows
+pyinstaller --add-data 'icon.png:.' --add-data 'README.md:.' --add-data 'LICENSE:.' MQTTClient.py --noconsole
+
+### Linux
+pyinstaller --add-data 'icon.png:.' --add-data 'README.md:.' --add-data 'LICENSE:.' MQTTClient.py --noconsole
+

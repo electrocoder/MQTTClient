@@ -1,9 +1,0 @@
-MacOS:
-pyinstaller --add-data 'icon.png:.' --add-data 'README.md:.' --add-data 'LICENSE:.' MQTTClient.py
-
-Windows:
-pyinstaller --add-data 'icon.png:.' --add-data 'README.md:.' --add-data 'LICENSE:.' MQTTClient.py --noconsole
-
-Linux:
-pyinstaller --add-data 'icon.png:.' --add-data 'README.md:.' --add-data 'LICENSE:.' MQTTClient.py --noconsole
-
