@@ -43,7 +43,7 @@ class Subscriber:
         self.topic = msg.topic
         self.message = msg.payload.decode('utf8')
         self.main_window_frame_ui.listbox_message.insert(tk.END,
-                                                         "{} {} {}".format(
+                                                         ">{} {} {}\n".format(
                                                              self.on_message_count,
                                                              self.topic,
                                                              self.message))
