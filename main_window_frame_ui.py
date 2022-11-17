@@ -118,10 +118,10 @@ class MainWindowFrameUI(tk.Frame):
 
         # subscribe list
         # self.listbox_message_scrollbar = tk.Scrollbar(self, orient=tk.VERTICAL)
-        self.listbox_message = tk.Text(self, font=font_size, height=15, wrap="char")
+        self.listbox_message = tk.Text(self, font=font_size, height=15)
         # self.listbox_message.config(
         #     yscrollcommand=self.listbox_message_scrollbar.set)
-        self.listbox_message.grid(row=row, column=column, columnspan=5)
+        self.listbox_message.grid(row=row, column=column, columnspan=6)
         # self.listbox_message_scrollbar.config(
         #     command=self.listbox_message.yview)
         # self.listbox_message_scrollbar.grid(row=row, column=column + 4,
