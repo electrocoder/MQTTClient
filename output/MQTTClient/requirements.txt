@@ -1,0 +1,5 @@
+paho-mqtt
+pyinstaller
+configparser
+py2app==0.24
+auto-py-to-exe

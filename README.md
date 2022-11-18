@@ -69,4 +69,4 @@ python setup.py py2exe -A --iconfile icon.png
 
 ### Windows
 
-python auto-py-to-exe
+auto-py-to-exe
