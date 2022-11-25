@@ -63,4 +63,10 @@ python setup.py py2app -A --iconfile icon.png
 
 ### Windows
 
-python setup.py py2exe --iconfile icon.png
+python setup.py py2exe -A --iconfile icon.png
+
+## auto-py-to-exe
+
+### Windows
+
+auto-py-to-exe
