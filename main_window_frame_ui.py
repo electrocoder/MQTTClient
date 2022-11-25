@@ -13,6 +13,8 @@ File: This script is MQTT Client Main Application UI Design.
 
 import tkinter as tk
 
+from config_file import ConfigFile
+
 
 class MainWindowFrameUI(tk.Frame):
     def __init__(self, main_window_frame, main_window_self, font_size, *args,
@@ -30,6 +32,7 @@ class MainWindowFrameUI(tk.Frame):
         self.label_broker = tk.Label(self, text="Broker", font=font_size)
         self.label_broker.grid(row=row, column=column, sticky=tk.W)
         column += 1
+
         self.entry_broker_text = tk.StringVar(self)
         self.entry_broker = tk.Entry(self, textvariable=self.entry_broker_text,
                                      font=font_size)
