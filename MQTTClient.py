@@ -21,7 +21,6 @@ import paho.mqtt.client as mqtt
 import about as about
 import new_connect as new_connect
 import open_connect as open_connect
-import search as search
 import subscriber
 from config_file import ConfigFile
 from main_window_frame_ui import MainWindowFrameUI
@@ -63,8 +62,7 @@ class App(tk.Tk):
                     "state"] = tk.NORMAL
                 self.main_window_frame_ui.button_publich_topic[
                     "state"] = tk.NORMAL
-                self.main_window_frame_ui.button_search[
-                    "state"] = tk.NORMAL
+
         else:
             messagebox.showerror("showerror", "Please select broker.")
 
@@ -84,10 +82,10 @@ class App(tk.Tk):
         print("button_subscribe_topic")
         self.subscriber.subscribe_start(
             self.main_window_frame_ui.entry_subscribe_topic_text.get())
-
-    def search(self):
-        print("search")
-        search.SearchWindow(self.master, self.text_font, self.subscriber)
+        self.main_window_frame_ui.button_filter_add[
+            "state"] = tk.NORMAL
+        self.main_window_frame_ui.button_filter_remove[
+            "state"] = tk.DISABLED
 
     def button_publish_topic(self):
         print("button_publish_topic")
@@ -109,6 +107,20 @@ class App(tk.Tk):
 
     def open_connect_window(self):
         open_connect.OpenConnect(self.main_window_frame_ui, self.text_font)
+
+    def add_filter(self):
+        self.main_window_frame_ui.msg_filter = True
+        self.main_window_frame_ui.button_filter_add[
+            "state"] = tk.DISABLED
+        self.main_window_frame_ui.button_filter_remove[
+            "state"] = tk.NORMAL
+
+    def remove_filter(self):
+        self.main_window_frame_ui.msg_filter = False
+        self.main_window_frame_ui.button_filter_add[
+            "state"] = tk.NORMAL
+        self.main_window_frame_ui.button_filter_remove[
+            "state"] = tk.DISABLED
 
 
 if __name__ == "__main__":

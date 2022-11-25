@@ -22,6 +22,8 @@ class MainWindowFrameUI(tk.Frame):
         self.main_window_frame = main_window_frame
         self.main_window_self = main_window_self
 
+        self.msg_filter = False
+
         row = 0
         column = 0
 
@@ -106,26 +108,44 @@ class MainWindowFrameUI(tk.Frame):
                                                 command=main_window_self.button_subscribe_topic)
         self.button_subscribe_topic.grid(row=row, column=column)
 
+        # filter msg
+        row += 1
+        column = 0
+
+        self.label_msg_filter = tk.Label(self, text="Filter Message",
+                                         font=font_size)
+        self.label_msg_filter.grid(row=row, column=column, sticky=tk.W)
+        self.label_msg_filter.grid(row=row, column=column, sticky=tk.W)
+
         column += 1
-        self.button_search = tk.Button(self,
-                                       text="Search", font=font_size,
-                                       state=tk.DISABLED,
-                                       command=main_window_self.search)
-        self.button_search.grid(row=row, column=column)
+
+        self.entry_msg_filter_text = tk.StringVar(self)
+        self.entry_msg_filter = tk.Entry(self,
+                                         textvariable=self.entry_msg_filter_text,
+                                         font=font_size)
+        self.entry_msg_filter.grid(row=row, column=column)
+        column += 1
+
+        self.button_filter_add = tk.Button(self,
+                                           text="Add Filter", font=font_size,
+                                           state=tk.DISABLED,
+                                           command=main_window_self.add_filter)
+        self.button_filter_add.grid(row=row, column=column)
+        column += 1
+
+        self.button_filter_remove = tk.Button(self,
+                                              text="Remove Filter",
+                                              font=font_size,
+                                              state=tk.DISABLED,
+                                              command=main_window_self.remove_filter)
+        self.button_filter_remove.grid(row=row, column=column)
 
         row += 1
         column = 0
 
         # subscribe list
-        # self.listbox_message_scrollbar = tk.Scrollbar(self, orient=tk.VERTICAL)
-        self.listbox_message = tk.Text(self, font=font_size, height=15)
-        # self.listbox_message.config(
-        #     yscrollcommand=self.listbox_message_scrollbar.set)
+        self.listbox_message = tk.Text(self, font=font_size, height=12)
         self.listbox_message.grid(row=row, column=column, columnspan=6)
-        # self.listbox_message_scrollbar.config(
-        #     command=self.listbox_message.yview)
-        # self.listbox_message_scrollbar.grid(row=row, column=column + 4,
-        #                                     ipady=70)
 
         # menu
         menubar = tk.Menu(main_window_self)
