@@ -51,9 +51,9 @@ class NewTopic:
         self.button_save.grid(row=row, column=column, padx=50, pady=50)
 
     def save_topic(self):
-        broker, port, username, password = ConfigFile().read_topic(
+        topics = ConfigFile().create_topic(self.main_window_frame_ui.entry_broker_text.get(),
             self.entry_topic_text.get())
-        self.main_window_frame_ui.entry_topic_text.set(broker)
+        self.main_window_frame_ui.entry_topic_text.set("qqq")
         self.window.destroy()
 
     def cancel(self):

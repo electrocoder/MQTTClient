@@ -97,13 +97,14 @@ class MainWindowFrameUI(tk.Frame):
 
         column += 1
         self.entry_subscribe_topic_text = tk.StringVar(self)
-        options_list = ["-",]
+        options_list = ["New",]
         self.entry_subscribe_topic = tk.OptionMenu(self, self.entry_subscribe_topic_text,
-                                          *options_list)
+                                          *options_list, command=self.main_window_self.new_topic_window)
         self.entry_subscribe_topic.config(font=font_size)
         menu = self.nametowidget(
             self.entry_subscribe_topic.menuname)
         menu.config(font=font_size)
+
         self.entry_subscribe_topic.grid(row=row, ipadx=55, column=column)
 
         column += 1

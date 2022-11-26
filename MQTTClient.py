@@ -21,6 +21,7 @@ import paho.mqtt.client as mqtt
 import about as about
 import new_connect as new_connect
 import open_connect as open_connect
+import new_topic as new_topic
 import subscriber
 from config_file import ConfigFile
 from main_window_frame_ui import MainWindowFrameUI
@@ -107,6 +108,9 @@ class App(tk.Tk):
 
     def new_connect_window(self):
         new_connect.NewConnect(self.master, self.text_font)
+
+    def new_topic_window(self):
+        new_topic.NewTopic(self.master, self.text_font)
 
     def open_connect_window(self):
         open_connect.OpenConnect(self.main_window_frame_ui, self.text_font)

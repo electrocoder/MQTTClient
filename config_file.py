@@ -56,11 +56,14 @@ class ConfigFile:
 
         return topics
 
-    def create_topic(self, broker):
-        self.config.read(self.file_name)
-        topics = self.config[broker]["topics"]
+    def create_topic(self, broker, topic):
+        self.config.add_section(broker)
+        self.config.set(broker, 'topics', topic)
 
-        return topics
+        with open(self.file_name, 'w') as configfile:
+            self.config.write(configfile)
+
+        return self.config[broker]['topics']
 
     def delete(self, broker):
         self.config.read(self.file_name)
