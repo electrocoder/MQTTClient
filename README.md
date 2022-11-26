@@ -9,9 +9,11 @@ messages while developing a project with the MQTT protocol.
 
 ## Version History
 
-0v1 : Start project
+0v3 26.11.2022: Alfa MQTT Client
 
-0v2 : Alfa MQTT Client
+0v2 15.10.2022: Alfa MQTT Client
+
+0v1 10.10.2022 : Start project
 
 ## Contributing
 

@@ -97,11 +97,14 @@ class MainWindowFrameUI(tk.Frame):
 
         column += 1
         self.entry_subscribe_topic_text = tk.StringVar(self)
-        self.entry_subscribe_topic = tk.Entry(self,
-                                              textvariable=self.entry_subscribe_topic_text,
-                                              font=font_size)
-        self.entry_subscribe_topic.grid(row=row, column=column)
-        self.entry_subscribe_topic_text.set('#')
+        options_list = ["-",]
+        self.entry_subscribe_topic = tk.OptionMenu(self, self.entry_subscribe_topic_text,
+                                          *options_list)
+        self.entry_subscribe_topic.config(font=font_size)
+        menu = self.nametowidget(
+            self.entry_subscribe_topic.menuname)
+        menu.config(font=font_size)
+        self.entry_subscribe_topic.grid(row=row, ipadx=55, column=column)
 
         column += 1
         self.button_subscribe_topic = tk.Button(self,
@@ -148,7 +151,7 @@ class MainWindowFrameUI(tk.Frame):
 
         # subscribe list
         self.listbox_message = tk.Text(self, font=font_size, height=12)
-        self.listbox_message.grid(row=row, column=column, columnspan=6)
+        self.listbox_message.grid(row=row, column=column, columnspan=6, ipadx=11, ipady=11, padx=22, pady=22)
 
         # menu
         menubar = tk.Menu(main_window_self)

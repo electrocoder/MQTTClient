@@ -30,8 +30,8 @@ class App(tk.Tk):
     def __init__(self):
         super().__init__()
 
-        self.title('MQTT Client')
-        self.geometry('700x350')
+        self.title('MQTT Client 0v3')
+        self.geometry('850x450')
 
         self.text_font = Font(size=12)
 
@@ -62,7 +62,9 @@ class App(tk.Tk):
                     "state"] = tk.NORMAL
                 self.main_window_frame_ui.button_publich_topic[
                     "state"] = tk.NORMAL
-
+                topics = ConfigFile().read_topics(
+                    self.main_window_frame_ui.entry_broker_text.get())
+                print(topics)
         else:
             messagebox.showerror("showerror", "Please select broker.")
 
@@ -86,6 +88,7 @@ class App(tk.Tk):
             "state"] = tk.NORMAL
         self.main_window_frame_ui.button_filter_remove[
             "state"] = tk.DISABLED
+
 
     def button_publish_topic(self):
         print("button_publish_topic")

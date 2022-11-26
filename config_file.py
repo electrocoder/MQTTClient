@@ -50,6 +50,18 @@ class ConfigFile:
 
         return broker, port, username, password
 
+    def read_topics(self, broker):
+        self.config.read(self.file_name)
+        topics = self.config[broker]["topics"]
+
+        return topics
+
+    def create_topic(self, broker):
+        self.config.read(self.file_name)
+        topics = self.config[broker]["topics"]
+
+        return topics
+
     def delete(self, broker):
         self.config.read(self.file_name)
         delete = self.config.remove_section(broker)
