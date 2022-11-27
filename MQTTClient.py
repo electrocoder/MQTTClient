@@ -33,10 +33,10 @@ class App(tk.Tk):
         self.title('MQTT Client 0v3')
         self.geometry('850x450')
 
-        self.text_font = Font(size=12)
-
         font_size = 14
+        self.text_font = Font(size=font_size)
 
+        self.msg_filter = False
         row = 0
         column = 0
 

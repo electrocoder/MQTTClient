@@ -64,7 +64,22 @@ class OpenConnect(tk.Toplevel):
         broker, port, username, password = ConfigFile().read_broker(
             self.entry_broker_text.get())
         self.main_window.entry_broker_text.set(broker)
+
+        self.main_window.entry_subscribe_topic['menu'].delete(0, 'end')
+
+        new_choices = ConfigFile().read_topics(broker).split(',')
+        for choice in new_choices:
+            if choice:
+                self.main_window.entry_subscribe_topic['menu'].add_command(
+                    label=choice,
+                    command=tk._setit(self.main_window.entry_subscribe_topic_text,
+                                      choice))
+                self.main_window.entry_subscribe_topic_text.set(choice)
+
+        # self.main_window.entry_subscribe_topic.menuname=
+        # self.main_window.options_list['menu'].add
         self.destroy()
+        # return ConfigFile().read_topics(broker)
 
     def cancel(self):
         self.destroy()
