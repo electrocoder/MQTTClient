@@ -15,9 +15,9 @@ import tkinter as tk
 
 
 class Subscriber:
-    def __init__(self, main_window_frame_ui, client):
+    def __init__(self, main_window, client):
+        self.main_window = main_window
         self.client = client
-        self.main_window_frame_ui = main_window_frame_ui
 
         self.client.on_disconnect = self.on_disconnect
         self.client.on_message = self.on_message
@@ -30,37 +30,37 @@ class Subscriber:
         self.message = None
 
     def on_connect(self, client, userdata, flags, rc):
-        self.main_window_frame_ui.connect_status_text.set(
+        self.main_window.connect_status_text.set(
             "Connected | Message: %s | Publish: %s" % (
                 self.on_message_count, self.publish_message_count))
 
     def on_disconnect(self, client, userdata, rc):
-        self.main_window_frame_ui.connect_status_text.set(
+        self.main_window.connect_status_text.set(
             "Disconnect | Message: %s | Publish: %s" % (
                 self.on_message_count, self.publish_message_count))
 
     def on_message(self, client, userdata, msg):
         self.topic = msg.topic
         self.message = msg.payload.decode('utf8')
-        if self.main_window_frame_ui.msg_filter:
-            if self.main_window_frame_ui.entry_msg_filter_text.get() in self.message:
-                self.main_window_frame_ui.listbox_message.insert(tk.END,
-                                                                 ">{} {} {}\n".format(
-                                                                     self.on_message_count,
-                                                                     self.topic,
-                                                                     self.message))
-                self.main_window_frame_ui.listbox_message.see("end")
+        if self.main_window.msg_filter:
+            if self.main_window.entry_msg_filter_text.get() in self.message:
+                self.main_window.listbox_message.insert(tk.END,
+                                                        ">{} {} {}\n".format(
+                                                            self.on_message_count,
+                                                            self.topic,
+                                                            self.message))
+                self.main_window.listbox_message.see("end")
                 self.on_message_count += 1
         else:
-            self.main_window_frame_ui.listbox_message.insert(tk.END,
-                                                             ">{} {} {}\n".format(
-                                                                 self.on_message_count,
-                                                                 self.topic,
-                                                                 self.message))
-            self.main_window_frame_ui.listbox_message.see("end")
+            self.main_window.listbox_message.insert(tk.END,
+                                                    ">{} {} {}\n".format(
+                                                        self.on_message_count,
+                                                        self.topic,
+                                                        self.message))
+            self.main_window.listbox_message.see("end")
             self.on_message_count += 1
 
-        self.main_window_frame_ui.connect_status_text.set(
+        self.main_window.connect_status_text.set(
             "Connected | Message: %s | Publish: %s" % (
                 self.on_message_count, self.publish_message_count))
 

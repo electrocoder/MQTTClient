@@ -20,11 +20,10 @@ import paho.mqtt.client as mqtt
 
 import about as about
 import new_connect as new_connect
-import open_connect as open_connect
 import new_topic as new_topic
-import subscriber
+import open_connect as open_connect
+import subscriber as subscriber
 from config_file import ConfigFile
-from main_window_frame_ui import MainWindowFrameUI
 
 
 class App(tk.Tk):
@@ -35,14 +34,6 @@ class App(tk.Tk):
         self.geometry('850x450')
 
         self.text_font = Font(size=12)
-
-        # self.main_window_frame = tk.Frame()
-        # self.main_window_frame.pack()
-
-        # self.main_window_frame_ui = MainWindowFrameUI(self.main_window_frame,
-        #                                               self,
-        #                                               font_size=self.text_font)
-        # self.main_window_frame_ui.pack()
 
         font_size = 14
 
@@ -113,22 +104,19 @@ class App(tk.Tk):
         self.label_subscribe_topic = tk.Label(self, text="Subscribe Topic",
                                               font=font_size)
         self.label_subscribe_topic.grid(row=row, column=column, sticky=tk.W)
-        self.label_subscribe_topic.grid(row=row, column=column, sticky=tk.W)
 
         column += 1
         self.entry_subscribe_topic_text = tk.StringVar(self)
-        options_list = ["New", "qqq"]
+        self.options_list = ["New",]
         self.entry_subscribe_topic = tk.OptionMenu(self,
                                                    self.entry_subscribe_topic_text,
-                                                   *options_list, command=None)
-        # menu_connect.add_command(label='New Connect',
-        #                          command=self.main_window_self.new_connect_window)
+                                                   *self.options_list, command=self.subscribe_topic)
         self.entry_subscribe_topic.config(font=font_size)
         menu = self.nametowidget(
             self.entry_subscribe_topic.menuname)
         menu.config(font=font_size)
 
-        self.entry_subscribe_topic.grid(row=row, ipadx=55, column=column)
+        self.entry_subscribe_topic.grid(row=row, column=column)
 
         column += 1
         self.button_subscribe_topic = tk.Button(self,
@@ -208,8 +196,8 @@ class App(tk.Tk):
 
         self.connect_status.grid(row=row, column=column)
 
-        # self.subscriber = subscriber.Subscriber(self.main_window_frame_ui,
-        #                                         mqtt.Client())
+        self.subscriber = subscriber.Subscriber(self,
+                                                mqtt.Client())
 
     def button_connect(self):
         print("button_connect")
@@ -254,27 +242,27 @@ class App(tk.Tk):
         self.button_filter_remove[
             "state"] = tk.DISABLED
 
-
     def button_publish_topic(self):
         print("button_publish_topic")
         topic = self.entry_publich_topic_text.get()
         msg = self.entry_publich_topic_msg_text.get()
         self.listbox_message.insert(tk.END,
-                                                         "> {}".format(msg))
+                                    "> {}".format(msg))
         self.listbox_message.see("end")
         self.subscriber.publish_start(topic, msg)
 
     def about_window(self):
-        about.AboutWindow(self.master, self.text_font)
+        about.AboutWindow(self, self.text_font)
 
     def help(self):
         webbrowser.open_new_tab("https://github.com/electrocoder/MQTTClient")
 
     def new_connect_window(self):
-        new_connect.NewConnect(self.master, self.text_font)
+        new_connect.NewConnect(self, self.text_font)
 
-    def new_topic_window(self):
-        new_topic.NewTopic(self.master, self.text_font)
+    def subscribe_topic(self, *args):
+        if self.entry_subscribe_topic_text.get() == 'New':
+            new_topic.NewTopic(self, self.text_font)
 
     def open_connect_window(self):
         open_connect.OpenConnect(self, self.text_font)

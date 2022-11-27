@@ -14,16 +14,17 @@ import os
 import tkinter as tk
 
 
-class AboutWindow:
-    def __init__(self, main_window_frame_ui, font_size):
-        self.about_window = tk.Toplevel(main_window_frame_ui)
-        self.about_window.grab_set()
-        self.about_window.title("MQTT Client About")
+class AboutWindow(tk.Toplevel):
+    def __init__(self, main_window, font_size):
+        super().__init__(main_window)
 
-        text1 = tk.Text(self.about_window, font=font_size)
+        self.main_window = main_window
+        self.title("MQTT Client About")
+
+        text1 = tk.Text(self, font=font_size)
         text1.grid(row=0, column=0, padx=50, pady=50)
 
-        button1 = tk.Button(self.about_window, text='OK', font=font_size,
+        button1 = tk.Button(self, text='OK', font=font_size,
                             command=self.close)
         button1.grid(row=1, column=0, padx=50, pady=50)
 
@@ -33,4 +34,4 @@ class AboutWindow:
             text1.insert(tk.INSERT, f.read())
 
     def close(self):
-        self.about_window.destroy()
+        self.destroy()

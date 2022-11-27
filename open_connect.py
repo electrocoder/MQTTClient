@@ -17,34 +17,32 @@ from tkinter import messagebox
 from config_file import ConfigFile
 
 
-class OpenConnect:
-    def __init__(self, main_window_frame_ui, font_size):
-        self.main_window_frame_ui = main_window_frame_ui
+class OpenConnect(tk.Toplevel):
+    def __init__(self, main_window, font_size):
+        super().__init__(main_window)
 
-        self.open_connect_window = tk.Toplevel(self.main_window_frame_ui)
-        self.open_connect_window.grab_set()
-        self.open_connect_window.title("MQTT Client Open Connect")
+        self.main_window = main_window
+        self.title("MQTT Client Open Connect")
 
         row = 0
         column = 0
 
-        self.label_broker = tk.Label(self.open_connect_window, text="Broker",
+        self.label_broker = tk.Label(self, text="Broker",
                                      font=font_size)
         self.label_broker.grid(row=row, column=column)
         column += 1
-        self.entry_broker_text = tk.StringVar(self.open_connect_window)
-        self.entry_broker_text.set(" Select ")
-        self.entry_broker = tk.OptionMenu(self.open_connect_window,
+        self.entry_broker_text = tk.StringVar(self)
+        self.entry_broker = tk.OptionMenu(self,
                                           self.entry_broker_text,
                                           *ConfigFile().read_sections())
         self.entry_broker.config(font=font_size)
-        menu = self.open_connect_window.nametowidget(
+        menu = self.nametowidget(
             self.entry_broker.menuname)
         menu.config(font=font_size)
         self.entry_broker.grid(row=row, column=column)
 
         column += 1
-        self.button_delete = tk.Button(self.open_connect_window, text="Delete",
+        self.button_delete = tk.Button(self, text="Delete",
                                        font=font_size,
                                        command=self.delete)
         self.button_delete.grid(row=row, column=column)
@@ -52,12 +50,12 @@ class OpenConnect:
         row += 2
         column = 0
 
-        self.button_cancel = tk.Button(self.open_connect_window, text="Cancel",
+        self.button_cancel = tk.Button(self, text="Cancel",
                                        font=font_size,
                                        command=self.cancel)
         self.button_cancel.grid(row=row, column=column, padx=50, pady=50)
         column += 1
-        self.button_open = tk.Button(self.open_connect_window, text="Open",
+        self.button_open = tk.Button(self, text="Open",
                                      font=font_size,
                                      command=self.open_connect)
         self.button_open.grid(row=row, column=column, padx=50, pady=50)
@@ -65,15 +63,15 @@ class OpenConnect:
     def open_connect(self):
         broker, port, username, password = ConfigFile().read_broker(
             self.entry_broker_text.get())
-        self.main_window_frame_ui.entry_broker_text.set(broker)
-        self.open_connect_window.destroy()
+        self.main_window.entry_broker_text.set(broker)
+        self.destroy()
 
     def cancel(self):
-        self.open_connect_window.destroy()
+        self.destroy()
 
     def delete(self):
         deleted = ConfigFile().delete(
-            self.entry_broker_text.get())
+            self.main_window.entry_broker_text.get())
         if deleted:
             messagebox.showinfo("showinfo", "Broker is deleted.")
         else:

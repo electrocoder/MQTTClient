@@ -21,7 +21,7 @@ class ConfigFile:
         self.config = configparser.ConfigParser()
 
         basedir = os.path.dirname(__file__)
-        self.file_name = os.path.join(basedir, "configfile.ini")
+        self.file_name = os.path.join(basedir, "config_file.ini")
         if exists(self.file_name):
             self.config.read(self.file_name)
 
