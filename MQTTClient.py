@@ -107,7 +107,7 @@ class App(tk.Tk):
 
         column += 1
         self.entry_subscribe_topic_text = tk.StringVar(self)
-        self.options_list = ["New",]
+        self.options_list = ["-",]
         self.entry_subscribe_topic = tk.OptionMenu(self,
                                                    self.entry_subscribe_topic_text,
                                                    *self.options_list, command=self.subscribe_topic)

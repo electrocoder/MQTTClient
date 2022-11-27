@@ -76,10 +76,7 @@ class OpenConnect(tk.Toplevel):
                                       choice))
                 self.main_window.entry_subscribe_topic_text.set(choice)
 
-        # self.main_window.entry_subscribe_topic.menuname=
-        # self.main_window.options_list['menu'].add
         self.destroy()
-        # return ConfigFile().read_topics(broker)
 
     def cancel(self):
         self.destroy()
