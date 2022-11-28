@@ -126,8 +126,16 @@ class App(tk.Tk):
                                                 text="Subscribe",
                                                 font=font_size,
                                                 state=tk.DISABLED,
-                                                command=self.button_subscribe_topic)
+                                                command=self.button_subscribe)
         self.button_subscribe_topic.grid(row=row, column=column)
+
+        column += 1
+        self.button_add_subscribe_topic = tk.Button(self,
+                                                text="Add Subscribe Topic",
+                                                font=font_size,
+                                                state=tk.DISABLED,
+                                                command=self.button_subscribe)
+        self.button_add_subscribe_topic.grid(row=row, column=column)
 
         # filter msg
         row += 1
@@ -235,6 +243,7 @@ class App(tk.Tk):
                 self.entry_subscribe_topic_text.set(choice)
 
 
+
     def button_disconnect(self):
         print("button_disconnect")
         if self.subscriber.connect_stop():
@@ -247,8 +256,8 @@ class App(tk.Tk):
             self.button_publich_topic[
                 "state"] = tk.DISABLED
 
-    def button_subscribe_topic(self):
-        print("button_subscribe_topic")
+    def button_subscribe(self):
+        print("button_subscribe")
         self.subscriber.subscribe_start(
             self.entry_subscribe_topic_text.get())
         self.button_filter_add[
