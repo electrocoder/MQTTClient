@@ -21,7 +21,6 @@ import paho.mqtt.client as mqtt
 import about as about
 import new_connect as new_connect
 import new_topic as new_topic
-import open_connect as open_connect
 import subscriber as subscriber
 from config_file import ConfigFile
 
@@ -45,8 +44,12 @@ class App(tk.Tk):
         column += 1
 
         self.entry_broker_text = tk.StringVar(self)
-        self.entry_broker = tk.Entry(self, textvariable=self.entry_broker_text,
-                                     font=font_size)
+        self.options_list = ConfigFile().read_sections()
+        self.entry_broker_text.set(self.options_list[0])
+        self.entry_broker = tk.OptionMenu(self,
+                                          self.entry_broker_text,
+                                          *self.options_list)
+
         self.entry_broker.grid(row=row, column=column)
 
         column += 1
@@ -107,7 +110,7 @@ class App(tk.Tk):
 
         column += 1
         self.entry_subscribe_topic_text = tk.StringVar(self)
-        self.options_list = ["-",]
+        self.options_list = ["-", ]
         self.entry_subscribe_topic = tk.OptionMenu(self,
                                                    self.entry_subscribe_topic_text,
                                                    *self.options_list, command=self.subscribe_topic)
@@ -173,8 +176,8 @@ class App(tk.Tk):
         menu_connect = tk.Menu(menubar, tearoff=0)
         menu_connect.add_command(label='New Connect',
                                  command=self.new_connect_window)
-        menu_connect.add_command(label='Open Connect',
-                                 command=self.open_connect_window)
+        # menu_connect.add_command(label='Open Connect',
+        #                          command=self.open_connect_window)
         menu_connect.add_separator()
         menu_connect.add_command(label='Exit', command=self.quit)
         menubar.add_cascade(label="Connect", menu=menu_connect)
@@ -215,11 +218,22 @@ class App(tk.Tk):
                     "state"] = tk.NORMAL
                 self.button_publich_topic[
                     "state"] = tk.NORMAL
-                topics = ConfigFile().read_topics(
-                    self.entry_broker_text.get())
-                print(topics)
+                self.subscribe_list(broker)
         else:
             messagebox.showerror("showerror", "Please select broker.")
+
+    def subscribe_list(self, broker):
+        self.entry_subscribe_topic['menu'].delete(0, 'end')
+
+        new_choices = ConfigFile().read_topics(broker).split(',')
+        for choice in new_choices:
+            if choice:
+                self.entry_subscribe_topic['menu'].add_command(
+                    label=choice,
+                    command=tk._setit(self.entry_subscribe_topic_text,
+                                      choice))
+                self.entry_subscribe_topic_text.set(choice)
+
 
     def button_disconnect(self):
         print("button_disconnect")
@@ -261,11 +275,18 @@ class App(tk.Tk):
         new_connect.NewConnect(self, self.text_font)
 
     def subscribe_topic(self, *args):
+        print("subscribe_topic")
         if self.entry_subscribe_topic_text.get() == 'New':
             new_topic.NewTopic(self, self.text_font)
 
-    def open_connect_window(self):
-        open_connect.OpenConnect(self, self.text_font)
+
+    # def open_broker(self, *args):
+    #     print("open_broker")
+    #     if self.entry_broker_text.get() == 'New':
+    #         new_topic.NewTopic(self, self.text_font)
+
+    # def open_connect_window(self):
+    #     open_connect.OpenConnect(self, self.text_font)
 
     def add_filter(self):
         self.msg_filter = True
@@ -280,6 +301,15 @@ class App(tk.Tk):
             "state"] = tk.NORMAL
         self.button_filter_remove[
             "state"] = tk.DISABLED
+
+
+    # def broker_delete(self):
+    #     deleted = ConfigFile().delete(
+    #         self.main_window.entry_broker_text.get())
+    #     if deleted:
+    #         messagebox.showinfo("showinfo", "Broker is deleted.")
+    #     else:
+    #         messagebox.showerror("showerror", "Not deleted.")
 
 
 if __name__ == "__main__":
