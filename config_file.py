@@ -21,7 +21,7 @@ class ConfigFile:
         self.config = configparser.ConfigParser()
 
         basedir = os.path.dirname(__file__)
-        self.file_name = os.path.join(basedir, "configfile.ini")
+        self.file_name = os.path.join(basedir, "config_file.ini")
         if exists(self.file_name):
             self.config.read(self.file_name)
 
@@ -49,6 +49,23 @@ class ConfigFile:
         password = self.config[broker]["password"]
 
         return broker, port, username, password
+
+    def read_topics(self, broker):
+        self.config.read(self.file_name)
+        topics = self.config[broker]["topics"]
+
+        return topics
+
+    def create_topic(self, broker, topic):
+        print("broker", broker)
+        print("topic", topic)
+        con = self.config[broker]
+        con['topics'] += topic + ","
+
+        with open(self.file_name, 'w') as configfile:
+            self.config.write(configfile)
+
+        return topic
 
     def delete(self, broker):
         self.config.read(self.file_name)

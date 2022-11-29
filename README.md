@@ -9,9 +9,11 @@ messages while developing a project with the MQTT protocol.
 
 ## Version History
 
-0v1 : Start project
+0v3 26.11.2022: Alfa MQTT Client
 
-0v2 : Alfa MQTT Client
+0v2 15.10.2022: Alfa MQTT Client
+
+0v1 10.10.2022 : Start project
 
 ## Contributing
 
@@ -43,13 +45,15 @@ pip install mqttclient
 
 ### MacOS
 
-pyinstaller --add-data 'icon.png:.' --add-data 'README.md:.' --add-data 'LICENSE:.' --icon=icon.icns MQTTClient.py -w --noconsole --windowed
+pyinstaller MQTTClient.py -w --windowed
 
 ### Windows
-pyinstaller --add-data 'icon.png:.' --add-data 'README.md:.' --add-data 'LICENSE:.' --icon=icon.ico MQTTClient.py --noconsole
+
+pyinstaller MQTTClient.py -w --windowed
 
 ### Linux
-pyinstaller --add-data 'icon.png:.' --add-data 'README.md:.' --add-data 'LICENSE:.' --icon=icon.ico MQTTClient.py --noconsole
+
+pyinstaller MQTTClient.py -w --windowed
 
 ## Using TestPyPI with Twine
 
@@ -70,3 +74,9 @@ python setup.py py2exe -A --iconfile icon.png
 ### Windows
 
 auto-py-to-exe
+
+# TODO
+
+* List message box add datetime
+* New connect page add broker name
+* Font size settings page
