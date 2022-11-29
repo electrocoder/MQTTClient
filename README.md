@@ -48,10 +48,12 @@ pip install mqttclient
 pyinstaller MQTTClient.py -w --windowed
 
 ### Windows
-pyinstaller --add-data 'icon.png:.' --add-data 'README.md:.' --add-data 'LICENSE:.' --icon=icon.ico MQTTClient.py --noconsole
+
+pyinstaller MQTTClient.py -w --windowed
 
 ### Linux
-pyinstaller --add-data 'icon.png:.' --add-data 'README.md:.' --add-data 'LICENSE:.' --icon=icon.ico MQTTClient.py --noconsole
+
+pyinstaller MQTTClient.py -w --windowed
 
 ## Using TestPyPI with Twine
 
