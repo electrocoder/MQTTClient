@@ -74,3 +74,9 @@ python setup.py py2exe -A --iconfile icon.png
 ### Windows
 
 auto-py-to-exe
+
+# TODO
+
+* List message box add datetime
+* New connect page add broker name
+* Font size settings page
