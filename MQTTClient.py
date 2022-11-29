@@ -18,10 +18,10 @@ from tkinter.font import Font
 
 import paho.mqtt.client as mqtt
 
-import about as about
-import new_connect as new_connect
-import new_topic as new_topic
-import subscriber as subscriber
+import about
+import new_connect
+import new_topic
+import subscriber
 from config_file import ConfigFile
 
 
