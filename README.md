@@ -45,7 +45,7 @@ pip install mqttclient
 
 ### MacOS
 
-pyinstaller --add-data 'icon.png:.' --add-data 'README.md:.' --add-data 'LICENSE:.' --icon=icon.icns MQTTClient.py -w --noconsole --windowed
+pyinstaller MQTTClient.py -w --windowed
 
 ### Windows
 pyinstaller --add-data 'icon.png:.' --add-data 'README.md:.' --add-data 'LICENSE:.' --icon=icon.ico MQTTClient.py --noconsole

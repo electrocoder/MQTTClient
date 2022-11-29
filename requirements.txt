@@ -1,5 +1,6 @@
 paho-mqtt
 pyinstaller
+pyinstaller-hooks-contrib
 configparser
 py2app==0.24
 auto-py-to-exe
