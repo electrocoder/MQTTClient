@@ -12,7 +12,6 @@ File: This script is Create New Topic
 """
 
 import tkinter as tk
-from tkinter import messagebox
 
 from config_file import ConfigFile
 
@@ -28,7 +27,7 @@ class NewTopic(tk.Toplevel):
         column = 0
 
         self.label_topic = tk.Label(self, text="Add Topic",
-                                     font=font_size)
+                                    font=font_size)
         self.label_topic.grid(row=row, column=column)
         column += 1
         self.entry_topic = tk.Entry(self)
@@ -50,10 +49,9 @@ class NewTopic(tk.Toplevel):
 
     def save_topic(self):
         topic = ConfigFile().create_topic(self.main_window.entry_broker_text.get(),
-            self.entry_topic.get())
+                                          self.entry_topic.get())
         self.main_window.entry_subscribe_topic_text.set(topic)
         self.destroy()
 
     def cancel(self):
         self.destroy()
-

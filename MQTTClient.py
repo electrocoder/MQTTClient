@@ -131,10 +131,10 @@ class App(tk.Tk):
 
         column += 1
         self.button_add_subscribe_topic = tk.Button(self,
-                                                text="Add Subscribe Topic",
-                                                font=font_size,
-                                                state=tk.DISABLED,
-                                                command=self.add_subscribe_topic)
+                                                    text="Add Subscribe Topic",
+                                                    font=font_size,
+                                                    state=tk.DISABLED,
+                                                    command=self.add_subscribe_topic)
         self.button_add_subscribe_topic.grid(row=row, column=column)
 
         # filter msg
@@ -243,8 +243,6 @@ class App(tk.Tk):
                                       choice))
                 self.entry_subscribe_topic_text.set(choice)
 
-
-
     def button_disconnect(self):
         print("button_disconnect")
         if self.subscriber.connect_stop():
@@ -289,15 +287,6 @@ class App(tk.Tk):
         print("add_subscribe_topic")
         new_topic.NewTopic(self, self.text_font)
 
-
-    # def open_broker(self, *args):
-    #     print("open_broker")
-    #     if self.entry_broker_text.get() == 'New':
-    #         new_topic.NewTopic(self, self.text_font)
-
-    # def open_connect_window(self):
-    #     open_connect.OpenConnect(self, self.text_font)
-
     def add_filter(self):
         self.msg_filter = True
         self.button_filter_add[
@@ -311,15 +300,6 @@ class App(tk.Tk):
             "state"] = tk.NORMAL
         self.button_filter_remove[
             "state"] = tk.DISABLED
-
-
-    # def broker_delete(self):
-    #     deleted = ConfigFile().delete(
-    #         self.main_window.entry_broker_text.get())
-    #     if deleted:
-    #         messagebox.showinfo("showinfo", "Broker is deleted.")
-    #     else:
-    #         messagebox.showerror("showerror", "Not deleted.")
 
 
 if __name__ == "__main__":
