@@ -43,7 +43,7 @@ class Subscriber:
         self.topic = msg.topic
         self.message = msg.payload.decode('utf8')
         if self.main_window.msg_filter:
-            if self.main_window.entry_msg_filter_text.get() in self.message:
+            if self.main_window.entry_msg_filter_text.get() in self.message or self.main_window.entry_msg_filter_text.get() in self.topic:
                 self.main_window.listbox_message.insert(tk.END,
                                                         ">{} {} {}\n".format(
                                                             self.on_message_count,
