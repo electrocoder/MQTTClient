@@ -113,7 +113,7 @@ class App(tk.Tk):
         self.options_list = ["-", ]
         self.entry_subscribe_topic = tk.OptionMenu(self,
                                                    self.entry_subscribe_topic_text,
-                                                   *self.options_list, command=self.subscribe_topic)
+                                                   *self.options_list, command=self.add_subscribe_topic)
         self.entry_subscribe_topic.config(font=font_size)
         menu = self.nametowidget(
             self.entry_subscribe_topic.menuname)
@@ -134,7 +134,7 @@ class App(tk.Tk):
                                                 text="Add Subscribe Topic",
                                                 font=font_size,
                                                 state=tk.DISABLED,
-                                                command=self.button_subscribe)
+                                                command=self.add_subscribe_topic)
         self.button_add_subscribe_topic.grid(row=row, column=column)
 
         # filter msg
@@ -227,6 +227,7 @@ class App(tk.Tk):
                 self.button_publich_topic[
                     "state"] = tk.NORMAL
                 self.subscribe_list(broker)
+                self.button_add_subscribe_topic["state"] = tk.NORMAL
         else:
             messagebox.showerror("showerror", "Please select broker.")
 
@@ -255,6 +256,7 @@ class App(tk.Tk):
                 "state"] = tk.DISABLED
             self.button_publich_topic[
                 "state"] = tk.DISABLED
+            self.button_add_subscribe_topic["state"] = tk.DISABLED
 
     def button_subscribe(self):
         print("button_subscribe")
@@ -283,10 +285,9 @@ class App(tk.Tk):
     def new_connect_window(self):
         new_connect.NewConnect(self, self.text_font)
 
-    def subscribe_topic(self, *args):
-        print("subscribe_topic")
-        if self.entry_subscribe_topic_text.get() == 'New':
-            new_topic.NewTopic(self, self.text_font)
+    def add_subscribe_topic(self, *args):
+        print("add_subscribe_topic")
+        new_topic.NewTopic(self, self.text_font)
 
 
     # def open_broker(self, *args):
