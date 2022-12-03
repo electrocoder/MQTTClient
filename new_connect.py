@@ -26,6 +26,18 @@ class NewConnect(tk.Toplevel):
         row = 0
         column = 0
 
+        self.label_name = tk.Label(self, text="Name",
+                                     font=font_size)
+        self.label_name.grid(row=row, column=column)
+        column += 1
+        self.entry_name_text = tk.StringVar(self)
+        self.entry_name = tk.Entry(self, font=font_size,
+                                     textvariable=self.entry_name_text)
+        self.entry_name.grid(row=row, column=column)
+
+        row += 1
+        column = 0
+
         self.label_broker = tk.Label(self, text="Broker",
                                      font=font_size)
         self.label_broker.grid(row=row, column=column)
@@ -84,7 +96,7 @@ class NewConnect(tk.Toplevel):
         self.button_save.grid(row=row, column=column, padx=50, pady=50)
 
     def save_config(self):
-        ConfigFile().create_file(self.entry_broker_text.get(),
+        ConfigFile().create_file(self.entry_name_text.get(), self.entry_broker_text.get(),
                                  self.entry_port_text.get(),
                                  self.entry_username_text.get(),
                                  self.entry_password_text.get())

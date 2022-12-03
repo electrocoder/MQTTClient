@@ -29,37 +29,38 @@ class ConfigFile:
         self.config.read(self.file_name)
         return self.config.sections()
 
-    def create_file(self, broker, port, username, password):
-        self.config.add_section(broker)
-        self.config.set(broker, 'broker', broker)
-        self.config.set(broker, 'port', port)
-        self.config.set(broker, 'username', username)
-        self.config.set(broker, 'password', password)
+    def create_file(self, name, broker, port, username, password):
+        self.config.add_section(name)
+        self.config.set(name, 'broker', broker)
+        self.config.set(name, 'port', port)
+        self.config.set(name, 'username', username)
+        self.config.set(name, 'password', password)
+        self.config.set(name, 'topics', '#,')
 
         with open(self.file_name, 'w') as configfile:
             self.config.write(configfile)
 
         return True
 
-    def read_broker(self, broker):
+    def read_broker(self, name):
         self.config.read(self.file_name)
-        broker = self.config[broker]["broker"]
-        port = self.config[broker]["port"]
-        username = self.config[broker]["username"]
-        password = self.config[broker]["password"]
+        broker = self.config[name]["broker"]
+        port = self.config[name]["port"]
+        username = self.config[name]["username"]
+        password = self.config[name]["password"]
 
-        return broker, port, username, password
+        return name, broker, port, username, password
 
-    def read_topics(self, broker):
+    def read_topics(self, name):
         self.config.read(self.file_name)
-        topics = self.config[broker]["topics"]
+        topics = self.config[name]["topics"]
 
         return topics
 
-    def create_topic(self, broker, topic):
-        print("broker", broker)
+    def create_topic(self, name, topic):
+        print("name", name)
         print("topic", topic)
-        con = self.config[broker]
+        con = self.config[name]
         con['topics'] += topic + ","
 
         with open(self.file_name, 'w') as configfile:
@@ -67,9 +68,9 @@ class ConfigFile:
 
         return topic
 
-    def delete(self, broker):
+    def delete(self, name):
         self.config.read(self.file_name)
-        delete = self.config.remove_section(broker)
+        delete = self.config.remove_section(name)
         if delete:
             with open(self.file_name, 'w') as configfile:
                 self.config.write(configfile)

@@ -54,6 +54,11 @@ class App(tk.Tk):
                                           self.entry_broker_text,
                                           *self.options_list)
 
+        self.entry_broker.config(font=font_size)
+        menu = self.nametowidget(
+            self.entry_broker.menuname)
+        menu.config(font=font_size)
+
         self.entry_broker.grid(row=row, column=column)
 
         column += 1
@@ -74,35 +79,35 @@ class App(tk.Tk):
         row += 1
         column = 0
 
-        # publich topic
-        self.label_publich_topic = tk.Label(self, text="Publish Topic",
+        # publish topic
+        self.label_publish_topic = tk.Label(self, text="Publish Topic",
                                             font=font_size)
-        self.label_publich_topic.grid(row=row, column=column, sticky=tk.W)
+        self.label_publish_topic.grid(row=row, column=column, sticky=tk.W)
 
         column += 1
-        self.entry_publich_topic_text = tk.StringVar(self)
-        self.entry_publich_topic = tk.Entry(self,
-                                            textvariable=self.entry_publich_topic_text,
+        self.entry_publish_topic_text = tk.StringVar(self)
+        self.entry_publish_topic = tk.Entry(self,
+                                            textvariable=self.entry_publish_topic_text,
                                             font=font_size)
-        self.entry_publich_topic.grid(row=row, column=column)
+        self.entry_publish_topic.grid(row=row, column=column)
 
         column += 1
-        self.label_publich_msg_topic = tk.Label(self, text="Publish Message",
+        self.label_publish_msg_topic = tk.Label(self, text="Publish Message",
                                                 font=font_size)
-        self.label_publich_msg_topic.grid(row=row, column=column)
+        self.label_publish_msg_topic.grid(row=row, column=column)
 
         column += 1
-        self.entry_publich_topic_msg_text = tk.StringVar(self)
-        self.entry_publich_msg_topic = tk.Entry(self,
-                                                textvariable=self.entry_publich_topic_msg_text,
+        self.entry_publish_topic_msg_text = tk.StringVar(self)
+        self.entry_publish_msg_topic = tk.Entry(self,
+                                                textvariable=self.entry_publish_topic_msg_text,
                                                 font=font_size)
-        self.entry_publich_msg_topic.grid(row=row, column=column)
+        self.entry_publish_msg_topic.grid(row=row, column=column)
 
         column += 1
-        self.button_publich_topic = tk.Button(self,
+        self.button_publish_topic = tk.Button(self,
                                               text="Publish", font=font_size,
                                               command=self.button_publish_topic)
-        self.button_publich_topic.grid(row=row, column=column)
+        self.button_publish_topic.grid(row=row, column=column)
 
         row += 1
         column = 0
@@ -228,7 +233,7 @@ class App(tk.Tk):
                     "state"] = tk.NORMAL
                 self.button_subscribe_topic[
                     "state"] = tk.NORMAL
-                self.button_publich_topic[
+                self.button_publish_topic[
                     "state"] = tk.NORMAL
                 self.subscribe_list(broker)
                 self.button_add_subscribe_topic["state"] = tk.NORMAL
@@ -256,7 +261,7 @@ class App(tk.Tk):
             self.button_disconnect["state"] = tk.DISABLED
             self.button_subscribe_topic[
                 "state"] = tk.DISABLED
-            self.button_publich_topic[
+            self.button_publish_topic[
                 "state"] = tk.DISABLED
             self.button_add_subscribe_topic["state"] = tk.DISABLED
 
@@ -271,8 +276,8 @@ class App(tk.Tk):
 
     def button_publish_topic(self):
         print("button_publish_topic")
-        topic = self.entry_publich_topic_text.get()
-        msg = self.entry_publich_topic_msg_text.get()
+        topic = self.entry_publish_topic_text.get()
+        msg = self.entry_publish_topic_msg_text.get()
         self.listbox_message.insert(tk.END,
                                     "> {}".format(msg))
         self.listbox_message.see("end")
