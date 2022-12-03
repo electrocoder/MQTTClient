@@ -64,7 +64,7 @@ class Subscriber:
             "Connected | Message: %s | Publish: %s" % (
                 self.on_message_count, self.publish_message_count))
 
-    def connect_start(self, broker, port, username, password):
+    def connect_start(self, name, broker, port, username, password):
         self.client.username_pw_set(username, password)
         self.client.connect(broker, int(port), 60)
         return True

@@ -220,12 +220,10 @@ class App(tk.Tk):
                                                 mqtt.Client())
 
     def button_connect(self):
-        print("button_connect")
         if self.entry_broker_text.get():
-            broker, port, username, password = ConfigFile().read_broker(
+            name, broker, port, username, password = ConfigFile().read_broker(
                 self.entry_broker_text.get())
-            print(broker, port, username, password)
-            if self.subscriber.connect_start(broker, port, username, password):
+            if self.subscriber.connect_start(name, broker, port, username, password):
                 self.connect_status_text.set("Connected")
                 self.button_connect["state"] = tk.DISABLED
                 self.button_connect["text"] = "Connected"
@@ -235,15 +233,15 @@ class App(tk.Tk):
                     "state"] = tk.NORMAL
                 self.button_publish_topic[
                     "state"] = tk.NORMAL
-                self.subscribe_list(broker)
+                self.subscribe_list(name)
                 self.button_add_subscribe_topic["state"] = tk.NORMAL
         else:
             messagebox.showerror("showerror", "Please select broker.")
 
-    def subscribe_list(self, broker):
+    def subscribe_list(self, name):
         self.entry_subscribe_topic['menu'].delete(0, 'end')
 
-        new_choices = ConfigFile().read_topics(broker).split(',')
+        new_choices = ConfigFile().read_topics(name).split(',')
         for choice in new_choices:
             if choice:
                 self.entry_subscribe_topic['menu'].add_command(
