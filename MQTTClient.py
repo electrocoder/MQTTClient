@@ -29,7 +29,7 @@ class App(tk.Tk):
         super().__init__()
 
         self.title('MQTT Client 0v4')
-        self.geometry('850x450')
+        self.geometry('750x350')
 
         # self.rowconfigure(0, weight=1)
         # self.columnconfigure(0, weight=1)
@@ -180,9 +180,9 @@ class App(tk.Tk):
         column = 0
 
         # subscribe list
-        self.listbox_message = tk.Text(self, font=font_size, height=12)
+        self.listbox_message = tk.Text(self, font=font_size, height=10)
         self.listbox_message.grid(row=row, column=column, columnspan=6,
-                                  ipadx=11, ipady=11, padx=22, pady=22)
+                                  ipadx=5, ipady=5, padx=5, pady=5)
 
         # menu
         menubar = tk.Menu(self)
@@ -208,11 +208,12 @@ class App(tk.Tk):
         self.connect_status_text.set("...")
         self.connect_status = tk.Label(self,
                                        textvariable=self.connect_status_text,
-                                       relief=tk.SUNKEN, anchor="w")
+                                       bd=1,
+                                       relief=tk.SUNKEN, anchor=tk.W)
         row += 1
         column = 0
 
-        self.connect_status.grid(row=row, column=column)
+        self.connect_status.grid(row=row, column=column, columnspan=5, sticky=tk.W+tk.E)
 
         self.subscriber = subscriber.Subscriber(self)
 

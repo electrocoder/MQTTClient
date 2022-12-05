@@ -19,11 +19,7 @@ import paho.mqtt.client as mqtt
 class Subscriber:
     def __init__(self, main_window):
         self.main_window = main_window
-        self.client = mqtt.Client()
-
-        self.client.on_disconnect = self.on_disconnect
-        self.client.on_message = self.on_message
-        self.client.on_connect = self.on_connect
+        self.client = None
 
         self.on_message_count = 0
         self.publish_message_count = 0
@@ -69,12 +65,17 @@ class Subscriber:
                 self.on_message_count, self.publish_message_count))
 
     def connect_start(self, name, broker, port, username, password):
+        self.client = mqtt.Client()
+        self.client.on_disconnect = self.on_disconnect
+        self.client.on_message = self.on_message
+        self.client.on_connect = self.on_connect
         self.client.username_pw_set(username, password)
         self.client.connect(broker, int(port), 60)
         return True
 
     def connect_stop(self):
         self.client.disconnect()
+        self.client = None
         return True
 
     def subscribe_start(self, topic):
