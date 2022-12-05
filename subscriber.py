@@ -13,12 +13,13 @@ File: This script is MQTT Subscriber Client
 
 import tkinter as tk
 from datetime import datetime
+import paho.mqtt.client as mqtt
 
 
 class Subscriber:
-    def __init__(self, main_window, client):
+    def __init__(self, main_window):
         self.main_window = main_window
-        self.client = client
+        self.client = mqtt.Client()
 
         self.client.on_disconnect = self.on_disconnect
         self.client.on_message = self.on_message

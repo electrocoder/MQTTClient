@@ -16,8 +16,6 @@ import webbrowser
 from tkinter import messagebox
 from tkinter.font import Font
 
-import paho.mqtt.client as mqtt
-
 import new_connect
 import new_topic
 import subscriber
@@ -216,8 +214,7 @@ class App(tk.Tk):
 
         self.connect_status.grid(row=row, column=column)
 
-        self.subscriber = subscriber.Subscriber(self,
-                                                mqtt.Client())
+        self.subscriber = subscriber.Subscriber(self)
 
     def button_connect(self):
         if self.entry_broker_text.get():
