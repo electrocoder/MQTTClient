@@ -12,6 +12,7 @@ File: This script is MQTT Subscriber Client
 """
 
 import tkinter as tk
+from datetime import datetime
 
 
 class Subscriber:
@@ -45,16 +46,18 @@ class Subscriber:
         if self.main_window.msg_filter:
             if self.main_window.entry_msg_filter_text.get() in self.message or self.main_window.entry_msg_filter_text.get() in self.topic:
                 self.main_window.listbox_message.insert(tk.END,
-                                                        ">{} {} {}\n".format(
+                                                        ">{} {}: {} {}\n".format(
                                                             self.on_message_count,
+                                                            datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
                                                             self.topic,
                                                             self.message))
                 self.main_window.listbox_message.see("end")
                 self.on_message_count += 1
         else:
             self.main_window.listbox_message.insert(tk.END,
-                                                    ">{} {} {}\n".format(
+                                                    ">{} {}: {} {}\n".format(
                                                         self.on_message_count,
+                                                        datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
                                                         self.topic,
                                                         self.message))
             self.main_window.listbox_message.see("end")

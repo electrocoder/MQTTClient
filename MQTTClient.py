@@ -30,7 +30,7 @@ class App(tk.Tk):
     def __init__(self):
         super().__init__()
 
-        self.title('MQTT Client 0v3')
+        self.title('MQTT Client 0v4')
         self.geometry('850x450')
 
         # self.rowconfigure(0, weight=1)

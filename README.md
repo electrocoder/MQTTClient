@@ -9,6 +9,9 @@ messages while developing a project with the MQTT protocol.
 
 ## Version History
 
+* 0v4 05.12.2022
+  - Alfa MQTT Client
+
 * 0v3 26.11.2022
   - Alfa MQTT Client
 
