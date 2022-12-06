@@ -16,11 +16,10 @@ import webbrowser
 from tkinter import messagebox
 from tkinter.font import Font
 
+import about
 import new_connect
 import new_topic
 import subscriber
-import about
-
 from config_file import ConfigFile
 
 
@@ -34,21 +33,23 @@ class App(tk.Tk):
         # self.rowconfigure(0, weight=1)
         # self.columnconfigure(0, weight=1)
 
+        ipadding = {'ipadx': 10, 'ipady': 10}
+
+        frame = tk.Frame(self)
+        frame.pack(fill = tk.BOTH, expand = True)
+
         font_size = 14
         self.text_font = Font(size=font_size)
 
         self.msg_filter = False
-        row = 0
-        column = 0
 
-        self.label_broker = tk.Label(self, text="Broker", font=font_size)
-        self.label_broker.grid(row=row, column=column, sticky=tk.W)
-        column += 1
+        self.label_broker = tk.Label(frame, text="Broker", font=font_size)
+        self.label_broker.pack(ipadx=20, ipady=20, fill=tk.BOTH, expand=True, side=tk.LEFT)
 
         self.entry_broker_text = tk.StringVar(self)
         self.options_list = ConfigFile().read_sections()
         self.entry_broker_text.set(self.options_list[0])
-        self.entry_broker = tk.OptionMenu(self,
+        self.entry_broker = tk.OptionMenu(frame,
                                           self.entry_broker_text,
                                           *self.options_list)
 
@@ -57,132 +58,131 @@ class App(tk.Tk):
             self.entry_broker.menuname)
         menu.config(font=font_size)
 
-        self.entry_broker.grid(row=row, column=column)
+        self.entry_broker.pack(ipadx=20, ipady=20, fill=tk.BOTH, expand=True, side=tk.LEFT)
 
-        column += 1
-
-        self.button_connect = tk.Button(self,
+        self.button_connect = tk.Button(frame,
                                         text="Connect", font=font_size,
                                         command=self.button_connect)
-        self.button_connect.grid(row=row, column=column)
+        self.button_connect.pack(ipadx=20, ipady=20, fill=tk.BOTH, expand=True, side=tk.LEFT)
 
-        column += 1
-
-        self.button_disconnect = tk.Button(self,
+        self.button_disconnect = tk.Button(frame,
                                            text="Disconnect", font=font_size,
                                            state=tk.DISABLED,
                                            command=self.button_disconnect)
-        self.button_disconnect.grid(row=row, column=column, sticky=tk.W)
+        self.button_disconnect.pack(ipadx=20, ipady=20, fill=tk.BOTH, expand=True, side=tk.LEFT)
 
-        row += 1
-        column = 0
+        frame1 = tk.Frame(self)
+        frame1.pack(fill = tk.BOTH, expand = True)
 
         # publish topic
-        self.label_publish_topic = tk.Label(self, text="Publish Topic",
+        self.label_publish_topic = tk.Label(frame1, text="Publish Topic",
                                             font=font_size)
-        self.label_publish_topic.grid(row=row, column=column, sticky=tk.W)
+        self.label_publish_topic.pack(**ipadding, expand=True, fill=tk.BOTH,
+                                      side=tk.LEFT)
 
-        column += 1
         self.entry_publish_topic_text = tk.StringVar(self)
-        self.entry_publish_topic = tk.Entry(self,
+        self.entry_publish_topic = tk.Entry(frame1,
                                             textvariable=self.entry_publish_topic_text,
                                             font=font_size)
-        self.entry_publish_topic.grid(row=row, column=column)
+        self.entry_publish_topic.pack(**ipadding, expand=True, fill=tk.BOTH,
+                                      side=tk.LEFT)
 
-        column += 1
-        self.label_publish_msg_topic = tk.Label(self, text="Publish Message",
+        self.label_publish_msg_topic = tk.Label(frame1, text="Publish Message",
                                                 font=font_size)
-        self.label_publish_msg_topic.grid(row=row, column=column)
+        self.label_publish_msg_topic.pack(**ipadding, expand=True,
+                                          fill=tk.BOTH, side=tk.LEFT)
 
-        column += 1
         self.entry_publish_topic_msg_text = tk.StringVar(self)
-        self.entry_publish_msg_topic = tk.Entry(self,
+        self.entry_publish_msg_topic = tk.Entry(frame1,
                                                 textvariable=self.entry_publish_topic_msg_text,
                                                 font=font_size)
-        self.entry_publish_msg_topic.grid(row=row, column=column)
+        self.entry_publish_msg_topic.pack(**ipadding, expand=True,
+                                          fill=tk.BOTH, side=tk.LEFT)
 
-        column += 1
-        self.button_publish_topic = tk.Button(self,
+        self.button_publish_topic = tk.Button(frame1,
                                               text="Publish", font=font_size,
                                               command=self.button_publish_topic)
-        self.button_publish_topic.grid(row=row, column=column)
+        self.button_publish_topic.pack(**ipadding, expand=True, fill=tk.BOTH,
+                                       side=tk.LEFT)
 
-        row += 1
-        column = 0
+        frame2 = tk.Frame(self)
+        frame2.pack(fill = tk.BOTH, expand = True)
 
         # subscribe topic
-        self.label_subscribe_topic = tk.Label(self, text="Subscribe Topic",
+        self.label_subscribe_topic = tk.Label(frame2, text="Subscribe Topic",
                                               font=font_size)
-        self.label_subscribe_topic.grid(row=row, column=column, sticky=tk.W)
+        self.label_subscribe_topic.pack(**ipadding, expand=True, fill=tk.BOTH,
+                                        side=tk.LEFT)
 
-        column += 1
         self.entry_subscribe_topic_text = tk.StringVar(self)
         self.options_list = ["-", ]
-        self.entry_subscribe_topic = tk.OptionMenu(self,
+        self.entry_subscribe_topic = tk.OptionMenu(frame2,
                                                    self.entry_subscribe_topic_text,
-                                                   *self.options_list, command=self.add_subscribe_topic)
+                                                   *self.options_list,
+                                                   command=self.add_subscribe_topic)
         self.entry_subscribe_topic.config(font=font_size)
         menu = self.nametowidget(
             self.entry_subscribe_topic.menuname)
         menu.config(font=font_size)
 
-        self.entry_subscribe_topic.grid(row=row, column=column)
+        self.entry_subscribe_topic.pack(**ipadding, expand=True, fill=tk.BOTH,
+                                        side=tk.LEFT)
 
-        column += 1
-        self.button_subscribe_topic = tk.Button(self,
+        self.button_subscribe_topic = tk.Button(frame2,
                                                 text="Subscribe",
                                                 font=font_size,
                                                 state=tk.DISABLED,
                                                 command=self.button_subscribe)
-        self.button_subscribe_topic.grid(row=row, column=column)
+        self.button_subscribe_topic.pack(**ipadding, expand=True, fill=tk.BOTH,
+                                         side=tk.LEFT)
 
-        column += 1
-        self.button_add_subscribe_topic = tk.Button(self,
+        self.button_add_subscribe_topic = tk.Button(frame2,
                                                     text="Add Subscribe Topic",
                                                     font=font_size,
                                                     state=tk.DISABLED,
                                                     command=self.add_subscribe_topic)
-        self.button_add_subscribe_topic.grid(row=row, column=column)
+        self.button_add_subscribe_topic.pack(**ipadding, expand=True,
+                                             fill=tk.BOTH, side=tk.LEFT)
+
+        frame3 = tk.Frame(self)
+        frame3.pack(fill = tk.BOTH, expand = True)
 
         # filter msg
-        row += 1
-        column = 0
 
-        self.label_msg_filter = tk.Label(self, text="Filter Message",
+        self.label_msg_filter = tk.Label(frame3, text="Filter Message",
                                          font=font_size)
-        self.label_msg_filter.grid(row=row, column=column, sticky=tk.W)
-        self.label_msg_filter.grid(row=row, column=column, sticky=tk.W)
-
-        column += 1
+        self.label_msg_filter.pack(**ipadding, expand=True, fill=tk.BOTH,
+                                   side=tk.LEFT)
 
         self.entry_msg_filter_text = tk.StringVar(self)
-        self.entry_msg_filter = tk.Entry(self,
+        self.entry_msg_filter = tk.Entry(frame3,
                                          textvariable=self.entry_msg_filter_text,
                                          font=font_size)
-        self.entry_msg_filter.grid(row=row, column=column)
-        column += 1
+        self.entry_msg_filter.pack(**ipadding, expand=True, fill=tk.BOTH,
+                                   side=tk.LEFT)
 
-        self.button_filter_add = tk.Button(self,
+        self.button_filter_add = tk.Button(frame3,
                                            text="Add Filter", font=font_size,
                                            state=tk.DISABLED,
                                            command=self.add_filter)
-        self.button_filter_add.grid(row=row, column=column)
-        column += 1
+        self.button_filter_add.pack(**ipadding, expand=True, fill=tk.BOTH,
+                                    side=tk.LEFT)
 
-        self.button_filter_remove = tk.Button(self,
+        self.button_filter_remove = tk.Button(frame3,
                                               text="Remove Filter",
                                               font=font_size,
                                               state=tk.DISABLED,
                                               command=self.remove_filter)
-        self.button_filter_remove.grid(row=row, column=column)
+        self.button_filter_remove.pack(**ipadding, expand=True, fill=tk.BOTH,
+                                       side=tk.LEFT)
 
-        row += 1
-        column = 0
+        frame4 = tk.Frame(self)
+        frame4.pack(fill = tk.BOTH, expand = True)
 
         # subscribe list
-        self.listbox_message = tk.Text(self, font=font_size, height=10)
-        self.listbox_message.grid(row=row, column=column, columnspan=6,
-                                  ipadx=5, ipady=5, padx=5, pady=5)
+        self.listbox_message = tk.Text(frame4, font=font_size, height=10)
+        self.listbox_message.pack(**ipadding, expand=True, fill=tk.BOTH,
+                                  side=tk.LEFT)
 
         # menu
         menubar = tk.Menu(self)
@@ -203,17 +203,18 @@ class App(tk.Tk):
                               command=self.about_window)
         menubar.add_cascade(label="Help", menu=menu_help)
 
+        frame5 = tk.Frame(self)
+        frame5.pack(fill = tk.BOTH, expand = True)
+
         # status bar
         self.connect_status_text = tk.StringVar()
         self.connect_status_text.set("...")
-        self.connect_status = tk.Label(self,
+        self.connect_status = tk.Label(frame5,
                                        textvariable=self.connect_status_text,
                                        bd=1,
                                        relief=tk.SUNKEN, anchor=tk.W)
-        row += 1
-        column = 0
 
-        self.connect_status.grid(row=row, column=column, columnspan=5, sticky=tk.W+tk.E)
+        self.connect_status.pack(**ipadding)
 
         self.subscriber = subscriber.Subscriber(self)
 
@@ -221,7 +222,8 @@ class App(tk.Tk):
         if self.entry_broker_text.get():
             name, broker, port, username, password = ConfigFile().read_broker(
                 self.entry_broker_text.get())
-            if self.subscriber.connect_start(name, broker, port, username, password):
+            if self.subscriber.connect_start(name, broker, port, username,
+                                             password):
                 self.connect_status_text.set("Connected")
                 self.button_connect["state"] = tk.DISABLED
                 self.button_connect["text"] = "Connected"

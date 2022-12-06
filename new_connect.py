@@ -23,80 +23,69 @@ class NewConnect(tk.Toplevel):
         self.main_window = main_window
         self.title("MQTT Client New Connect")
 
-        row = 0
-        column = 0
+        ipadding = {'ipadx': 10, 'ipady': 10}
 
-        self.label_name = tk.Label(self, text="Name",
-                                     font=font_size)
-        self.label_name.grid(row=row, column=column)
-        column += 1
-        self.entry_name_text = tk.StringVar(self)
-        self.entry_name = tk.Entry(self, font=font_size,
-                                     textvariable=self.entry_name_text)
-        self.entry_name.grid(row=row, column=column)
+        frame = tk.Frame()
+        frame.pack()
 
-        row += 1
-        column = 0
-
-        self.label_broker = tk.Label(self, text="Broker",
-                                     font=font_size)
-        self.label_broker.grid(row=row, column=column)
-        column += 1
-        self.entry_broker_text = tk.StringVar(self)
-        self.entry_broker = tk.Entry(self, font=font_size,
-                                     textvariable=self.entry_broker_text)
-        self.entry_broker.grid(row=row, column=column)
-
-        row += 1
-        column = 0
-
-        self.label_port = tk.Label(self, text="Port",
+        self.label_name = tk.Label(frame, text="Name",
                                    font=font_size)
-        self.label_port.grid(row=row, column=column)
-        column += 1
-        self.entry_port_text = tk.StringVar(self)
-        self.entry_port = tk.Entry(self, font=font_size,
+        self.label_name.pack(**ipadding, fill=tk.X)
+
+        self.entry_name_text = tk.StringVar(frame)
+        self.entry_name = tk.Entry(frame, font=font_size,
+                                   textvariable=self.entry_name_text)
+        self.entry_name.pack(**ipadding, fill=tk.X)
+
+        self.label_broker = tk.Label(frame, text="Broker",
+                                     font=font_size)
+        self.label_broker.pack(**ipadding, fill=tk.X)
+
+        self.entry_broker_text = tk.StringVar(frame)
+        self.entry_broker = tk.Entry(frame, font=font_size,
+                                     textvariable=self.entry_broker_text)
+        self.entry_broker.pack(**ipadding, fill=tk.X)
+
+        self.label_port = tk.Label(frame, text="Port",
+                                   font=font_size)
+        self.label_port.pack(**ipadding, fill=tk.X)
+
+        self.entry_port_text = tk.StringVar(frame)
+        self.entry_port = tk.Entry(frame, font=font_size,
                                    textvariable=self.entry_port_text)
-        self.entry_port.grid(row=row, column=column)
+        self.entry_port.pack(**ipadding, fill=tk.X)
 
-        row += 1
-        column = 0
-
-        self.label_username = tk.Label(self,
+        self.label_username = tk.Label(frame,
                                        text="Username", font=font_size)
-        self.label_username.grid(row=row, column=column)
-        column += 1
-        self.entry_username_text = tk.StringVar(self)
-        self.entry_username = tk.Entry(self, font=font_size,
+        self.label_username.pack(**ipadding, fill=tk.X)
+
+        self.entry_username_text = tk.StringVar(frame)
+        self.entry_username = tk.Entry(frame, font=font_size,
                                        textvariable=self.entry_username_text)
-        self.entry_username.grid(row=row, column=column)
+        self.entry_username.pack(**ipadding, fill=tk.X)
 
-        row += 1
-        column = 0
-
-        self.label_password = tk.Label(self,
+        self.label_password = tk.Label(frame,
                                        text="Password", font=font_size)
-        self.label_password.grid(row=row, column=column)
-        column += 1
-        self.entry_password_text = tk.StringVar(self)
-        self.entry_password = tk.Entry(self, font=font_size,
-                                       textvariable=self.entry_password_text)
-        self.entry_password.grid(row=row, column=column)
+        self.label_password.pack(**ipadding, fill=tk.X)
 
-        row += 1
-        column = 0
-        self.button_cancel = tk.Button(self, text="Cancel",
+        self.entry_password_text = tk.StringVar(frame)
+        self.entry_password = tk.Entry(frame, font=font_size,
+                                       textvariable=self.entry_password_text)
+        self.entry_password.pack(**ipadding, fill=tk.X)
+
+        self.button_cancel = tk.Button(frame, text="Cancel",
                                        font=font_size,
                                        command=self.cancel)
-        self.button_cancel.grid(row=row, column=column, padx=50, pady=50)
-        column += 1
-        self.button_save = tk.Button(self, text="Save",
+        self.button_cancel.pack(**ipadding, fill=tk.X)
+
+        self.button_save = tk.Button(frame, text="Save",
                                      font=font_size,
                                      command=self.save_config)
-        self.button_save.grid(row=row, column=column, padx=50, pady=50)
+        self.button_save.pack(**ipadding, fill=tk.X)
 
     def save_config(self):
-        ConfigFile().create_file(self.entry_name_text.get(), self.entry_broker_text.get(),
+        ConfigFile().create_file(self.entry_name_text.get(),
+                                 self.entry_broker_text.get(),
                                  self.entry_port_text.get(),
                                  self.entry_username_text.get(),
                                  self.entry_password_text.get())
