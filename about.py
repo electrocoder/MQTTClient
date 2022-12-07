@@ -18,15 +18,17 @@ class AboutWindow(tk.Toplevel):
     def __init__(self, main_window, font_size):
         super().__init__(main_window)
 
-        self.main_window = main_window
         self.title("MQTT Client About")
+        self.geometry('400x350')
 
-        text1 = tk.Text(self, font=font_size)
-        text1.grid(row=0, column=0, padx=50, pady=50)
+        ipadding = {'ipadx': 1, 'ipady': 1}
+
+        text1 = tk.Text(self, font=font_size, height=10)
+        text1.pack(**ipadding, side=tk.TOP, expand=True, fill=tk.BOTH)
 
         button1 = tk.Button(self, text='OK', font=font_size,
                             command=self.close)
-        button1.grid(row=1, column=0, padx=50, pady=50)
+        button1.pack(**ipadding, side=tk.TOP, expand=True, fill=tk.BOTH)
 
         basedir = os.path.dirname(__file__)
         self.file_name = os.path.join(basedir, "README.md")

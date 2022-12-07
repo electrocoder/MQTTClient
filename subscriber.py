@@ -39,9 +39,22 @@ class Subscriber:
 
     def on_message(self, client, userdata, msg):
         self.topic = msg.topic
-        self.message = msg.payload.decode('utf8')
-        if self.main_window.msg_filter:
-            if self.main_window.entry_msg_filter_text.get() in self.message or self.main_window.entry_msg_filter_text.get() in self.topic:
+        try:
+            self.message = msg.payload.decode('utf8')
+        except:
+            self.message = None
+        if self.message:
+            if self.main_window.msg_filter:
+                if self.main_window.entry_msg_filter_text.get() in self.message or self.main_window.entry_msg_filter_text.get() in self.topic:
+                    self.main_window.listbox_message.insert(tk.END,
+                                                            ">{} {}: {} {}\n".format(
+                                                                self.on_message_count,
+                                                                datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+                                                                self.topic,
+                                                                self.message))
+                    self.main_window.listbox_message.see("end")
+                    self.on_message_count += 1
+            else:
                 self.main_window.listbox_message.insert(tk.END,
                                                         ">{} {}: {} {}\n".format(
                                                             self.on_message_count,
@@ -50,15 +63,6 @@ class Subscriber:
                                                             self.message))
                 self.main_window.listbox_message.see("end")
                 self.on_message_count += 1
-        else:
-            self.main_window.listbox_message.insert(tk.END,
-                                                    ">{} {}: {} {}\n".format(
-                                                        self.on_message_count,
-                                                        datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-                                                        self.topic,
-                                                        self.message))
-            self.main_window.listbox_message.see("end")
-            self.on_message_count += 1
 
         self.main_window.connect_status_text.set(
             "Connected | Message: %s | Publish: %s" % (

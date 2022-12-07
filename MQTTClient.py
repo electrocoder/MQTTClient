@@ -33,18 +33,18 @@ class App(tk.Tk):
         # self.rowconfigure(0, weight=1)
         # self.columnconfigure(0, weight=1)
 
-        ipadding = {'ipadx': 10, 'ipady': 10}
+        ipadding = {'ipadx': 1, 'ipady': 1}
 
         frame = tk.Frame(self)
-        frame.pack(fill = tk.BOTH, expand = True)
+        frame.pack(fill=tk.BOTH, expand=True)
 
-        font_size = 14
+        font_size = 12
         self.text_font = Font(size=font_size)
 
         self.msg_filter = False
 
         self.label_broker = tk.Label(frame, text="Broker", font=font_size)
-        self.label_broker.pack(ipadx=20, ipady=20, fill=tk.BOTH, expand=True, side=tk.LEFT)
+        self.label_broker.pack(**ipadding, side=tk.LEFT)
 
         self.entry_broker_text = tk.StringVar(self)
         self.options_list = ConfigFile().read_sections()
@@ -58,60 +58,60 @@ class App(tk.Tk):
             self.entry_broker.menuname)
         menu.config(font=font_size)
 
-        self.entry_broker.pack(ipadx=20, ipady=20, fill=tk.BOTH, expand=True, side=tk.LEFT)
+        self.entry_broker.pack(**ipadding, expand=True, side=tk.LEFT)
 
         self.button_connect = tk.Button(frame,
                                         text="Connect", font=font_size,
                                         command=self.button_connect)
-        self.button_connect.pack(ipadx=20, ipady=20, fill=tk.BOTH, expand=True, side=tk.LEFT)
+        self.button_connect.pack(**ipadding, expand=True, side=tk.LEFT)
 
         self.button_disconnect = tk.Button(frame,
                                            text="Disconnect", font=font_size,
                                            state=tk.DISABLED,
                                            command=self.button_disconnect)
-        self.button_disconnect.pack(ipadx=20, ipady=20, fill=tk.BOTH, expand=True, side=tk.LEFT)
+        self.button_disconnect.pack(**ipadding, expand=True, side=tk.LEFT)
 
         frame1 = tk.Frame(self)
-        frame1.pack(fill = tk.BOTH, expand = True)
+        frame1.pack(fill=tk.BOTH, expand=True)
 
         # publish topic
         self.label_publish_topic = tk.Label(frame1, text="Publish Topic",
                                             font=font_size)
-        self.label_publish_topic.pack(**ipadding, expand=True, fill=tk.BOTH,
+        self.label_publish_topic.pack(**ipadding,
                                       side=tk.LEFT)
 
         self.entry_publish_topic_text = tk.StringVar(self)
         self.entry_publish_topic = tk.Entry(frame1,
                                             textvariable=self.entry_publish_topic_text,
                                             font=font_size)
-        self.entry_publish_topic.pack(**ipadding, expand=True, fill=tk.BOTH,
+        self.entry_publish_topic.pack(**ipadding, expand=True,
                                       side=tk.LEFT)
 
         self.label_publish_msg_topic = tk.Label(frame1, text="Publish Message",
                                                 font=font_size)
         self.label_publish_msg_topic.pack(**ipadding, expand=True,
-                                          fill=tk.BOTH, side=tk.LEFT)
+                                          side=tk.LEFT)
 
         self.entry_publish_topic_msg_text = tk.StringVar(self)
         self.entry_publish_msg_topic = tk.Entry(frame1,
                                                 textvariable=self.entry_publish_topic_msg_text,
                                                 font=font_size)
         self.entry_publish_msg_topic.pack(**ipadding, expand=True,
-                                          fill=tk.BOTH, side=tk.LEFT)
+                                          side=tk.LEFT)
 
         self.button_publish_topic = tk.Button(frame1,
                                               text="Publish", font=font_size,
                                               command=self.button_publish_topic)
-        self.button_publish_topic.pack(**ipadding, expand=True, fill=tk.BOTH,
+        self.button_publish_topic.pack(**ipadding, expand=True,
                                        side=tk.LEFT)
 
         frame2 = tk.Frame(self)
-        frame2.pack(fill = tk.BOTH, expand = True)
+        frame2.pack(fill=tk.BOTH, expand=True)
 
         # subscribe topic
         self.label_subscribe_topic = tk.Label(frame2, text="Subscribe Topic",
                                               font=font_size)
-        self.label_subscribe_topic.pack(**ipadding, expand=True, fill=tk.BOTH,
+        self.label_subscribe_topic.pack(**ipadding,
                                         side=tk.LEFT)
 
         self.entry_subscribe_topic_text = tk.StringVar(self)
@@ -125,7 +125,7 @@ class App(tk.Tk):
             self.entry_subscribe_topic.menuname)
         menu.config(font=font_size)
 
-        self.entry_subscribe_topic.pack(**ipadding, expand=True, fill=tk.BOTH,
+        self.entry_subscribe_topic.pack(**ipadding, expand=True,
                                         side=tk.LEFT)
 
         self.button_subscribe_topic = tk.Button(frame2,
@@ -133,7 +133,7 @@ class App(tk.Tk):
                                                 font=font_size,
                                                 state=tk.DISABLED,
                                                 command=self.button_subscribe)
-        self.button_subscribe_topic.pack(**ipadding, expand=True, fill=tk.BOTH,
+        self.button_subscribe_topic.pack(**ipadding, expand=True,
                                          side=tk.LEFT)
 
         self.button_add_subscribe_topic = tk.Button(frame2,
@@ -142,30 +142,30 @@ class App(tk.Tk):
                                                     state=tk.DISABLED,
                                                     command=self.add_subscribe_topic)
         self.button_add_subscribe_topic.pack(**ipadding, expand=True,
-                                             fill=tk.BOTH, side=tk.LEFT)
+                                             side=tk.LEFT)
 
         frame3 = tk.Frame(self)
-        frame3.pack(fill = tk.BOTH, expand = True)
+        frame3.pack(fill=tk.BOTH, expand=True)
 
         # filter msg
 
         self.label_msg_filter = tk.Label(frame3, text="Filter Message",
                                          font=font_size)
-        self.label_msg_filter.pack(**ipadding, expand=True, fill=tk.BOTH,
+        self.label_msg_filter.pack(**ipadding,
                                    side=tk.LEFT)
 
         self.entry_msg_filter_text = tk.StringVar(self)
         self.entry_msg_filter = tk.Entry(frame3,
                                          textvariable=self.entry_msg_filter_text,
                                          font=font_size)
-        self.entry_msg_filter.pack(**ipadding, expand=True, fill=tk.BOTH,
+        self.entry_msg_filter.pack(**ipadding, expand=True,
                                    side=tk.LEFT)
 
         self.button_filter_add = tk.Button(frame3,
                                            text="Add Filter", font=font_size,
                                            state=tk.DISABLED,
                                            command=self.add_filter)
-        self.button_filter_add.pack(**ipadding, expand=True, fill=tk.BOTH,
+        self.button_filter_add.pack(**ipadding, expand=True,
                                     side=tk.LEFT)
 
         self.button_filter_remove = tk.Button(frame3,
@@ -173,11 +173,11 @@ class App(tk.Tk):
                                               font=font_size,
                                               state=tk.DISABLED,
                                               command=self.remove_filter)
-        self.button_filter_remove.pack(**ipadding, expand=True, fill=tk.BOTH,
+        self.button_filter_remove.pack(**ipadding, expand=True,
                                        side=tk.LEFT)
 
         frame4 = tk.Frame(self)
-        frame4.pack(fill = tk.BOTH, expand = True)
+        frame4.pack(fill=tk.BOTH, expand=True)
 
         # subscribe list
         self.listbox_message = tk.Text(frame4, font=font_size, height=10)
@@ -204,7 +204,7 @@ class App(tk.Tk):
         menubar.add_cascade(label="Help", menu=menu_help)
 
         frame5 = tk.Frame(self)
-        frame5.pack(fill = tk.BOTH, expand = True)
+        frame5.pack(fill=tk.BOTH, expand=True)
 
         # status bar
         self.connect_status_text = tk.StringVar()
@@ -214,7 +214,7 @@ class App(tk.Tk):
                                        bd=1,
                                        relief=tk.SUNKEN, anchor=tk.W)
 
-        self.connect_status.pack(**ipadding)
+        self.connect_status.pack(**ipadding, fill=tk.BOTH, expand=True)
 
         self.subscriber = subscriber.Subscriber(self)
 
