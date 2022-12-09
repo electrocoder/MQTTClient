@@ -1,4 +1,4 @@
-# MQTT Client
+    # MQTT Client
 
 <a href="https://iothook.com/"><img src="https://raw.githubusercontent.com/electrocoder/MQTTClient/main/icon.png"></a>
 
@@ -9,11 +9,17 @@ messages while developing a project with the MQTT protocol.
 
 ## Version History
 
-0v3 26.11.2022: Alfa MQTT Client
+* 0v4 05.12.2022
+  - Alfa MQTT Client
 
-0v2 15.10.2022: Alfa MQTT Client
+* 0v3 26.11.2022
+  - Alfa MQTT Client
 
-0v1 10.10.2022 : Start project
+* 0v2 15.10.2022
+  - Alfa MQTT Client
+
+* 0v1 10.10.2022
+  - Start project
 
 ## Contributing
 

@@ -11,80 +11,72 @@ Date: 12.11.2022
 File: This script is New MQTT Broker
 """
 
-import tkinter as tk
+from tkinter import *
 
 from config_file import ConfigFile
 
 
-class NewConnect(tk.Toplevel):
+class NewConnect(Toplevel):
     def __init__(self, main_window, font_size):
         super().__init__(main_window)
 
         self.main_window = main_window
         self.title("MQTT Client New Connect")
+        self.geometry("300x300")
 
-        row = 0
-        column = 0
+        ipadding = {'ipadx': 10, 'ipady': 10}
 
-        self.label_broker = tk.Label(self, text="Broker",
-                                     font=font_size)
-        self.label_broker.grid(row=row, column=column)
-        column += 1
-        self.entry_broker_text = tk.StringVar(self)
-        self.entry_broker = tk.Entry(self, font=font_size,
-                                     textvariable=self.entry_broker_text)
-        self.entry_broker.grid(row=row, column=column)
+        frame = Frame(self, padx=5, pady=5)
+        frame.grid(row=0, column=1)
 
-        row += 1
-        column = 0
+        Label(frame, text='Name', padx=5, pady=5).pack()
+        Label(frame, text='Broker', padx=5, pady=5).pack()
+        Label(frame, text='Port', padx=5, pady=5).pack()
+        Label(frame, text='Username', padx=5, pady=5).pack()
+        Label(frame, text='Password', padx=5, pady=5).pack()
 
-        self.label_port = tk.Label(self, text="Port",
-                                   font=font_size)
-        self.label_port.grid(row=row, column=column)
-        column += 1
-        self.entry_port_text = tk.StringVar(self)
-        self.entry_port = tk.Entry(self, font=font_size,
-                                   textvariable=self.entry_port_text)
-        self.entry_port.grid(row=row, column=column)
+        frame2 = Frame(self, padx=5, pady=5)
+        frame2.grid(row=0, column=2)
 
-        row += 1
-        column = 0
+        self.entry_name_text = StringVar(self)
+        self.entry_name = Entry(frame2, font=font_size,
+                                textvariable=self.entry_name_text).pack(padx=5,
+                                                                        pady=5)
 
-        self.label_username = tk.Label(self,
-                                       text="Username", font=font_size)
-        self.label_username.grid(row=row, column=column)
-        column += 1
-        self.entry_username_text = tk.StringVar(self)
-        self.entry_username = tk.Entry(self, font=font_size,
-                                       textvariable=self.entry_username_text)
-        self.entry_username.grid(row=row, column=column)
+        self.entry_broker_text = StringVar(self)
+        self.entry_broker = Entry(frame2, font=font_size,
+                                  textvariable=self.entry_broker_text).pack(
+            padx=5, pady=5)
 
-        row += 1
-        column = 0
+        self.entry_port_text = StringVar(self)
+        self.entry_port = Entry(frame2, font=font_size,
+                                textvariable=self.entry_port_text).pack(padx=5,
+                                                                        pady=5)
 
-        self.label_password = tk.Label(self,
-                                       text="Password", font=font_size)
-        self.label_password.grid(row=row, column=column)
-        column += 1
-        self.entry_password_text = tk.StringVar(self)
-        self.entry_password = tk.Entry(self, font=font_size,
-                                       textvariable=self.entry_password_text)
-        self.entry_password.grid(row=row, column=column)
+        self.entry_username_text = StringVar(self)
+        self.entry_username = Entry(frame2, font=font_size,
+                                    textvariable=self.entry_username_text).pack(
+            padx=5, pady=5)
 
-        row += 1
-        column = 0
-        self.button_cancel = tk.Button(self, text="Cancel",
-                                       font=font_size,
-                                       command=self.cancel)
-        self.button_cancel.grid(row=row, column=column, padx=50, pady=50)
-        column += 1
-        self.button_save = tk.Button(self, text="Save",
-                                     font=font_size,
-                                     command=self.save_config)
-        self.button_save.grid(row=row, column=column, padx=50, pady=50)
+        self.entry_password_text = StringVar(self)
+        self.entry_password = Entry(frame2, font=font_size,
+                                    textvariable=self.entry_password_text).pack(
+            padx=5, pady=5)
+
+        self.button_cancel = Button(self, text="Cancel",
+                                    font=font_size,
+                                    command=self.cancel, padx=10).grid(row=1,
+                                                                       column=1,
+                                                                       pady=5)
+
+        self.button_save = Button(self, text="Save",
+                                  font=font_size,
+                                  command=self.save_config, padx=10).grid(
+            row=1, column=2, pady=5)
 
     def save_config(self):
-        ConfigFile().create_file(self.entry_broker_text.get(),
+        ConfigFile().create_file(self.entry_name_text.get(),
+                                 self.entry_broker_text.get(),
                                  self.entry_port_text.get(),
                                  self.entry_username_text.get(),
                                  self.entry_password_text.get())
