@@ -55,7 +55,7 @@ pyinstaller MQTTClient.py -w --windowed
 
 ### Windows
 
-pyinstaller MQTTClient.py -w --windowed
+pyinstaller MQTTClient.py --windowed --icon=icon.ico
 
 ### Linux
 
@@ -83,6 +83,4 @@ auto-py-to-exe
 
 # TODO
 
-* List message box add datetime
-* New connect page add broker name
 * Font size settings page
