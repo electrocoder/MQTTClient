@@ -82,5 +82,3 @@ python setup.py py2exe -A --iconfile icon.png
 auto-py-to-exe
 
 # TODO
-
-* Font size settings page
