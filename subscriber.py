@@ -10,9 +10,11 @@ Date: 12.11.2022
 
 File: This script is MQTT Subscriber Client
 """
-
+import secrets
 import tkinter as tk
 from datetime import datetime
+from random import randint
+
 import paho.mqtt.client as mqtt
 
 
@@ -70,7 +72,7 @@ class Subscriber:
                 self.on_message_count, self.publish_message_count))
 
     def connect_start(self, name, broker, port, username, password):
-        self.client = mqtt.Client()
+        self.client = mqtt.Client("iothook_%s" % secrets.token_hex(11))
         self.client.on_disconnect = self.on_disconnect
         self.client.on_message = self.on_message
         self.client.on_connect = self.on_connect
