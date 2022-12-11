@@ -4,7 +4,7 @@ Author: Sahin MERSIN - electrocoder <electrocoder@gmail.com>
 
 Source Code: https://github.com/electrocoder/MQTTClient
 
-MQTT Examples: https://github.com/mesebilisim/mqtt-examples
+MQTT Examples: https://github.com/meseiot/iot-examples
 
 Date: 12.11.2022
 
@@ -251,17 +251,7 @@ class App(tk.Tk):
                 self.entry_subscribe_topic_text.set(choice)
 
     def button_disconnect(self):
-        print("button_disconnect")
-        if self.subscriber.connect_stop():
-            self.connect_status_text.set("Disconnect")
-            self.button_connect["state"] = tk.NORMAL
-            self.button_connect["text"] = "Connect"
-            self.button_disconnect["state"] = tk.DISABLED
-            self.button_subscribe_topic[
-                "state"] = tk.DISABLED
-            self.button_publish_topic[
-                "state"] = tk.DISABLED
-            self.button_add_subscribe_topic["state"] = tk.DISABLED
+        self.subscriber.mqtt_disconnect()
 
     def button_subscribe(self):
         print("button_subscribe")

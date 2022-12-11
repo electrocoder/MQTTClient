@@ -4,7 +4,7 @@ Author: Sahin MERSIN - electrocoder <electrocoder@gmail.com>
 
 Source Code: https://github.com/electrocoder/MQTTClient
 
-MQTT Examples: https://github.com/mesebilisim/mqtt-examples
+MQTT Examples: https://github.com/meseiot/iot-examples
 
 Date: 12.11.2022
 

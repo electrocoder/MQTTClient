@@ -4,7 +4,7 @@ Author: Sahin MERSIN - electrocoder <electrocoder@gmail.com>
 
 Source Code: https://github.com/electrocoder/MQTTClient
 
-MQTT Examples: https://github.com/mesebilisim/mqtt-examples
+MQTT Examples: https://github.com/meseiot/iot-examples
 
 Date: 12.11.2022
 
@@ -33,9 +33,7 @@ class Subscriber:
                 self.on_message_count, self.publish_message_count))
 
     def on_disconnect(self, client, userdata, rc):
-        self.main_window.connect_status_text.set(
-            "Disconnect | Message: %s | Publish: %s" % (
-                self.on_message_count, self.publish_message_count))
+        self.mqtt_disconnect()
 
     def on_message(self, client, userdata, msg):
         self.topic = msg.topic
@@ -89,3 +87,19 @@ class Subscriber:
     def publish_start(self, topic, msg):
         self.client.publish(topic, msg)
         self.publish_message_count += 1
+
+    def mqtt_disconnect(self):
+        if self.connect_stop():
+            self.main_window.connect_status_text.set("Disconnect")
+            self.main_window.button_connect["state"] = tk.NORMAL
+            self.main_window.button_connect["text"] = "Connect"
+            self.main_window.button_disconnect["state"] = tk.DISABLED
+            self.main_window.button_subscribe_topic[
+                "state"] = tk.DISABLED
+            self.main_window.button_publish_topic[
+                "state"] = tk.DISABLED
+            self.main_window.button_add_subscribe_topic["state"] = tk.DISABLED
+
+            self.main_window.connect_status_text.set(
+                "Disconnect | Message: %s | Publish: %s" % (
+                    self.on_message_count, self.publish_message_count))
