@@ -22,46 +22,43 @@ class NewConnect(Toplevel):
 
         self.main_window = main_window
         self.title("MQTT Client New Connect")
-        self.geometry("300x300")
+        self.geometry("300x350")
 
-        ipadding = {'ipadx': 10, 'ipady': 10}
+        ipadding = {'ipadx': 5, 'ipady': 5}
 
         frame = Frame(self, padx=5, pady=5)
         frame.grid(row=0, column=1)
 
-        Label(frame, text='Name', padx=5, pady=5).pack()
-        Label(frame, text='Broker', padx=5, pady=5).pack()
-        Label(frame, text='Port', padx=5, pady=5).pack()
-        Label(frame, text='Username', padx=5, pady=5).pack()
-        Label(frame, text='Password', padx=5, pady=5).pack()
+        Label(frame, text='Name').pack(**ipadding)
+        Label(frame, text='Broker').pack(**ipadding)
+        Label(frame, text='Port').pack(**ipadding)
+        Label(frame, text='Username').pack(**ipadding)
+        Label(frame, text='Password').pack(**ipadding)
 
         frame2 = Frame(self, padx=5, pady=5)
         frame2.grid(row=0, column=2)
 
         self.entry_name_text = StringVar(self)
         self.entry_name = Entry(frame2, font=font_size,
-                                textvariable=self.entry_name_text).pack(padx=5,
-                                                                        pady=5)
+                                textvariable=self.entry_name_text).pack(**ipadding)
 
         self.entry_broker_text = StringVar(self)
         self.entry_broker = Entry(frame2, font=font_size,
-                                  textvariable=self.entry_broker_text).pack(
-            padx=5, pady=5)
+                                  textvariable=self.entry_broker_text).pack(**ipadding)
 
         self.entry_port_text = StringVar(self)
         self.entry_port = Entry(frame2, font=font_size,
-                                textvariable=self.entry_port_text).pack(padx=5,
-                                                                        pady=5)
+                                textvariable=self.entry_port_text).pack(**ipadding)
 
         self.entry_username_text = StringVar(self)
         self.entry_username = Entry(frame2, font=font_size,
                                     textvariable=self.entry_username_text).pack(
-            padx=5, pady=5)
+            **ipadding)
 
         self.entry_password_text = StringVar(self)
         self.entry_password = Entry(frame2, font=font_size,
                                     textvariable=self.entry_password_text).pack(
-            padx=5, pady=5)
+            **ipadding)
 
         self.button_cancel = Button(self, text="Cancel",
                                     font=font_size,

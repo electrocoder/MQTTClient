@@ -33,7 +33,10 @@ class Subscriber:
                 self.on_message_count, self.publish_message_count))
 
     def on_disconnect(self, client, userdata, rc):
-        self.mqtt_disconnect()
+        print("on_disconnect")
+        self.main_window.connect_status_text.set(
+            "Disconnect | Message: %s | Publish: %s" % (
+                self.on_message_count, self.publish_message_count))
 
     def on_message(self, client, userdata, msg):
         self.topic = msg.topic
@@ -100,6 +103,3 @@ class Subscriber:
                 "state"] = tk.DISABLED
             self.main_window.button_add_subscribe_topic["state"] = tk.DISABLED
 
-            self.main_window.connect_status_text.set(
-                "Disconnect | Message: %s | Publish: %s" % (
-                    self.on_message_count, self.publish_message_count))
