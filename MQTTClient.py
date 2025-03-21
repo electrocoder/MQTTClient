@@ -1,310 +1,222 @@
-"""MQTT Client GUI
-
-Author: Sahin MERSIN - electrocoder <electrocoder@gmail.com>
-
-Source Code: https://github.com/electrocoder/MQTTClient
-
-MQTT Examples: https://github.com/meseiot/iot-examples
-
-Date: 12.11.2022
-
-File: This script is MQTT Client Main Application
 """
+MQTT Client GUI - Main Application
+Author: Sahin MERSIN - electrocoder <electrocoder@gmail.com>
+Source Code: https://github.com/electrocoder/MQTTClient
+MQTT Examples: https://github.com/mesebilisim/mqtt-examples
+Date: Updated on March 22, 2025
+"""
+
 import os
 import tkinter as tk
+from tkinter import ttk, messagebox
 import webbrowser
-from tkinter import messagebox
-from tkinter.font import Font
-
-import about
-import new_connect
-import new_topic
-import subscriber
+from about import AboutWindow
 from config_file import ConfigFile
+from subscriber import Subscriber
+from new_connect import NewConnect
+from new_topic import NewTopic
 
 
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
-
-        self.title('MQTT Client 0v4')
-        self.geometry('750x350')
-
-        # self.rowconfigure(0, weight=1)
-        # self.columnconfigure(0, weight=1)
-
-        ipadding = {'ipadx': 1, 'ipady': 1}
-
-        frame = tk.Frame(self)
-        frame.pack(fill=tk.BOTH, expand=True)
-
-        font_size = 12
-        self.text_font = Font(size=font_size)
+        self.title('MQTT Client 0v5')
+        self.geometry('800x500')
+        self.style = ttk.Style()
+        self.style.configure("TButton", font=("Helvetica", 12))
+        self.style.configure("TLabel", font=("Helvetica", 12))
 
         self.msg_filter = False
+        self.subscriber = Subscriber(self)
+        self._setup_ui()
 
-        self.label_broker = tk.Label(frame, text="Broker", font=font_size)
-        self.label_broker.pack(**ipadding, side=tk.LEFT)
+    def _setup_ui(self):
+        self.main_frame = ttk.Frame(self, padding="10")
+        self.main_frame.grid(row=0, column=0, sticky="nsew")
+        self.rowconfigure(0, weight=1)
+        self.columnconfigure(0, weight=1)
 
-        self.entry_broker_text = tk.StringVar(self)
-        self.options_list = ConfigFile().read_sections()
-        self.entry_broker_text.set(self.options_list[0])
-        self.entry_broker = tk.OptionMenu(frame,
-                                          self.entry_broker_text,
-                                          *self.options_list)
+        self._create_broker_section()
+        self._create_publish_section()
+        self._create_subscribe_section()
+        self._create_filter_section()
+        self._create_message_list()
+        self._create_menu()
+        self._create_status_bar()
 
-        self.entry_broker.config(font=font_size)
-        menu = self.nametowidget(
-            self.entry_broker.menuname)
-        menu.config(font=font_size)
+        # Load icon if exists
+        basedir = os.path.dirname(__file__)
+        icon_path = os.path.join(basedir, "icon.png")
+        if os.path.exists(icon_path):
+            photo = tk.PhotoImage(file=icon_path)
+            self.wm_iconphoto(False, photo)
 
-        self.entry_broker.pack(**ipadding, expand=True, side=tk.LEFT)
+    def _create_broker_section(self):
+        broker_frame = ttk.LabelFrame(self.main_frame, text="Broker", padding="5")
+        broker_frame.grid(row=0, column=0, padx=5, pady=5, sticky="ew")
 
-        self.button_connect = tk.Button(frame,
-                                        text="Connect", font=font_size,
-                                        command=self.button_connect)
-        self.button_connect.pack(**ipadding, expand=True, side=tk.LEFT)
+        ttk.Label(broker_frame, text="Broker:").grid(row=0, column=0, padx=5)
+        self.entry_broker_text = tk.StringVar(value="Select Broker")
+        self.entry_broker = ttk.OptionMenu(broker_frame, self.entry_broker_text, "Select Broker", *ConfigFile().read_sections())
+        self.entry_broker.grid(row=0, column=1, padx=5, sticky="ew")
 
-        self.button_disconnect = tk.Button(frame,
-                                           text="Disconnect", font=font_size,
-                                           state=tk.DISABLED,
-                                           command=self.button_disconnect)
-        self.button_disconnect.pack(**ipadding, expand=True, side=tk.LEFT)
+        self.button_connect = ttk.Button(broker_frame, text="Connect", command=self.button_connect)
+        self.button_connect.grid(row=0, column=2, padx=5)
+        self.button_disconnect = ttk.Button(broker_frame, text="Disconnect", command=self.button_disconnect, state="disabled")
+        self.button_disconnect.grid(row=0, column=3, padx=5)
 
-        frame1 = tk.Frame(self)
-        frame1.pack(fill=tk.BOTH, expand=True)
+    def _create_publish_section(self):
+        publish_frame = ttk.LabelFrame(self.main_frame, text="Publish", padding="5")
+        publish_frame.grid(row=1, column=0, padx=5, pady=5, sticky="ew")
 
-        # publish topic
-        self.label_publish_topic = tk.Label(frame1, text="Publish Topic",
-                                            font=font_size)
-        self.label_publish_topic.pack(**ipadding,
-                                      side=tk.LEFT)
+        ttk.Label(publish_frame, text="Topic:").grid(row=0, column=0, padx=5)
+        self.entry_publish_topic_text = tk.StringVar()
+        ttk.Entry(publish_frame, textvariable=self.entry_publish_topic_text).grid(row=0, column=1, padx=5, sticky="ew")
 
-        self.entry_publish_topic_text = tk.StringVar(self)
-        self.entry_publish_topic = tk.Entry(frame1,
-                                            textvariable=self.entry_publish_topic_text,
-                                            font=font_size)
-        self.entry_publish_topic.pack(**ipadding, expand=True,
-                                      side=tk.LEFT)
+        ttk.Label(publish_frame, text="Message:").grid(row=0, column=2, padx=5)
+        self.entry_publish_msg_text = tk.StringVar()
+        ttk.Entry(publish_frame, textvariable=self.entry_publish_msg_text).grid(row=0, column=3, padx=5, sticky="ew")
 
-        self.label_publish_msg_topic = tk.Label(frame1, text="Publish Message",
-                                                font=font_size)
-        self.label_publish_msg_topic.pack(**ipadding, expand=True,
-                                          side=tk.LEFT)
+        self.button_publish = ttk.Button(publish_frame, text="Publish", command=self.button_publish_topic, state="disabled")
+        self.button_publish.grid(row=0, column=4, padx=5)
 
-        self.entry_publish_topic_msg_text = tk.StringVar(self)
-        self.entry_publish_msg_topic = tk.Entry(frame1,
-                                                textvariable=self.entry_publish_topic_msg_text,
-                                                font=font_size)
-        self.entry_publish_msg_topic.pack(**ipadding, expand=True,
-                                          side=tk.LEFT)
+    def _create_subscribe_section(self):
+        subscribe_frame = ttk.LabelFrame(self.main_frame, text="Subscribe", padding="5")
+        subscribe_frame.grid(row=2, column=0, padx=5, pady=5, sticky="ew")
 
-        self.button_publish_topic = tk.Button(frame1,
-                                              text="Publish", font=font_size,
-                                              command=self.button_publish_topic)
-        self.button_publish_topic.pack(**ipadding, expand=True,
-                                       side=tk.LEFT)
+        ttk.Label(subscribe_frame, text="Topic:").grid(row=0, column=0, padx=5)
+        self.entry_subscribe_topic_text = tk.StringVar(value="-")
+        self.entry_subscribe_topic = ttk.OptionMenu(subscribe_frame, self.entry_subscribe_topic_text, "-", "-", command=self.add_subscribe_topic)
+        self.entry_subscribe_topic.grid(row=0, column=1, padx=5, sticky="ew")
 
-        frame2 = tk.Frame(self)
-        frame2.pack(fill=tk.BOTH, expand=True)
+        self.button_subscribe = ttk.Button(subscribe_frame, text="Subscribe", command=self.button_subscribe, state="disabled")
+        self.button_subscribe.grid(row=0, column=2, padx=5)
+        self.button_add_topic = ttk.Button(subscribe_frame, text="Add Topic", command=self.add_subscribe_topic, state="disabled")
+        self.button_add_topic.grid(row=0, column=3, padx=5)
 
-        # subscribe topic
-        self.label_subscribe_topic = tk.Label(frame2, text="Subscribe Topic",
-                                              font=font_size)
-        self.label_subscribe_topic.pack(**ipadding,
-                                        side=tk.LEFT)
+    def _create_filter_section(self):
+        filter_frame = ttk.LabelFrame(self.main_frame, text="Filter Messages", padding="5")
+        filter_frame.grid(row=3, column=0, padx=5, pady=5, sticky="ew")
 
-        self.entry_subscribe_topic_text = tk.StringVar(self)
-        self.options_list = ["-", ]
-        self.entry_subscribe_topic = tk.OptionMenu(frame2,
-                                                   self.entry_subscribe_topic_text,
-                                                   *self.options_list,
-                                                   command=self.add_subscribe_topic)
-        self.entry_subscribe_topic.config(font=font_size)
-        menu = self.nametowidget(
-            self.entry_subscribe_topic.menuname)
-        menu.config(font=font_size)
+        ttk.Label(filter_frame, text="Filter:").grid(row=0, column=0, padx=5)
+        self.entry_msg_filter_text = tk.StringVar()
+        ttk.Entry(filter_frame, textvariable=self.entry_msg_filter_text).grid(row=0, column=1, padx=5, sticky="ew")
 
-        self.entry_subscribe_topic.pack(**ipadding, expand=True,
-                                        side=tk.LEFT)
+        self.button_filter_add = ttk.Button(filter_frame, text="Add Filter", command=self.add_filter, state="disabled")
+        self.button_filter_add.grid(row=0, column=2, padx=5)
+        self.button_filter_remove = ttk.Button(filter_frame, text="Remove Filter", command=self.remove_filter, state="disabled")
+        self.button_filter_remove.grid(row=0, column=3, padx=5)
 
-        self.button_subscribe_topic = tk.Button(frame2,
-                                                text="Subscribe",
-                                                font=font_size,
-                                                state=tk.DISABLED,
-                                                command=self.button_subscribe)
-        self.button_subscribe_topic.pack(**ipadding, expand=True,
-                                         side=tk.LEFT)
+    def _create_message_list(self):
+        message_frame = ttk.LabelFrame(self.main_frame, text="Messages", padding="5")
+        message_frame.grid(row=4, column=0, padx=5, pady=5, sticky="nsew")
+        self.main_frame.rowconfigure(4, weight=1)
+        self.main_frame.columnconfigure(0, weight=1)
 
-        self.button_add_subscribe_topic = tk.Button(frame2,
-                                                    text="Add Subscribe Topic",
-                                                    font=font_size,
-                                                    state=tk.DISABLED,
-                                                    command=self.add_subscribe_topic)
-        self.button_add_subscribe_topic.pack(**ipadding, expand=True,
-                                             side=tk.LEFT)
+        self.listbox_message = tk.Text(message_frame, font=("Helvetica", 12), height=10)
+        self.listbox_message.pack(expand=True, fill="both")
 
-        frame3 = tk.Frame(self)
-        frame3.pack(fill=tk.BOTH, expand=True)
-
-        # filter msg
-
-        self.label_msg_filter = tk.Label(frame3, text="Filter Message",
-                                         font=font_size)
-        self.label_msg_filter.pack(**ipadding,
-                                   side=tk.LEFT)
-
-        self.entry_msg_filter_text = tk.StringVar(self)
-        self.entry_msg_filter = tk.Entry(frame3,
-                                         textvariable=self.entry_msg_filter_text,
-                                         font=font_size)
-        self.entry_msg_filter.pack(**ipadding, expand=True,
-                                   side=tk.LEFT)
-
-        self.button_filter_add = tk.Button(frame3,
-                                           text="Add Filter", font=font_size,
-                                           state=tk.DISABLED,
-                                           command=self.add_filter)
-        self.button_filter_add.pack(**ipadding, expand=True,
-                                    side=tk.LEFT)
-
-        self.button_filter_remove = tk.Button(frame3,
-                                              text="Remove Filter",
-                                              font=font_size,
-                                              state=tk.DISABLED,
-                                              command=self.remove_filter)
-        self.button_filter_remove.pack(**ipadding, expand=True,
-                                       side=tk.LEFT)
-
-        frame4 = tk.Frame(self)
-        frame4.pack(fill=tk.BOTH, expand=True)
-
-        # subscribe list
-        self.listbox_message = tk.Text(frame4, font=font_size, height=10)
-        self.listbox_message.pack(**ipadding, expand=True, fill=tk.BOTH,
-                                  side=tk.LEFT)
-
-        # menu
+    def _create_menu(self):
         menubar = tk.Menu(self)
         self.config(menu=menubar)
-
         menu_connect = tk.Menu(menubar, tearoff=0)
-        menu_connect.add_command(label='New Connect',
-                                 command=self.new_connect_window)
-        # menu_connect.add_command(label='Open Connect',
-        #                          command=self.open_connect_window)
+        menu_connect.add_command(label='New Connect', command=self.new_connect_window)
         menu_connect.add_separator()
         menu_connect.add_command(label='Exit', command=self.quit)
         menubar.add_cascade(label="Connect", menu=menu_connect)
 
         menu_help = tk.Menu(menubar, tearoff=0)
         menu_help.add_command(label='Help', command=self.help)
-        menu_help.add_command(label='About',
-                              command=self.about_window)
+        menu_help.add_command(label='About', command=self.about_window)
         menubar.add_cascade(label="Help", menu=menu_help)
 
-        frame5 = tk.Frame(self)
-        frame5.pack(fill=tk.BOTH, expand=True)
+    def _create_status_bar(self):
+        self.connect_status_text = tk.StringVar(value="Disconnected")
+        self.status_bar = ttk.Label(self.main_frame, textvariable=self.connect_status_text, relief="sunken", anchor="w")
+        self.status_bar.grid(row=5, column=0, padx=5, pady=5, sticky="ew")
 
-        # status bar
-        self.connect_status_text = tk.StringVar()
-        self.connect_status_text.set("...")
-        self.connect_status = tk.Label(frame5,
-                                       textvariable=self.connect_status_text,
-                                       bd=1,
-                                       relief=tk.SUNKEN, anchor=tk.W)
+    def update_status(self, message):
+        self.connect_status_text.set(message)
+        self.status_bar.configure(background="green" if "Connected" in message else "red")
 
-        self.connect_status.pack(**ipadding, fill=tk.BOTH, expand=True)
+    def refresh_broker_list(self):
+        menu = self.entry_broker["menu"]
+        menu.delete(0, "end")
+        brokers = ConfigFile().read_sections()
+        for broker in brokers:
+            menu.add_command(label=broker, command=lambda b=broker: self.entry_broker_text.set(b))
+        if brokers:
+            self.entry_broker_text.set(brokers[0])
 
-        self.subscriber = subscriber.Subscriber(self)
+    def refresh_subscribe_list(self):
+        menu = self.entry_subscribe_topic["menu"]
+        menu.delete(0, "end")
+        topics = ConfigFile().read_topics(self.entry_broker_text.get()).split(',')
+        for topic in topics:
+            if topic:
+                menu.add_command(label=topic, command=lambda t=topic: self.entry_subscribe_topic_text.set(t))
+        if topics:
+            self.entry_subscribe_topic_text.set(topics[0])
 
     def button_connect(self):
-        if self.entry_broker_text.get():
-            name, broker, port, username, password = ConfigFile().read_broker(
-                self.entry_broker_text.get())
-            if self.subscriber.connect_start(name, broker, port, username,
-                                             password):
-                self.connect_status_text.set("Connected")
-                self.button_connect["state"] = tk.DISABLED
-                self.button_connect["text"] = "Connected"
-                self.button_disconnect[
-                    "state"] = tk.NORMAL
-                self.button_subscribe_topic[
-                    "state"] = tk.NORMAL
-                self.button_publish_topic[
-                    "state"] = tk.NORMAL
-                self.subscribe_list(name)
-                self.button_add_subscribe_topic["state"] = tk.NORMAL
-        else:
-            messagebox.showerror("showerror", "Please select broker.")
-
-    def subscribe_list(self, name):
-        self.entry_subscribe_topic['menu'].delete(0, 'end')
-
-        new_choices = ConfigFile().read_topics(name).split(',')
-        for choice in new_choices:
-            if choice:
-                self.entry_subscribe_topic['menu'].add_command(
-                    label=choice,
-                    command=tk._setit(self.entry_subscribe_topic_text,
-                                      choice))
-                self.entry_subscribe_topic_text.set(choice)
+        if self.entry_broker_text.get() == "Select Broker":
+            messagebox.showerror("Error", "Please select a broker.")
+            return
+        name, broker, port, username, password = ConfigFile().read_broker(self.entry_broker_text.get())
+        if self.subscriber.connect_start(name, broker, port, username, password):
+            self.button_connect.configure(state="disabled", text="Connected")
+            self.button_disconnect.configure(state="normal")
+            self.button_subscribe.configure(state="normal")
+            self.button_publish.configure(state="normal")
+            self.button_add_topic.configure(state="normal")
+            self.button_filter_add.configure(state="normal")
+            self.refresh_subscribe_list()
 
     def button_disconnect(self):
-        self.subscriber.mqtt_disconnect()
+        if self.subscriber.connect_stop():
+            self.update_status("Disconnected")
+            self.button_connect.configure(state="normal", text="Connect")
+            self.button_disconnect.configure(state="disabled")
+            self.button_subscribe.configure(state="disabled")
+            self.button_publish.configure(state="disabled")
+            self.button_add_topic.configure(state="disabled")
+            self.button_filter_add.configure(state="disabled")
+            self.button_filter_remove.configure(state="disabled")
 
     def button_subscribe(self):
-        print("button_subscribe")
-        self.subscriber.subscribe_start(
-            self.entry_subscribe_topic_text.get())
-        self.button_filter_add[
-            "state"] = tk.NORMAL
-        self.button_filter_remove[
-            "state"] = tk.DISABLED
+        self.subscriber.subscribe_start(self.entry_subscribe_topic_text.get())
 
     def button_publish_topic(self):
-        print("button_publish_topic")
         topic = self.entry_publish_topic_text.get()
-        msg = self.entry_publish_topic_msg_text.get()
-        self.listbox_message.insert(tk.END,
-                                    "> {}".format(msg))
-        self.listbox_message.see("end")
-        self.subscriber.publish_start(topic, msg)
+        msg = self.entry_publish_msg_text.get()
+        if topic and msg:
+            self.listbox_message.insert(tk.END, f"> {msg}\n")
+            self.listbox_message.see("end")
+            self.subscriber.publish_start(topic, msg)
 
     def about_window(self):
-        about.AboutWindow(self, self.text_font)
+        AboutWindow(self)
 
     def help(self):
         webbrowser.open_new_tab("https://github.com/electrocoder/MQTTClient")
 
     def new_connect_window(self):
-        new_connect.NewConnect(self, self.text_font)
+        NewConnect(self)
 
     def add_subscribe_topic(self, *args):
-        print("add_subscribe_topic")
-        new_topic.NewTopic(self, self.text_font)
+        NewTopic(self)
 
     def add_filter(self):
         self.msg_filter = True
-        self.button_filter_add[
-            "state"] = tk.DISABLED
-        self.button_filter_remove[
-            "state"] = tk.NORMAL
+        self.button_filter_add.configure(state="disabled")
+        self.button_filter_remove.configure(state="normal")
 
     def remove_filter(self):
         self.msg_filter = False
-        self.button_filter_add[
-            "state"] = tk.NORMAL
-        self.button_filter_remove[
-            "state"] = tk.DISABLED
+        self.button_filter_add.configure(state="normal")
+        self.button_filter_remove.configure(state="disabled")
 
 
 if __name__ == "__main__":
     app = App()
-
-    basedir = os.path.dirname(__file__)
-    file_name = os.path.join(basedir, "icon.png")
-    photo = tk.PhotoImage(file=file_name)
-    app.wm_iconphoto(False, photo)
-
     app.mainloop()
