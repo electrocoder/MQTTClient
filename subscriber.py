@@ -4,15 +4,17 @@ Author: Sahin MERSIN - electrocoder <electrocoder@gmail.com>
 
 Source Code: https://github.com/electrocoder/MQTTClient
 
-MQTT Examples: https://github.com/mesebilisim/mqtt-examples
+MQTT Examples: https://github.com/meseiot/iot-examples
 
 Date: 12.11.2022
 
 File: This script is MQTT Subscriber Client
 """
-
+import secrets
 import tkinter as tk
 from datetime import datetime
+from random import randint
+
 import paho.mqtt.client as mqtt
 
 
@@ -33,6 +35,7 @@ class Subscriber:
                 self.on_message_count, self.publish_message_count))
 
     def on_disconnect(self, client, userdata, rc):
+        print("on_disconnect")
         self.main_window.connect_status_text.set(
             "Disconnect | Message: %s | Publish: %s" % (
                 self.on_message_count, self.publish_message_count))
@@ -69,7 +72,7 @@ class Subscriber:
                 self.on_message_count, self.publish_message_count))
 
     def connect_start(self, name, broker, port, username, password):
-        self.client = mqtt.Client()
+        self.client = mqtt.Client("iothook_%s" % secrets.token_hex(11))
         self.client.on_disconnect = self.on_disconnect
         self.client.on_message = self.on_message
         self.client.on_connect = self.on_connect
@@ -89,3 +92,16 @@ class Subscriber:
     def publish_start(self, topic, msg):
         self.client.publish(topic, msg)
         self.publish_message_count += 1
+
+    def mqtt_disconnect(self):
+        if self.connect_stop():
+            self.main_window.connect_status_text.set("Disconnect")
+            self.main_window.button_connect["state"] = tk.NORMAL
+            self.main_window.button_connect["text"] = "Connect"
+            self.main_window.button_disconnect["state"] = tk.DISABLED
+            self.main_window.button_subscribe_topic[
+                "state"] = tk.DISABLED
+            self.main_window.button_publish_topic[
+                "state"] = tk.DISABLED
+            self.main_window.button_add_subscribe_topic["state"] = tk.DISABLED
+
