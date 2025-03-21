@@ -1,83 +1,45 @@
-"""MQTT Client GUI
-
+"""
+MQTT Client GUI - New MQTT Broker Connection Window
 Author: Sahin MERSIN - electrocoder <electrocoder@gmail.com>
-
-Source Code: https://github.com/electrocoder/MQTTClient
-
-MQTT Examples: https://github.com/meseiot/iot-examples
-
-Date: 12.11.2022
-
-File: This script is New MQTT Broker
 """
 
-from tkinter import *
-
+import tkinter as tk
+from tkinter import ttk
 from config_file import ConfigFile
 
 
-class NewConnect(Toplevel):
-    def __init__(self, main_window, font_size):
+class NewConnect(tk.Toplevel):
+    def __init__(self, main_window):
         super().__init__(main_window)
-
         self.main_window = main_window
-        self.title("MQTT Client New Connect")
-        self.geometry("300x350")
+        self.title("New Connection")
+        self.geometry("300x300")
+        self.transient(main_window)
+        self.grab_set()
 
-        ipadding = {'ipadx': 5, 'ipady': 5}
+        font = ("Helvetica", 12)
+        frame = ttk.Frame(self, padding="10")
+        frame.pack(fill="both", expand=True)
 
-        frame = Frame(self, padx=5, pady=5)
-        frame.grid(row=0, column=1)
+        labels = ["Name", "Broker", "Port", "Username", "Password"]
+        self.entries = {}
+        for idx, label in enumerate(labels):
+            ttk.Label(frame, text=f"{label}:").grid(row=idx, column=0, padx=5, pady=5, sticky="e")
+            entry = ttk.Entry(frame, font=font)
+            entry.grid(row=idx, column=1, padx=5, pady=5, sticky="ew")
+            self.entries[label.lower()] = entry
 
-        Label(frame, text='Name').pack(**ipadding)
-        Label(frame, text='Broker').pack(**ipadding)
-        Label(frame, text='Port').pack(**ipadding)
-        Label(frame, text='Username').pack(**ipadding)
-        Label(frame, text='Password').pack(**ipadding)
-
-        frame2 = Frame(self, padx=5, pady=5)
-        frame2.grid(row=0, column=2)
-
-        self.entry_name_text = StringVar(self)
-        self.entry_name = Entry(frame2, font=font_size,
-                                textvariable=self.entry_name_text).pack(**ipadding)
-
-        self.entry_broker_text = StringVar(self)
-        self.entry_broker = Entry(frame2, font=font_size,
-                                  textvariable=self.entry_broker_text).pack(**ipadding)
-
-        self.entry_port_text = StringVar(self)
-        self.entry_port = Entry(frame2, font=font_size,
-                                textvariable=self.entry_port_text).pack(**ipadding)
-
-        self.entry_username_text = StringVar(self)
-        self.entry_username = Entry(frame2, font=font_size,
-                                    textvariable=self.entry_username_text).pack(
-            **ipadding)
-
-        self.entry_password_text = StringVar(self)
-        self.entry_password = Entry(frame2, font=font_size,
-                                    textvariable=self.entry_password_text).pack(
-            **ipadding)
-
-        self.button_cancel = Button(self, text="Cancel",
-                                    font=font_size,
-                                    command=self.cancel, padx=10).grid(row=1,
-                                                                       column=1,
-                                                                       pady=5)
-
-        self.button_save = Button(self, text="Save",
-                                  font=font_size,
-                                  command=self.save_config, padx=10).grid(
-            row=1, column=2, pady=5)
+        ttk.Button(frame, text="Save", command=self.save_config).grid(row=5, column=1, pady=10, sticky="e")
+        ttk.Button(frame, text="Cancel", command=self.destroy).grid(row=5, column=0, pady=10, sticky="w")
 
     def save_config(self):
-        ConfigFile().create_file(self.entry_name_text.get(),
-                                 self.entry_broker_text.get(),
-                                 self.entry_port_text.get(),
-                                 self.entry_username_text.get(),
-                                 self.entry_password_text.get())
-        self.destroy()
-
-    def cancel(self):
+        config = ConfigFile()
+        config.create_file(
+            self.entries["name"].get(),
+            self.entries["broker"].get(),
+            self.entries["port"].get(),
+            self.entries["username"].get(),
+            self.entries["password"].get()
+        )
+        self.main_window.refresh_broker_list()
         self.destroy()

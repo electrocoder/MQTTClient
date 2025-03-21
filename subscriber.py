@@ -1,107 +1,74 @@
-"""MQTT Client GUI
-
-Author: Sahin MERSIN - electrocoder <electrocoder@gmail.com>
-
-Source Code: https://github.com/electrocoder/MQTTClient
-
-MQTT Examples: https://github.com/meseiot/iot-examples
-
-Date: 12.11.2022
-
-File: This script is MQTT Subscriber Client
 """
-import secrets
+MQTT Client GUI - MQTT Subscriber Client
+Author: Sahin MERSIN - electrocoder <electrocoder@gmail.com>
+"""
+
 import tkinter as tk
 from datetime import datetime
-from random import randint
-
 import paho.mqtt.client as mqtt
+from paho.mqtt.client import CallbackAPIVersion
+from tkinter import messagebox
 
 
 class Subscriber:
     def __init__(self, main_window):
         self.main_window = main_window
         self.client = None
-
         self.on_message_count = 0
         self.publish_message_count = 0
 
-        self.topic = None
-        self.message = None
+    def on_connect(self, client, userdata, flags, reason_code, properties=None):
+        self.main_window.update_status(f"Connected | Messages: {self.on_message_count} | Published: {self.publish_message_count}")
 
-    def on_connect(self, client, userdata, flags, rc):
-        self.main_window.connect_status_text.set(
-            "Connected | Message: %s | Publish: %s" % (
-                self.on_message_count, self.publish_message_count))
+    def on_disconnect(self, client, userdata, reason_code, properties=None):
+        self.main_window.update_status(f"Disconnected | Messages: {self.on_message_count} | Published: {self.publish_message_count}")
 
-    def on_disconnect(self, client, userdata, rc):
-        print("on_disconnect")
-        self.main_window.connect_status_text.set(
-            "Disconnect | Message: %s | Publish: %s" % (
-                self.on_message_count, self.publish_message_count))
-
-    def on_message(self, client, userdata, msg):
-        self.topic = msg.topic
+    def on_message(self, client, userdata, msg, properties=None):
+        topic = msg.topic
         try:
-            self.message = msg.payload.decode('utf8')
-        except:
-            self.message = None
-        if self.message:
-            if self.main_window.msg_filter:
-                if self.main_window.entry_msg_filter_text.get() in self.message or self.main_window.entry_msg_filter_text.get() in self.topic:
-                    self.main_window.listbox_message.insert(tk.END,
-                                                            ">{} {}: {} {}\n".format(
-                                                                self.on_message_count,
-                                                                datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-                                                                self.topic,
-                                                                self.message))
-                    self.main_window.listbox_message.see("end")
-                    self.on_message_count += 1
+            message = msg.payload.decode('utf8')
+        except Exception:
+            message = None
+        if message:
+            if self.main_window.msg_filter and self.main_window.entry_msg_filter_text.get():
+                if self.main_window.entry_msg_filter_text.get() in message or self.main_window.entry_msg_filter_text.get() in topic:
+                    self.display_message(topic, message)
             else:
-                self.main_window.listbox_message.insert(tk.END,
-                                                        ">{} {}: {} {}\n".format(
-                                                            self.on_message_count,
-                                                            datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-                                                            self.topic,
-                                                            self.message))
-                self.main_window.listbox_message.see("end")
-                self.on_message_count += 1
+                self.display_message(topic, message)
+        self.main_window.update_status(f"Connected | Messages: {self.on_message_count} | Published: {self.publish_message_count}")
 
-        self.main_window.connect_status_text.set(
-            "Connected | Message: %s | Publish: %s" % (
-                self.on_message_count, self.publish_message_count))
+    def display_message(self, topic, message):
+        self.main_window.listbox_message.insert(tk.END, f">{self.on_message_count} {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}: {topic} {message}\n")
+        self.main_window.listbox_message.see("end")
+        self.on_message_count += 1
 
     def connect_start(self, name, broker, port, username, password):
-        self.client = mqtt.Client("iothook_%s" % secrets.token_hex(11))
-        self.client.on_disconnect = self.on_disconnect
-        self.client.on_message = self.on_message
-        self.client.on_connect = self.on_connect
-        self.client.username_pw_set(username, password)
-        self.client.connect(broker, int(port), 60)
-        return True
+        try:
+            self.client = mqtt.Client(callback_api_version=CallbackAPIVersion.VERSION2)
+            self.client.on_disconnect = self.on_disconnect
+            self.client.on_message = self.on_message
+            self.client.on_connect = self.on_connect
+            self.client.username_pw_set(username, password)
+            self.client.connect(broker, int(port), 60)
+            self.client.loop_start()
+            return True
+        except Exception as e:
+            messagebox.showerror("Connection Error", f"Failed to connect: {str(e)}")
+            return False
 
     def connect_stop(self):
-        self.client.disconnect()
-        self.client = None
-        return True
+        if self.client:
+            self.client.loop_stop()
+            self.client.disconnect()
+            self.client = None
+            return True
+        return False
 
     def subscribe_start(self, topic):
-        self.client.subscribe(topic, qos=0)
-        self.client.loop_start()
+        if self.client:
+            self.client.subscribe(topic, qos=0)
 
     def publish_start(self, topic, msg):
-        self.client.publish(topic, msg)
-        self.publish_message_count += 1
-
-    def mqtt_disconnect(self):
-        if self.connect_stop():
-            self.main_window.connect_status_text.set("Disconnect")
-            self.main_window.button_connect["state"] = tk.NORMAL
-            self.main_window.button_connect["text"] = "Connect"
-            self.main_window.button_disconnect["state"] = tk.DISABLED
-            self.main_window.button_subscribe_topic[
-                "state"] = tk.DISABLED
-            self.main_window.button_publish_topic[
-                "state"] = tk.DISABLED
-            self.main_window.button_add_subscribe_topic["state"] = tk.DISABLED
-
+        if self.client:
+            self.client.publish(topic, msg)
+            self.publish_message_count += 1
